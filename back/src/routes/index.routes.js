@@ -1,14 +1,16 @@
-'use strict';
+"use strict";
 /* eslint-disable new-cap */
 
-const router = require('express').Router();
+const router = require("express").Router();
 module.exports = router;
 
-router.use('/books', require('./books'));
+router.use("/books", require("./books"));
 
+//genero rutas de usuario
+router.use("/user", require("./user"));
 
 // Make sure this is after all of
 // the registered routes!
-router.use(function (req, res) {
+router.use(function(req, res) {
   res.status(404).end();
 });

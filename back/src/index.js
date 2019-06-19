@@ -2,10 +2,10 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const router = require("./routes/index.routes");
-const db = require('../db/models').db
 const app = express();
 
 // Db connection
+const db = require("../db/models").db;
 
 // Settings
 app.set("port", process.env.PORT || 8000);
@@ -21,11 +21,11 @@ app.use("/", router);
 
 // Starting the server
 
-db.sync({force:false})
-.then(()=>{
-    console.log("DB CONNECTED!")
+db.sync({ force: false })
+  .then(() => {
+    console.log("DB CONNECTED!");
     app.listen(app.get("port"), () => {
       console.log(`Server on port ${app.get("port")}`);
     });
-})
-.catch(console.error);
+  })
+  .catch(console.error);
