@@ -1,1 +1,1 @@
-export const llalalla = "lalala";
+export const RECEIVE_BOOKS = "RECEIVE_BOOKS";

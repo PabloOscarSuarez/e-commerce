@@ -1,10 +1,9 @@
 import { combineReducers } from "redux";
-// import moviesReducer from "./movies-reducer";
-// import searchReducer from "./search-reducer";
-// import userReducer from "./user-reducer";
+import bookReducer from "./book-reducer";
+
 
 export default combineReducers({
-  //  movies: moviesReducer,
+      books: bookReducer,
   //  search: searchReducer,
   //  users: userReducer,
 });
