@@ -5,6 +5,8 @@ const router = require('express').Router();
 module.exports = router;
 
 router.use('/books', require('./books'));
+router.use('/authors', require('./authors'));
+router.use('/genres', require('./genres'));
 
 
 // Make sure this is after all of

@@ -21,6 +21,10 @@ var Book = db.define('book', {
             min: 0
         }
     },
+    urlImage: {
+        type: Sequelize.STRING,
+        allowNull: true,
+    },
 });
 
 module.exports = Book

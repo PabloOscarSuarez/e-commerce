@@ -6,8 +6,8 @@ const User = require ('./user');
 
 Book.belongsTo(Author, { as: 'author'})
 
-Book.belongsToMany(Genre, { as: 'Genres', through: 'book_genre', foreignKey: 'GenreId' })
-Genre.belongsToMany(Book, { as: 'Books', through: 'book_genre', foreignKey: 'Book' })
+// Book.belongsToMany(Genre, { as: 'Genres', through: 'book_genre', foreignKey: 'GenreId' })
+// Genre.belongsToMany(Book, { as: 'Books', through: 'book_genre', foreignKey: 'Book' })
 
 
 module.exports = {db, Book, Author, Genre, User};

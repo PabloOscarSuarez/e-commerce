@@ -1,29 +1,31 @@
 import { connect } from 'react-redux'
 import React from 'react'
-import PanelBooks from './PanelBooks'
+import PanelVentas from './PanelVentas'
 
 
-class PanelBooksContainer extends React.Component {
+class PanelVentasContainer extends React.Component {
 
     render() {
         return (
-            <PanelBooks />
+            <PanelVentas />
         )
     }
 
 }
 
 const mapStateToProps = function (state, ownProps) {
-    return {};
+    return {
+    };
 }
 
 const mapDispatchToProps = function (dispatch) {
-    return {};
+    return {
+    };
 }
 
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PanelBooksContainer)
+)(PanelVentasContainer)
 
