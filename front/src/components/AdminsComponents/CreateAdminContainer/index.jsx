@@ -1,13 +1,20 @@
 import { connect } from 'react-redux'
 import React from 'react'
-import PanelBooks from './PanelBooks'
+import CreateAdmin from './CreateAdmin'
 
+class CreateAuthorContainer extends React.Component {
 
-class PanelBooksContainer extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {}
+
+    }
+
 
     render() {
         return (
-            <PanelBooks />
+            <CreateAdmin />
         )
     }
 
@@ -25,5 +32,5 @@ const mapDispatchToProps = function (dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PanelBooksContainer)
+)(CreateAuthorContainer)
 
