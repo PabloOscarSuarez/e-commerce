@@ -2,7 +2,8 @@ import axios from 'axios'
 import {
   RECEIVE_BOOKS,
   RECEIVE_BOOK,
-  RECEIVE_BOOK_BY_TITLE
+  RECEIVE_BOOK_BY_TITLE,
+  RECEIVE_ALL_BOOKS
 } from "../../constants";
 
 
@@ -14,10 +15,16 @@ export const receiveBooks = function (books) {
   };
 };
 
+export const receiveAllBooks = books => ({
+  type: RECEIVE_ALL_BOOKS,
+  books
+});
+
 export const receiveBook = book => ({
   type: RECEIVE_BOOK,
   book
 });
+
 export const receiveBookByTitle = bookByTitle => ({
   type: RECEIVE_BOOK_BY_TITLE,
   bookByTitle
@@ -31,6 +38,15 @@ export const fetchBooks = () => dispatch => {
       return books;
     })
     .then(books => dispatch(receiveBooks(books)));
+};
+
+export const fetchAllBooks = () => dispatch => {
+  axios
+    .get("http://localhost:8000/books/all")
+    .then(res => res.data)
+    .then(books => {
+      return dispatch(receiveAllBooks(books));
+    })
 };
 
 export const fetchBook = id => dispatch =>

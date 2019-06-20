@@ -1,13 +1,14 @@
-const db = require ('../index');
-const Book = require ('./book');
-const Author = require ('./author');
-const Genre = require ('./genre');
-const User = require ('./user');
+const db = require('../index');
+const Book = require('./book');
+const Author = require('./author');
+const Genre = require('./genre');
+const User = require('./user');
 
-Book.belongsTo(Author, { as: 'author'})
+Book.belongsTo(Author, { as: 'author' })
+Author.hasMany(Book)
 
-Book.belongsToMany(Genre, { as: 'Genres', through: 'book_genre', foreignKey: 'GenreId' })
-Genre.belongsToMany(Book, { as: 'Books', through: 'book_genre', foreignKey: 'BookId' })
+Book.belongsToMany(Genre, { through: 'book_genre' })
+Genre.belongsToMany(Book, { through: 'book_genre' })
 
 
-module.exports = {db, Book, Author, Genre, User};
+module.exports = { db, Book, Author, Genre, User };
