@@ -24,7 +24,7 @@ class HomeContainer extends React.Component {
 }
 
 
-  const mapStateToProps = function(state) {
+const mapStateToProps = function(state) {
   return {
     books: state.books.books
     };

@@ -1,18 +1,19 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import BookComponent from "../ClientsComponents/BookContainer/Book";
-import HomeComponent from "../ClientsComponents/HomeContainer";
+import BookContainer from "../ClientsComponents/BookContainer";
 import HomeContainer from "../ClientsComponents/HomeContainer";
-// import { fetchLoggedUser } from '../redux/actions/user';
-// import NavbarContainer from '../containers/NavbarContainer';
+import NavbarContainer from "../ClientsComponents/NavbarContainer";
+import SearchResult from "../ClientsComponents/SearchResult/SearchResult"
 
-export default () => {
+
+export default () => {  
   return (
     <div>
+      <NavbarContainer/>
       <Switch>
       <Route exact path= "/" render = {() => <HomeContainer/>} />
-      <Route exact path= "/Book/id" render = {()=> <BookComponent/>} />
-        
+      <Route exact path= "/book/:id" render = {({match})=> <BookContainer match = {match}/>} />
+      <Route exact path= "/search" render = {()=> <SearchResult/>} />
       </Switch>
     </div>
   );
