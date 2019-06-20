@@ -8,34 +8,27 @@ const Author = require('../../db/models/index').Author
 const Genre = require('../../db/models/index').Genre
 
 // MODEL
-router.get("/", function(req, res) {
-  Book.findAll({
-    where:{
-      stock: {[op.gte]: 1},
-    }
-  })
-  .then(books => res.send (books));
-});
-
-router.get("/search/:title", function(req, res, next) {
-  
-  Book.findAll({
-    where: {
-      title: req.params.title
-    }
-  })
-    .then(books => res.send(books))
-    .catch(() => res.sendStatus(404));
-});
-
-router.route("/:id").get(function(req, res, next) {
-
-  Book.findByPk(req.params.id)
-    .then(function(Book) {
-      res.send(Book);
+router.get("/", function (req, res) {
+    Book.findAll({
+        where: {
+            stock: { [op.gte]: 1 },
+        }
     })
-    .catch(next);
+        .then(books => res.send(books));
 });
+
+router.get("/search/:title", function (req, res, next) {
+
+    Book.findAll({
+        where: {
+            title: req.params.title
+        }
+    })
+        .then(books => res.send(books))
+        .catch(() => res.sendStatus(404));
+});
+
+
 
 router.route('/create')
     .post((req, res) => {
@@ -59,7 +52,7 @@ router.route('/create')
                         for (let i = 0; i < arrayGenres.length; i++) {
                             const genreId = arrayGenres[i];
                             Genre.findByPk(genreId)
-                                .then(genre=>{
+                                .then(genre => {
                                     book.addGenre(genre)
                                 })
                         }
@@ -68,5 +61,12 @@ router.route('/create')
             })
     })
 
+router.route("/:id").get(function (req, res, next) {
+    Book.findByPk(req.params.id)
+        .then(function (Book) {
+            res.send(Book);
+        })
+        .catch(next);
+});
 
 module.exports = router;

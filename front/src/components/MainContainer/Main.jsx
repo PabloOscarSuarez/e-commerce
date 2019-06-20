@@ -7,7 +7,6 @@ import SearchResult from "../ClientsComponents/SearchResult/SearchResult"
 import PanelConainer from "../AdminsComponents/PanelContainer";
 
 
-
 export default () => {  
   return (
     <div>
@@ -17,7 +16,6 @@ export default () => {
       <Route exact path= "/book/:id" render = {({match})=> <BookContainer match = {match}/>} />
       <Route exact path= "/search" render = {()=> <SearchResult/>} />
       <Route path="/admin" component={PanelConainer} />
-
       </Switch>
     </div>
   );

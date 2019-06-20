@@ -9,6 +9,4 @@ export default combineReducers({
   authors: authorReducer,
   genres: genreReducer,
   books: bookReducer,
-  //  search: searchReducer,
-  //  users: userReducer,
 });
