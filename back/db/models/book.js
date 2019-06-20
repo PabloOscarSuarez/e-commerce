@@ -27,4 +27,10 @@ var Book = db.define('book', {
     },
 });
 
+Book.beforeCreate (function(book){
+    if(book.title){
+        book.title.toLowerCase()
+    }
+})
+
 module.exports = Book
