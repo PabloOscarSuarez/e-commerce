@@ -4,6 +4,8 @@ import BookContainer from "../ClientsComponents/BookContainer";
 import HomeContainer from "../ClientsComponents/HomeContainer";
 import NavbarContainer from "../ClientsComponents/NavbarContainer";
 import SearchResult from "../ClientsComponents/SearchResult/SearchResult"
+import PanelConainer from "../AdminsComponents/PanelContainer";
+
 
 
 export default () => {  
@@ -14,6 +16,8 @@ export default () => {
       <Route exact path= "/" render = {() => <HomeContainer/>} />
       <Route exact path= "/book/:id" render = {({match})=> <BookContainer match = {match}/>} />
       <Route exact path= "/search" render = {()=> <SearchResult/>} />
+      <Route path="/admin" component={PanelConainer} />
+
       </Switch>
     </div>
   );
