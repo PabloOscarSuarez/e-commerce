@@ -27,33 +27,33 @@ export default ({
                                     <input type="text" name="title" placeholder="Ej: Desing Patterns" className="form-control" autoFocus onChange={handleChangeTitle} />
                                 </div>
                                 <div className="form-group">
-                                    <div className="form-row">
-                                        <div className="col">
-                                            <label>Autor</label>
-                                            <select className="form-control" placeholder="Autor" name="author" onChange={handleChangeAuthor}>
-                                                <option value="0">Seleccione un autor..</option>
-                                                {
-                                                    authors.map(author => {
-                                                        return (
-                                                            <option key={author.id} value={author.id}>{author.name}</option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
-                                        </div>
-                                        <div className="col">
-                                            <label>Género</label>
-                                            <select className="form-control" placeholder="Ej: Programación" name="category" onChange={handleChangeGenre}>
-                                                <option value="0">Seleccione un genero..</option>
-                                                {
-                                                    genres.map(genre => {
-                                                        return (
-                                                            <option key={genre.id} value={genre.id}>{genre.name}</option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
-                                        </div>
+                                    <label>Autor</label>
+                                    <select className="form-control" placeholder="Autor" name="author" onChange={handleChangeAuthor}>
+                                        <option value="0">Seleccione un autor..</option>
+                                        {
+                                            authors.map(author => {
+                                                return (
+                                                    <option key={author.id} value={author.id}>{author.name}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
+                                </div>
+                                <div className="form-group">
+                                    <label>Género</label>
+                                    <div className="form-check form-check-inline d-flex flex-wrap justify-content-start">
+                                        {
+                                            genres.map(genre => {
+                                                return (
+                                                    <div key={genre.id}>
+                                                        <label className="form-check-label mr-1" >
+                                                            {genre.name}
+                                                        </label>
+                                                        <input className="form-check-input" name="genres" type="checkbox" value={genre.id} onChange={handleChangeGenre}/>
+                                                    </div>
+                                                )
+                                            })
+                                        }
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -64,7 +64,7 @@ export default ({
                                         </div>
                                         <div className="col">
                                             <label>Stock</label>
-                                            <input type="number" className="form-control" placeholder="Cantidad" name="stock" onChange={handleChangeStock} />
+                                            <input type="number" className="form-control" placeholder="Cantidad" name="stock" onChange={handleChangeStock} min="0"/>
                                         </div>
                                     </div>
                                 </div>

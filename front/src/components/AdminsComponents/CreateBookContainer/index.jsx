@@ -13,7 +13,7 @@ class CreateBookContainer extends React.Component {
         this.state = {
             inputTitle: '',
             inputAuthor: 0, // es 0 porque va a ser el id
-            inputGenre: 0,// es 0 porque va a ser el id
+            inputGenre: [],// es 0 porque va a ser el id
             inputPrice: 0,
             inputStock: 0,
             inputUrlImage: '',
@@ -32,6 +32,7 @@ class CreateBookContainer extends React.Component {
 
 
     render() {
+        console.log(this.state.inputGenre)
         return (
             <CreateBook
                 handleChangeTitle={this.handleChangeTitle}
@@ -61,7 +62,7 @@ class CreateBookContainer extends React.Component {
         const newBook = {
             title: this.state.inputTitle,
             authorId: this.state.inputAuthor,
-            genreId: this.state.inputGenre,
+            genres: this.state.inputGenre,
             price: this.state.inputPrice,
             stock: this.state.inputStock,
             urlImage: this.state.inputUrlImage,
@@ -101,10 +102,20 @@ class CreateBookContainer extends React.Component {
 
     handleChangeGenre(evt) {
         const value = evt.target.value;
-        // console.log('genre', value)
-        this.setState({
-            inputGenre: value
-        })
+        if(this.state.inputGenre.includes(value)){
+            var index = this.state.inputGenre.indexOf(value)
+            this.setState({
+                inputGenre: [
+                    ...this.state.inputGenre.slice(0, index),
+                    ...this.state.inputGenre.slice(index + 1)
+                ]
+            })
+        }
+        else{
+            this.setState({
+                inputGenre: [...this.state.inputGenre ,value]
+            })
+        }
     }
 
     handleChangePrice(evt) {

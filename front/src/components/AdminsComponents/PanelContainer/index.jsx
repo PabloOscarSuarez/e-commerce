@@ -29,6 +29,7 @@ export default () => (
           <Route exact path="/admin/admins" component={PanelAdminsContainer} />
           <Route exact path="/admin/admins/create" component={CreateAdminContainer} />
           <Route exact path="/admin/ventas" component={PanelVentasContainer} />
+          <Redirect from="/" to="/admin/books" />
         </Switch>
       </div>
     </div>

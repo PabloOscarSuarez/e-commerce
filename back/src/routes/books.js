@@ -4,6 +4,7 @@ const router = new express.Router();
 
 const Book = require('../../db/models/index').Book
 const Author = require('../../db/models/index').Author
+const Genre = require('../../db/models/index').Genre
 
 // MODEL
 
@@ -11,6 +12,8 @@ const Author = require('../../db/models/index').Author
 router.route('/create')
     .post((req, res) => {
         console.log('soy req.body del back', req.body)
+
+        var arrayGenres = req.body.genres ? req.body.genres : [];
 
         Author.findOrCreate({ where: { id: req.body.authorId, } })
             .then(function (values) {
@@ -25,6 +28,13 @@ router.route('/create')
                 return book.save()
                     .then(function (book) {
                         res.send(book)
+                        for (let i = 0; i < arrayGenres.length; i++) {
+                            const genreId = arrayGenres[i];
+                            Genre.findByPk(genreId)
+                                .then(genre=>{
+                                    book.addGenre(genre)
+                                })
+                        }
                         return book.setAuthor(author);
                     });
             })
