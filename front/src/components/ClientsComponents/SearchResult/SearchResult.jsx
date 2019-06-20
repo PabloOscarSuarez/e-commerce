@@ -1,5 +1,6 @@
 import React from "react"
 import {Link} from "react-router-dom"
+import {connect} from "react-redux"
 import { Grid, Paper, Typography } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -8,12 +9,12 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 
-export default function Books({books}) {
+function Result({bookByTitle}) {
   return (
     <div>
       <div style={{ marginTop: 40, padding: 40 }}>
         <Grid container spacing={60} justify="center">
-           { books && books.map(book => ( 
+           { bookByTitle && bookByTitle.map(book => ( 
             <Grid item>
               <Card>
                 <CardActionArea>
@@ -47,3 +48,13 @@ export default function Books({books}) {
     </div>
   );
 };
+
+const mapStateToProps = function(state){
+
+  return{
+
+    bookByTitle:state.books.bookByTitle
+  }
+}
+
+export default connect (mapStateToProps, null)(Result)

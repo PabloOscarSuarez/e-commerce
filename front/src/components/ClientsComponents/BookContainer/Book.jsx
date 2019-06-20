@@ -1,8 +1,10 @@
 import React from "react";
 import { ListGroupItem, Card, ListGroup } from "react-bootstrap";
 
-export default () => (
+export default ({selectedBook}) => (
+ 
   <div className="container">
+   
     <center>
       <br />
       <br />
@@ -14,12 +16,12 @@ export default () => (
           height="300px"
         />
         <Card.Body>
-          Book Name
+          Titulo
         </Card.Body>
         <ListGroup className="list-group-flush">
-          <ListGroupItem>Autor:</ListGroupItem>
-          <ListGroupItem>Stock:</ListGroupItem>
-          <ListGroupItem>Genero:</ListGroupItem>
+          <ListGroupItem>{selectedBook.title}:</ListGroupItem>
+          <ListGroupItem>{selectedBook.stock}:</ListGroupItem>
+          <ListGroupItem>{selectedBook.genre}:</ListGroupItem>
         </ListGroup>
         <Card.Body>
           <Card.Link href="#">Agregar al Carrito</Card.Link>
