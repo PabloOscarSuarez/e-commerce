@@ -22,14 +22,35 @@ router.get("/", function(req, res) {
   }).then(books => res.send(books));
 });
 
-router.get("/search/:title", function(req, res, next) {
-  Book.findAll({
-    where: {
-      title: req.params.title
-    }
-  })
-    .then(books => res.send(books))
-    .catch(() => res.sendStatus(404));
+// ESTO ME VA A RETORNAR LOS LIBROS DE UN AUTHOR
+router.get("/author/:authorId", function (req, res) {
+    Book.findAll({
+        where: {
+            authorId: req.params.authorId
+        }
+    })
+        .then(books => res.send(books));
+});
+
+router.get("/all", function (req, res) {
+    Book.findAll({
+        include: [{
+            model: Author,
+            as: 'author'
+        }]
+    })
+        .then(books => res.send(books));
+});
+
+router.get("/search/:title", function (req, res, next) {
+
+    Book.findAll({
+        where: {
+            title: req.params.title
+        }
+    })
+        .then(books => res.send(books))
+        .catch(() => res.sendStatus(404));
 });
 
 router.route("/create").post((req, res) => {

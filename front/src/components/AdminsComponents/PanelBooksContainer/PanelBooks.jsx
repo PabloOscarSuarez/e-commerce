@@ -1,13 +1,9 @@
 import React from 'react';
 import { Route, Redirect, Switch, Link } from 'react-router-dom';
 
-export default () => (
-
+export default ({ books }) => (
   <div>
-    <h1 className="text-center">Libros</h1>
-    <Link to="/admin/books/create">
-      <button type="button" className="btn btn-sm btn-success">Agregar nuevo Libro</button>
-    </Link>
+  {console.log('SOY BOOKS EN PANEL BOOKS',books)}
     <table className="table mt-2">
       <thead className="thead-dark">
         <tr>
@@ -18,42 +14,32 @@ export default () => (
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Mark</td>
-          <td>2</td>
-          <td>$150</td>
-          <td>
-            <button type="button" className="btn  btn-sm btn-info">Editar</button>
-            <button type="button" className="btn  btn-sm btn-danger">Eliminar</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Mark</td>
-          <td>2</td>
-          <td>$150</td>
-          <td>
-            <button type="button" className="btn  btn-sm btn-info">Editar</button>
-            <button type="button" className="btn  btn-sm btn-danger">Eliminar</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Jacob</td>
-          <td>2</td>
-          <td>$150</td>
-          <td>
-            <button type="button" className="btn  btn-sm btn-info">Editar</button>
-            <button type="button" className="btn  btn-sm btn-danger">Eliminar</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Larry</td>
-          <td>3</td>
-          <td>$150</td>
-          <td>
-            <button type="button" className="btn  btn-sm btn-info">Editar</button>
-            <button type="button" className="btn  btn-sm btn-danger">Eliminar</button>
-          </td>
-        </tr>
+        {
+          books.map(book => {
+            return (
+              <tr key={book.id}>
+                <td>
+                  <div className="media">
+                    <a className="thumbnail pull-left" href="#">
+                      <img className="media-object mr-3" src={book.urlImage} width="72px" height="72px" />
+                    </a>
+                    <div className="media-body my-auto">
+                      <p className="media-heading"><a className="text-dark text-decoration-none" href="">{book.title}</a></p>
+                      {/* <p className="media-heading">Autor: <a className="text-dark text-decoration-none" href="">{book.author.name}</a></p> */}
+                    </div>
+                  </div>
+                </td>
+                <td>{book.stock}</td>
+                <td>${book.price}</td>
+                <td>
+                  <button type="button" className="btn  btn-sm btn-info">Editar</button>
+                  <button type="button" className="btn  btn-sm btn-danger">Eliminar</button>
+                </td>
+              </tr>
+            )
+          })
+        }
+
       </tbody>
     </table>
 

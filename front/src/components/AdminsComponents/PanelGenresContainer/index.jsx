@@ -1,22 +1,36 @@
 import { connect } from 'react-redux'
 import React from 'react'
 import PanelGenres from './PanelGenres'
-import { fetchGenres } from '../../../redux/actions/genres';
+import { fetchGenres, removeGenre } from '../../../redux/actions/genres';
 
 
 class PanelGenresContainer extends React.Component {
 
+    constructor(props) {
+        super(props)
+
+        this.handleClickDelete = this.handleClickDelete.bind(this)
+    }
+
     render() {
-        console.log('SOY GENRES', this.props.genres)
+        // console.log('SOY GENRES', this.props.genres)
         return (
-            <PanelGenres genres={this.props.genres}/>
+            <PanelGenres
+                genres={this.props.genres}
+                handleClickDelete={this.handleClickDelete}
+            />
         )
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.fetchGenres()
     }
 
+    handleClickDelete(evt) {
+        var value = evt.target.value
+        // console.log(value)
+        this.props.removeGenre(value)
+    }
 
 }
 
@@ -29,6 +43,7 @@ const mapStateToProps = function (state, ownProps) {
 const mapDispatchToProps = function (dispatch) {
     return {
         fetchGenres: () => dispatch(fetchGenres()),
+        removeGenre: (authorId) => dispatch(removeGenre(authorId)),
     };
 }
 

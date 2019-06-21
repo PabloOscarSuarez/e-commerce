@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import Books from "../BooksContainer/Books";
-import { fetchBooks } from "../../../redux/actions/books";
+import Carrousel from '../Carrousel/Carrousel'
+import {fetchBooks} from "../../../redux/actions/books"
 import { newBookToCart } from "../../../redux/actions/cart";
 
 class HomeContainer extends React.Component {
@@ -42,6 +43,7 @@ class HomeContainer extends React.Component {
   render() {
     return (
       <div>
+        <Carrousel />
         {console.log(this.props.booksToCart)}
         <Books books={this.props.books} handleClick={this.handleClick} />
       </div>
