@@ -1,12 +1,12 @@
 const express = require("express");
 const router = new express.Router();
 
-const User = require("../../db/models/index").User;
+const User = require("../../db/models/index").Admin;
 
 // MODEL
 
-router.post("/create", (req, res) => {
-  User.create(req.body)
+router.post("/add", (req, res) => {
+  Admin.create(req.body)
     .then(user => {
       console.log("User created", user);
     })

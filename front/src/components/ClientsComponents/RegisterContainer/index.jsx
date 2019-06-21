@@ -7,10 +7,10 @@ export default class extends Component {
     super(props);
 
     this.state = {
-      name: " ",
-      address: " ",
-      email: " ",
-      password: " "
+      name: "",
+      address: "",
+      email: "",
+      password: ""
     };
   }
 
@@ -27,6 +27,7 @@ export default class extends Component {
       })
       .then(res => {
         console.log(res.data, this.state);
+        this.setState({ name: "", address: "", email: "", password: "" });
       });
 
     e.preventDefault();
@@ -42,7 +43,14 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <Register event={this.handelChange} addUser={this.addUser} />
+        <Register
+          event={this.handelChange}
+          addUser={this.addUser}
+          valorName={this.state.name}
+          valorAddress={this.state.address}
+          valorEmail={this.state.email}
+          valorPassword={this.state.password}
+        />
       </div>
     );
   }

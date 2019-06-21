@@ -46,8 +46,14 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2)
   }
 }));
-
-export default function Register({ event, addUser }) {
+export default function Register({
+  event,
+  addUser,
+  valorName,
+  valorAddress,
+  valorEmail,
+  valorPassword
+}) {
   const classes = useStyles();
 
   return (
@@ -60,7 +66,7 @@ export default function Register({ event, addUser }) {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={addUser}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
@@ -72,6 +78,7 @@ export default function Register({ event, addUser }) {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={valorName}
                 onChange={event}
               />
             </Grid>
@@ -83,6 +90,7 @@ export default function Register({ event, addUser }) {
                 label="addrees"
                 name="address"
                 autoComplete="address"
+                value={valorAddress}
                 onChange={event}
               />
             </Grid>
@@ -95,6 +103,7 @@ export default function Register({ event, addUser }) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={valorEmail}
                 onChange={event}
               />
             </Grid>
@@ -108,6 +117,7 @@ export default function Register({ event, addUser }) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={valorPassword}
                 onChange={event}
               />
             </Grid>
@@ -118,7 +128,6 @@ export default function Register({ event, addUser }) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={addUser}
           >
             Sign Up
           </Button>

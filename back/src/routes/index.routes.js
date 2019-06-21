@@ -9,6 +9,9 @@ router.use("/books", require("./books"));
 //genero rutas de usuario
 router.use("/user", require("./user"));
 
+//genero rutas de admin
+router.use("/admin", require("./adminUser"));
+
 // Make sure this is after all of
 // the registered routes!
 router.use(function(req, res) {
