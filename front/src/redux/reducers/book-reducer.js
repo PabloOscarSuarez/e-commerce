@@ -3,8 +3,8 @@ import { RECEIVE_BOOKS, RECEIVE_BOOK, RECEIVE_BOOK_BY_TITLE, RECEIVE_ALL_BOOKS }
 const init = {
   books: [],
   selectedBook: {},
-  bookByTitle: {},
-  allBooks : []
+  allBooks : [],
+  bookByTitle: []
 };
 
 export default (state = init, action) => {

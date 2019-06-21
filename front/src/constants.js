@@ -12,3 +12,6 @@ export const RECEIVE_BOOKS = "RECEIVE_BOOKS";
 export const RECEIVE_ALL_BOOKS = "RECEIVE_ALL_BOOKS";
 export const RECEIVE_BOOK = "RECEIVE_BOOK"
 export const RECEIVE_BOOK_BY_TITLE = "RECEIVE_BOOK_BY_TITLE"
+
+//cart
+export const ADD_BOOK_TO_CART = "ADD_BOOK_TO_CART";
