@@ -25,7 +25,7 @@ export default ({ authors, handleClickDelete }) => (
                                         author.books.length === 0 ?
                                             <button type="button" className="btn  btn-sm btn-danger" value={author.id} onClick={handleClickDelete}>Eliminar</button>
                                             :
-                                            <button type="button" className="btn  btn-sm btn-danger" disabled>Eliminar</button>
+                                            <button type="button" className="btn  btn-sm btn-danger" title={`No puede eliminar a "${author.name}" porque tiene libros asignados`} disabled>Eliminar</button>
                                     }
                                 </td>
                             </tr>

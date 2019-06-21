@@ -26,7 +26,7 @@ export default ({genres, handleClickDelete}) => (
                     genre.books.length === 0 ?
                     <button type="button" className="btn  btn-sm btn-danger" value={genre.id} onClick={handleClickDelete}>Eliminar</button>
                     :
-                    <button type="button" className="btn  btn-sm btn-danger" disabled>Eliminar</button>
+                    <button type="button" className="btn  btn-sm btn-danger" title={`No puede eliminar "${genre.name}" porque tiene libros asignados`} disabled>Eliminar</button>
                   }
                 </td>
               </tr>

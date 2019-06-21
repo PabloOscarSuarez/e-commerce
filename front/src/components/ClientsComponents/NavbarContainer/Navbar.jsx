@@ -5,42 +5,51 @@ import SearchContainer from "../SearchContainer";
 export default function Navbar() {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarTogglerDemo03"
-          aria-controls="navbarTogglerDemo03"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon" />
+      <nav className="navbar navbar-expand-lg navbar-primary bg-primary mb-1">
+        <Link className="navbar-brand text-white" to={`/`}>
+          {/* <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" className="d-inline-block align-top" alt="" /> */}
+          FullBook
+        </Link>
+        {/* <Link className="btn btn-secondary" to={`/movies/${movie.imdbID}`}>Ver Detalle</Link> */}
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
         </button>
-       <a className="nav-link" href="#">FullBook<span className="sr-only">(current)</span>
-              </a>
 
-        <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
-          <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li className="nav-item active">
-               <Link to = "/" className= "nav-link">
-                Home  </Link>
-              
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+            {/* <li className="nav-item">
+                    <Link className="nav-link" to={`/search`}>Search</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link" to={`/users`}>Usuarios</Link>
+                </li> */}
+            {/* <li className="nav-item dropdown">
+              <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categorias
+                        </Link>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link className="dropdown-item" to="#">Action</Link>
+                <Link className="dropdown-item" to="#">Another action</Link>
+                <div className="dropdown-divider"></div>
+                <Link className="dropdown-item" to="#">Something else here</Link>
+              </div>
+            </li> */}
+            {/* <li className="nav-item">
+                    <Link className="nav-link disabled" to="#" aria-disabled="true">Disabled</Link>
+                </li> */}
+          </ul>
+          {/* ************************************************************************** */}
+          {/* ************************************************************************** */}
+          <Route component={SearchContainer} />
+          {/* LO HAGO CON ROUTE PARA TENER HISTORY EN SEARCHCONTAINER COMO PROPS */}
+          {/* ************************************************************************** */}
+          {/* ************************************************************************** */}
+          <ul className="navbar-nav ml-auto">
+            <li className="nav-item">
+              {/* <Link className="nav-link" to={`/profile`}>Profile</Link> */}
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Link
-              </a>
-            </li>
-            <Route component={SearchContainer} />
-
-            <li className="nav-item">
-              <a className="nav-link disabled" href="#">
-                Disabled
-              </a>
-            </li>
-            <li className="nav-item">
-              <Link to = "/cart">
+              {/* <Link to="/cart">
                 <div className="ml-auto">
                   <img
                     src="https://image.flaticon.com/icons/png/512/107/107831.png"
@@ -48,11 +57,37 @@ export default function Navbar() {
                     width="30px"
                   />
                 </div>
-              </Link>
+              </Link> */}
             </li>
           </ul>
+          {/* {
+                // PREGUNTO ASI PORQUE USER ES UN OBJETO
+                user.username ?
+                    (
+                        <ul className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <Link className="nav-link" to={`/profile`}>Profile</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={`/auth/logout`} onClick={logOutLoggedUser}>Logout</Link>
+                            </li>
+                        </ul>
+                    )
+                    :
+                    (
+                        <ul className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <Link className="nav-link" to={`/login`}>Login</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={`/register`}>Register</Link>
+                            </li>
+                        </ul>
+                    )
+            } */}
         </div>
       </nav>
     </div>
+
   );
 }

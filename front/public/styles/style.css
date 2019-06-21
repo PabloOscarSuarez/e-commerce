@@ -1,4 +1,17 @@
-.sidebar {
+body{
+    background-color: #E9EBEE;
+  }
+  .zoom {
+    transition: transform .2s;
+    /* Animation */
+  }
+
+  .zoom:hover {
+    transform: scale(1.05);
+    /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+
+  .sidebar {
     left: 0;
     top: 0;
     padding: 0 !important;

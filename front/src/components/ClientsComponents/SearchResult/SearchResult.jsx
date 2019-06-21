@@ -16,7 +16,7 @@ function Result({bookByTitle}) {
                                     <div className="card-body">
                                         <p className="card-title">{book.title}</p>
                                         {/* <p className="card-text">Año: {book.Year}</p> */}
-                                        <p className="card-text">Categoría: {book.description}</p>
+                                        {/* <p className="card-text">Categoría: {book.description}</p> */}
                                         {/* <a href="#" className="btn btn-secondary">Ver detalle</a> */}
                                         <div className="text-center">
                                             <Link className="btn btn-secondary" to={`/books/${book.id}`}>Ver Detalle</Link>

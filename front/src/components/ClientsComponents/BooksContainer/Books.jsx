@@ -1,12 +1,5 @@
 import React from "react"
 import {Link} from "react-router-dom"
-import { Grid, Paper, Typography } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 
 export default function Books({books, handleClick}) {
   return (
@@ -22,10 +15,10 @@ export default function Books({books, handleClick}) {
                                     <div className="card-body">
                                         <p className="card-title">{book.title}</p>
                                         {/* <p className="card-text">Año: {book.Year}</p> */}
-                                        <p className="card-text">Categoría: {book.description}</p>
+                                        {/* <p className="card-text">Categoría: {book.description}</p> */}
                                         {/* <a href="#" className="btn btn-secondary">Ver detalle</a> */}
                                         <div className="text-center">
-                                            <Link className="btn btn-secondary" to={`/books/${book.id}`}>Ver Detalle</Link>
+                                            <Link className="btn btn-secondary" to={`/books/${book.title}/${book.id}`}>Ver Detalle</Link>
                                            &nbsp; <button type= "submit" className = "btn btn-secondary" onClick = {() => {handleClick(book)}} >AddtoCart</button>
                                         </div>
                                     </div>
