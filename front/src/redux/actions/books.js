@@ -2,7 +2,8 @@ import axios from 'axios'
 import {
   RECEIVE_BOOKS,
   RECEIVE_BOOK,
-  RECEIVE_BOOK_BY_TITLE
+  RECEIVE_BOOK_BY_TITLE,
+  
 } from "../../constants";
 
 
@@ -51,7 +52,6 @@ export const fetchBookByTitle = title => dispatch => {
 export const createBook = (reqbody) => dispatch => {
   console.log('SOY REQBODY DE ACTIONS DE BOOK', reqbody)
   return axios.post(`http://localhost:8000/books/create`, reqbody)
-    .then(book => {
-      console.log('soy el book despues de ser creado', book)
-    })
-}
+    .then(book => book)
+    }
+

@@ -3,8 +3,7 @@ import { RECEIVE_BOOKS, RECEIVE_BOOK, RECEIVE_BOOK_BY_TITLE } from "../../consta
 const init = {
   books: [],
   selectedBook: {},
-  bookByTitle: {}
-
+  bookByTitle: []
 };
 
 export default (state = init, action) => {

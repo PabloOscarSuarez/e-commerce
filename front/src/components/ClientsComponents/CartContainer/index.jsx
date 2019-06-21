@@ -1,10 +1,10 @@
-
 import React from "react"
 import {connect} from "react-redux"
-import {fetchBookByTitle} from "../../../redux/actions/books"
-import Search from "./search";
+// import {fetchBookByTitle} from "../../../redux/actions/books"
+import Cart from '../CartContainer/Cart'
 
-class SearchContainer extends React.Component {
+
+class CartContainer extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -34,21 +34,17 @@ this.props.fetchBookByTitle(this.state.inputValue)
 
   render() {
     return (
-      <Search  handleChange = {this.handleChange} handleSubmit = {this.handleSubmit}/>
+     <Cart booksToCart = {this.props.booksToCart} handleChange= {this.handleChange} handleSubmit= {this.handleSubmit}/>
     );
   }
 }
 
-// const mapStateToProps = function(state){
-//   return{
 
+const mapStateToProps = function(state) {
+  return {
+    booksToCart:state.cart.booksToCart
 
-//   }
-// }
-const mapDispatchToprops = ()=> dispatch =>(
-  {
-    fetchBookByTitle: (title) => dispatch(fetchBookByTitle(title))
-  }
-)
+  };
+};
 
-export default connect(null, mapDispatchToprops)(SearchContainer)
+export default connect(mapStateToProps, null)(CartContainer)
