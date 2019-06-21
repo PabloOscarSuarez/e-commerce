@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect, Switch, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import SearchResult from "../SearchResult/SearchResult";
 import BookContainer from "../BookContainer";
 import HomeContainer from "../HomeContainer";
@@ -13,7 +13,7 @@ export default () => (
         <div id="main" className="container">
             <Switch>
                 <Route exact path="/" render={() => <HomeContainer />} />
-                <Route exact path="/book/:id" render={({ match }) => <BookContainer match={match} />} />
+                <Route exact path="/books/:bookTitle/:id" render={({ match }) => <BookContainer match={match} />} />
                 <Route path="/search" render={() => <SearchResult />} />
                 <Route path="/cart" render={() => <CartContainer />} />
             </Switch>

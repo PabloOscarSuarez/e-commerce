@@ -1,7 +1,6 @@
 import React from 'react';
-import { Route, Redirect, Switch, Link } from 'react-router-dom';
 
-export default ({ }) => (
+export default () => (
 
         <div>
             <h1 className="text-center">Estoy en create admin</h1>
@@ -16,7 +15,7 @@ export default ({ }) => (
                                 </div>
                                 <div className="form-group">
                                     <label>Password</label>
-                                    <input type="password" name="password" className="form-control" autoFocus/>
+                                    <input type="password" name="password" className="form-control"/>
                                 </div>
                                 <button type="submit" className="btn btn-success btn-block">
                                     Guardar

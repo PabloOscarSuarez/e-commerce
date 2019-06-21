@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect, Switch, Link } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import PanelBooksContainer from '../PanelBooksContainer';
 import CreateBookContainer from '../CreateBookContainer';
 import PanelAuthorsContainer from '../PanelAuthorsContainer';
@@ -17,7 +17,7 @@ import SidebarContainer from '../SidebarContainer';
 export default () => (
   <div id="main" className="container-fluid">
     <div className="row">
-      <div className="col-2 p-0 bg-dark">
+      <div className="col-2 p-0 bg-primary">
         <SidebarContainer />
       </div>
       <div className="col-10 p-0">

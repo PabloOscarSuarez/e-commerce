@@ -31,6 +31,7 @@ Book.beforeCreate (function(book){
     if(book.title){
         book.title.toLowerCase()
     }
+    return book
 })
 
 module.exports = Book
