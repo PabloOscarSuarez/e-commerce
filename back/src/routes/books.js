@@ -47,7 +47,7 @@ router.get("/search/:title", function (req, res, next) {
   Author.findAll({
     // BUSCO A LOS AUTORES QUE TIENEN ESE NOMBRE PARA LUEGO GUARDAR SU ID
     where: {
-      name: { [Op.like]: `%${req.params.title}%` }
+      name: { [Op.iLike]: `%${req.params.title}%` }
     }
   })
     .then(authors => {
@@ -56,11 +56,11 @@ router.get("/search/:title", function (req, res, next) {
       return arrayOfAuthorsId
     })
     .then((arrayOfAuthorsId) => {
-      console.log(' array authorsID', arrayOfAuthorsId)
+      // console.log(' array authorsID', arrayOfAuthorsId)
       Book.findAll({
         where: {
           [Op.or]: [
-            { title: { [Op.like]: `%${req.params.title}%` } },
+            { title: { [Op.iLike]: `%${req.params.title}%` } },
             { authorId: { [Op.in]: arrayOfAuthorsId } },
           ]
         }

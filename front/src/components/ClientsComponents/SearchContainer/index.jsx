@@ -21,7 +21,7 @@ handleChange(e){
   const value = e.target.value;
   this.setState({
     inputValue:value
-  })
+  },()=>console.log(this.state,'state'))
 }
 
 handleSubmit(e){

@@ -56,7 +56,7 @@ export const fetchBook = id => dispatch =>
     .then(book => dispatch(receiveBook(book)));
 
 export const fetchBookByTitle = title => dispatch => {
-
+  // console.log(title,'SOY TITLE DEL ACTION')
   return axios
     .get(`http://localhost:8000/books/search/${title}`)
     .then(res => res.data)
