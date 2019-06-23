@@ -19,7 +19,7 @@ export default function Books({books, handleClick}) {
                                         {/* <a href="#" className="btn btn-secondary">Ver detalle</a> */}
                                         <div className="text-center">
                                             <Link className="btn btn-secondary" to={`/books/${book.title}/${book.id}`}>Ver Detalle</Link>
-                                           &nbsp; <button type= "submit" className = "btn btn-secondary" onClick = {() => {handleClick(book)}} >AddtoCart</button>
+                                           {/* &nbsp; <button type= "submit" className = "btn btn-secondary" onClick = {() => {handleClick(book)}} >AddtoCart</button> */}
                                         </div>
                                     </div>
                                 </div>

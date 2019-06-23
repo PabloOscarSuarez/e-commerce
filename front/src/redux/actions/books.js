@@ -3,7 +3,8 @@ import {
   RECEIVE_BOOKS,
   RECEIVE_BOOK,
   RECEIVE_BOOK_BY_TITLE,
-  RECEIVE_ALL_BOOKS
+  RECEIVE_ALL_BOOKS,
+  SET_TITLE_SEARCHED
 } from "../../constants";
 
 
@@ -23,6 +24,11 @@ export const receiveAllBooks = books => ({
 export const receiveBook = book => ({
   type: RECEIVE_BOOK,
   book
+});
+
+export const bookSearched = title => ({
+  type: SET_TITLE_SEARCHED,
+  title
 });
 
 export const receiveBookByTitle = bookByTitle => ({
@@ -63,6 +69,10 @@ export const fetchBookByTitle = title => dispatch => {
     .then(bookByTitle => dispatch(receiveBookByTitle(bookByTitle)));
 
 }
+
+export const setTitleSearched = (bookTitle) => dispatch => {
+  dispatch(bookSearched(bookTitle));  
+};
 
 export const createBook = (reqbody) => dispatch => {
   console.log('SOY REQBODY DE ACTIONS DE BOOK', reqbody)
