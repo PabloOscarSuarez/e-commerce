@@ -1,12 +1,10 @@
 import React from "react";
 
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function Cart({ booksToCart }) {
+export default function Cart({ booksToCart, handleDelete }) {
   return (
-
     <div>
-      {console.log("soy books to cart del cart", booksToCart)}
       <div className="col-sm-12">
         <table className="table table-hover">
           <thead>
@@ -18,28 +16,29 @@ export default function Cart({ booksToCart }) {
               <th> </th>
             </tr>
           </thead>
-          
-                <tbody>
-                {booksToCart &&
-            booksToCart.map(book => {
-              return (
+
+          <tbody>
+            {booksToCart &&
+              booksToCart.map(book => {
+                // {console.log("soy book", book.cant)}
+                return (
                   <tr>
                     <td className="col-sm-8 col-md-6">
                       <div className="media">
                         <a className="thumbnail pull-left" href="#">
                           <img
                             className="media-object mr-3"
-                            src=""
+                            src={book.book.urlImage}
                             width="72px"
                             height="72px"
                           />
                         </a>
                         <div className="media-body my-auto">
                           <h4 className="media-heading">
-                            <a href="">{book.title}</a>
+                            <a href="">{book.book.title}</a>
                           </h4>
                           <h5 className="media-heading">
-                            Autor: <a href=""></a>
+                            Autor: <a href="" />
                           </h5>
                           <span>Stock: </span>
                           <span className="text-success">
@@ -52,57 +51,63 @@ export default function Cart({ booksToCart }) {
                       <input
                         type="number"
                         className="form-control"
-                        value="3"
+                        value={book.cant}
                         min="1"
                       />
                     </td>
                     <td className="col-sm-1 col-md-1 text-center">
-                      <strong>$300</strong>
+                      <strong>{book.book.price}</strong>
                     </td>
                     <td className="col-sm-1 col-md-1 text-center">
-                      <strong>$900</strong>
+                      <strong>{book.price}</strong>
                     </td>
                     <td className="col-sm-1 col-md-1">
-                      <button type="button" className="btn btn-danger">
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => {
+                          handleDelete(book);
+                        }}
+                      >
                         Quitar
                       </button>
                     </td>
-                  </tr>);
-            })}
-                  <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td>
-                      <h3>Total</h3>
-                    </td>
-                    <td>
-                      <h3 className="text-center">
-                        <strong>$1000</strong>
-                      </h3>
-                    </td>
-                    <td />
                   </tr>
-                  <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td>
-                      <a href="">
-                        <button type="button" className="btn btn-info">
-                          Volver
-                        </button>
-                      </a>
-                    </td>
-                    <td>
-                      <a href="">
-                        <button type="button" className="btn btn-success ">
-                          Checkout
-                        </button>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              
+                );
+              })}
+            <tr>
+              <td> </td>
+              <td> </td>
+              <td>
+                <h3>Total</h3>
+              </td>
+              <td>
+                <h3 className="text-center">
+                  {/* <strong>{book.book.price * book.cant}</strong> */}
+                </h3>
+              </td>
+              <td />
+            </tr>
+            <tr>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td>
+                <a href="">
+                  <button type="button" className="btn btn-info">
+                    Volver
+                  </button>
+                </a>
+              </td>
+              <td>
+                <Link to="/checkout">
+                  <button type="button" className="btn btn-success ">
+                    Checkout
+                  </button>
+                </Link>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>

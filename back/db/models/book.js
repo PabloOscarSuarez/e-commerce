@@ -27,11 +27,12 @@ var Book = db.define('book', {
     },
 });
 
-Book.beforeCreate (function(book){
+Book.beforeSave (function(book){
+    console.log("entre aal hook", book)
     if(book.title){
-        book.title.toLowerCase()
+        book.title = book.title.toLowerCase()
     }
-    return book
+ 
 })
 
 module.exports = Book
