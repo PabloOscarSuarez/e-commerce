@@ -44,6 +44,5 @@ export const removeGenre = (genreId) => dispatch =>
   axios.delete(`http://localhost:8000/genres/${genreId}`)
     .then(res => res.data)
     .then(genres => {
-      // console.log('SOY BOOKS EN EL ACTION', books)
       dispatch(receiveGenres(genres))
     });

@@ -13,13 +13,15 @@ class BooksOfAuthorContainer extends React.Component {
             <div>
                 <h1 className="text-center">Libros de {this.props.authorName}</h1>
                 <PanelBooks
-                   books={this.props.books} 
+                    history={this.props.history}
+                    books={this.props.books}
+                    where ='authors'
                 />
             </div>
         )
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.fetchBooksofAuthor(this.props.authorId)
     }
 
@@ -27,15 +29,15 @@ class BooksOfAuthorContainer extends React.Component {
 
 const mapStateToProps = function (state, ownProps) {
     return {
-        authorName : ownProps.match.params.author,
-        authorId : ownProps.match.params.id,
+        authorName: ownProps.match.params.author,
+        authorId: ownProps.match.params.id,
         books: state.authors.booksByAuthor,
     };
 }
 
 const mapDispatchToProps = function (dispatch) {
     return {
-        fetchBooksofAuthor: (authorId) => dispatch(fetchBooksofAuthor(authorId)),        
+        fetchBooksofAuthor: (authorId) => dispatch(fetchBooksofAuthor(authorId)),
     };
 }
 

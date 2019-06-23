@@ -68,5 +68,31 @@ export const createBook = (reqbody) => dispatch => {
   console.log('SOY REQBODY DE ACTIONS DE BOOK', reqbody)
   return axios.post(`http://localhost:8000/books/create`, reqbody)
     .then(book => book)
-    }
+}
+
+export const editBook = (bookId, reqbody) => dispatch => {
+  // console.log('SOY EL ID Y EL REQBODY DE ACTIONS EDIT DE BOOK', bookId, reqbody)
+  return axios.put(`http://localhost:8000/books/edit/${bookId}`, reqbody)
+    .then(res => res.data)
+    .then(books => {
+      dispatch(receiveAllBooks(books))
+    })
+}
+
+export const editBookStock = (bookId, reqbody) => dispatch => {
+  // console.log('SOY EL ID Y EL REQBODY DE ACTIONS EDIT DE BOOK', bookId, reqbody)
+  return axios.put(`http://localhost:8000/books/edit_stock/${bookId}`, reqbody)
+    .then(res => res.data)
+    .then(books => {
+      dispatch(receiveAllBooks(books))
+    })
+}
+
+
+export const removeBook = (bookId) => dispatch =>
+  axios.delete(`http://localhost:8000/books/${bookId}`)
+    .then(res => res.data)
+    .then(books => {
+      dispatch(receiveAllBooks(books))
+    });
 
