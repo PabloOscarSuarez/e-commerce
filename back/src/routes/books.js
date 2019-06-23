@@ -44,13 +44,32 @@ router.get("/all", function (req, res) {
 
 router.get("/search/:title", function (req, res, next) {
 
-  Book.findAll({
+  Author.findAll({
+    // BUSCO A LOS AUTORES QUE TIENEN ESE NOMBRE PARA LUEGO GUARDAR SU ID
     where: {
-      title: { [Op.like]: `%${req.params.title}%` }
+      name: { [Op.like]: `%${req.params.title}%` }
     }
   })
-    .then(books => res.send(books))
-    .catch(() => res.sendStatus(404));
+    .then(authors => {
+      var arrayOfAuthorsId = authors.map(author => author.id)
+      // RETORNO LOS ID DE LOS AUTORES EN UN ARRAY
+      return arrayOfAuthorsId
+    })
+    .then((arrayOfAuthorsId) => {
+      console.log(' array authorsID', arrayOfAuthorsId)
+      Book.findAll({
+        where: {
+          [Op.or]: [
+            { title: { [Op.like]: `%${req.params.title}%` } },
+            { authorId: { [Op.in]: arrayOfAuthorsId } },
+          ]
+        }
+      })
+        .then(books => {
+          res.send(books)
+        })
+        .catch(() => res.sendStatus(404));
+    })
 });
 
 router.route("/create").post((req, res) => {
