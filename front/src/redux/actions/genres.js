@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { RECEIVE_GENRES, RECEIVE_BOOKS_BY_GENRE } from '../../constants';
+import { RECEIVE_GENRES, RECEIVE_BOOKS_BY_GENRE, RECEIVE_BOOKS_BY_GENRE_IN_STOCK } from '../../constants';
 
 const receiveGenres = (genres) => ({
   type: RECEIVE_GENRES,
@@ -9,6 +9,11 @@ const receiveGenres = (genres) => ({
 
 const receiveBooksOfGenre = (books) => ({
   type: RECEIVE_BOOKS_BY_GENRE,
+  books,
+});
+
+const receiveBooksOfGenreInStock = (books) => ({
+  type: RECEIVE_BOOKS_BY_GENRE_IN_STOCK,
   books,
 });
 
@@ -31,6 +36,7 @@ export const fetchGenres = () => dispatch =>
       dispatch(receiveGenres(genres))
     });
 
+// ESTA ES PARA EL ADMIN
 export const fetchBooksofGenre = (genreName) => dispatch =>
   axios.get(`http://localhost:8000/genres/${genreName}`)
     .then(res => res.data)
@@ -38,6 +44,16 @@ export const fetchBooksofGenre = (genreName) => dispatch =>
       // console.log('SOY GENRE.BOOKS',genre[0].books )
       // PORQUE ME DEVUELVE UN OBJETO
       dispatch(receiveBooksOfGenre(genre[0].books))
+    });
+
+// ESTA ES PARA EL USER PARA QUE SOLO VEA LOS QUE ESTAN EN STOCK
+export const fetchBooksofGenreInStock = (genreId) => dispatch =>
+  axios.get(`http://localhost:8000/genres/genres_in_stock/${genreId}`)
+    .then(res => res.data)
+    .then(books => {
+      // console.log('SOY BOOKS EN EL ACTION', books )
+      // PORQUE ME DEVUELVE UN OBJETO
+      dispatch(receiveBooksOfGenreInStock(books))
     });
 
 export const removeGenre = (genreId) => dispatch =>

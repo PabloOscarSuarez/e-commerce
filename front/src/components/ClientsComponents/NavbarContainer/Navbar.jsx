@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Route } from "react-router-dom";
 import SearchContainer from "../SearchContainer";
+import SelectGenreContainer from "../SelectGenreContainer";
 
 export default function Navbar() {
   return (
@@ -34,6 +35,7 @@ export default function Navbar() {
                 <Link className="dropdown-item" to="#">Something else here</Link>
               </div>
             </li> */}
+          <Route component={SelectGenreContainer} />
             {/* <li className="nav-item">
                     <Link className="nav-link disabled" to="#" aria-disabled="true">Disabled</Link>
                 </li> */}

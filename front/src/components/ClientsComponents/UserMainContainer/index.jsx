@@ -5,6 +5,7 @@ import BookContainer from "../BookContainer";
 import HomeContainer from "../HomeContainer";
 import NavbarContainer from "../NavbarContainer";
 import CartContainer from "../CartContainer"
+import BooksOfGenreContainer from "../BooksOfGenreContainer"
 
 
 export default () => (
@@ -15,6 +16,7 @@ export default () => (
                 <Route exact path="/" render={() => <HomeContainer />} />
                 <Route exact path="/books/:bookTitle/:id" render={({ match }) => <BookContainer match={match} />} />
                 <Route path="/search/:searched" component={SearchResult} />
+                <Route path="/genres/:id/:genre" component={BooksOfGenreContainer} />
                 <Route path="/cart" render={() => <CartContainer />} />
             </Switch>
         </div>
