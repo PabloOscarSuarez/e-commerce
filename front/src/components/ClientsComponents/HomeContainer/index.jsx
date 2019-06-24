@@ -10,8 +10,9 @@ class HomeContainer extends React.Component {
     super();
     this.state = {
       booksToCart: [],
-      // total:0
+      totalPrice: 0
     };
+
     this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
@@ -19,11 +20,11 @@ class HomeContainer extends React.Component {
   }
   componentDidUpdate(prevState) {
     if (prevState != this.state) {
-      
       this.props.newBookToCart(this.state.booksToCart);
+      
     }
   }
-
+ 
   handleClick(book) {
     if (this.state.booksToCart.length == 0) {
       var bookObj = {
@@ -36,7 +37,7 @@ class HomeContainer extends React.Component {
         booksToCart: [bookObj]
       });
     } else if (this.state.booksToCart.length > 0) {
-      var bookObj2 = { book: book, cant: 1, price:book.price};
+      var bookObj2 = { book: book, cant: 1, price: book.price };
       var exist = false;
 
       for (let i = 0; i < this.state.booksToCart.length; i++) {
@@ -44,35 +45,36 @@ class HomeContainer extends React.Component {
           var bookObjOk = {
             book: book,
             cant: this.state.booksToCart[i].cant + 1,
-            price: this.state.booksToCart[i].book.price*(this.state.booksToCart[i].cant+1)
+            price:
+              this.state.booksToCart[i].book.price *
+              (this.state.booksToCart[i].cant + 1)
           };
           var newBooksToCart = this.state.booksToCart;
           newBooksToCart[i] = bookObjOk;
 
           this.setState({
-            booksToCart: newBooksToCart,
-            // total: newBookToCart[i].price*this.state.newBookToCart[i].cant
+            booksToCart: newBooksToCart
           });
           exist = true;
           break;
         }
       }
       if (exist == false) {
-        console.log("entre al false", bookObj2)
         this.setState({
-          booksToCart: [...this.state.booksToCart, bookObj2],
+          booksToCart: [...this.state.booksToCart, bookObj2]
           // total:[...this.state.total, newBookToCart.price*cant ]
         });
       }
+
     }
   }
 
   render() {
     return (
       <div>
-        {/* {console.log("soy total", this.state.total)} */}
+
         <Carrousel />
-        <Books books={this.props.books} handleClick={this.handleClick} />
+        <Books books={this.props.books} handleClick={this.handleClick} sumTotal={this.sumTotal}/>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom"
 
-export default function checkOut() {
+export default function checkOut({handleSubmit, handleChange}) {
   return (
     <div>
       <div>
@@ -15,9 +15,7 @@ export default function checkOut() {
           <div className="col-md-6 offset-md-3">
             <div className="card">
               <div className="card-body">
-                <form
-                  action="/tasks/create"
-                  method="post" /*onSubmit={handleSubmit}*/
+                <form onSubmit={handleSubmit}
                 >
                   <div className="form-group">
                     <div className="form-row">
@@ -26,7 +24,7 @@ export default function checkOut() {
                         <input
                           name="name"
                           className="form-control"
-                          name="price" /*onChange={handleChangePrice}*/
+                          onChange={handleChange}
                         />
                       </div>
                       <div className="col">
@@ -34,8 +32,7 @@ export default function checkOut() {
                         <input
                           name="address"
                           className="form-control"
-                          name="stock"
-                          /*onChange={handleChangeStock}*/ min="0"
+                          onChange={handleChange} min="0"
                         />
                       </div>
                       <div className="col">
@@ -43,8 +40,7 @@ export default function checkOut() {
                         <input
                           name="email"
                           className="form-control"
-                          name="stock"
-                          /*onChange={handleChangeStock}*/ min="0"
+                          onChange={handleChange} min="0"
                         />
                       </div>
                     </div>
@@ -55,7 +51,7 @@ export default function checkOut() {
                     </button>
                   <br />
                 </form>
-                <button type="submit" className="btn btn-success btn-block">
+                <button type="" className="btn btn-success btn-block">
                   Si ya estas registrado Ingresa aca
                 </button>
               </div>

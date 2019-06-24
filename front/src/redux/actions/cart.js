@@ -14,12 +14,12 @@ export const addBookToCart = function(bookToCart) {
   };
 };
 
-export const addNewTransaction = function(newTransaction) {
-  return {
-    type: ADD_NEW_TRANSACTION,
-    newTransaction
-  };
-};
+// export const addNewTransaction = function(newTransaction) {
+//   return {
+//     type: ADD_NEW_TRANSACTION,
+//     newTransaction
+//   };
+// };
 export const removeBookFromCart = function(updatedBooksToCart) {
   return {
     type: REMOVE_BOOK_FROM_CART,
@@ -29,13 +29,15 @@ export const removeBookFromCart = function(updatedBooksToCart) {
 
 export const newBookToCart = bookToCart => dispatch =>
   dispatch(addBookToCart(bookToCart));
+  
+export const deleteBookFromCart = updatedBooksToCart => dispatch =>
+    dispatch(removeBookFromCart(updatedBooksToCart));
 
 export const createNewTransaction = (userData, bookToCart) => dispatch => {
+  // console.log("soy la data de user",userData, "y de book", bookToCart )
   return axios
-    .post(`http://localhost:8000/cart/createTransaction`, userData, bookToCart)
-    .then(newTransaction => newTransaction)
-    .then(newTransaction => dispatch(createNewTransaction(newTransaction)));
+    .post(`http://localhost:8000/cart/notLogged/createTransaction`, {userData, bookToCart})
+    .then(res =>  res.data)
+  
 };
 
-export const deleteBookFromCart = updatedBooksToCart => dispatch =>
-  dispatch(removeBookFromCart(updatedBooksToCart));

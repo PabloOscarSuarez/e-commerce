@@ -7,16 +7,16 @@ class CheckoutContainer extends React.Component {
   constructor(){
     super()
     this.state = {
-      nombre: "",
+      name: "",
       email:"",
       address:"",
-      password:111
+      password:"111"
   }
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
 }
   handleChange(e){
-
+ 
     this.setState({
       [e.target.name]:e.target.value 
   });
@@ -24,14 +24,15 @@ class CheckoutContainer extends React.Component {
   }
   handleSubmit(e){
     e.preventDefault()
+    console.log("soy this.state", this.state, "soy booksTo", this.props.booksToCart)
     this.props.createNewTransaction(this.state, this.props.booksToCart)
-        .then(() =>  this.props.history.push("/home"))
+        .then(() =>  this.props.history.push("/"))
         .catch(() => this.setState({ error: true }))
 
   }
   render() {
     return (
-      <CheckOut/>
+      <CheckOut handleSubmit= {this.handleSubmit} handleChange={this.handleChange} />
     );
   }
 }
@@ -44,7 +45,7 @@ const mapStateToProps = function (state) {
 const mapDispatchToProps = function (dispatch)
 {      
        return {
-        createNewTransaction:(data)=> dispatch(createNewTransaction(data))
+        createNewTransaction:(userData, booksData)=> dispatch(createNewTransaction(userData, booksData))
        } 
     }
 

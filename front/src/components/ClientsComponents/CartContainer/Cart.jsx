@@ -1,8 +1,17 @@
 import React from "react";
+import { Route } from "react-router-dom";
+import CheckoutContainer from "../CheckOutContainer";
 
 import { Link } from "react-router-dom";
 
-export default function Cart({ booksToCart, handleDelete }) {
+export default function Cart({
+  booksToCart,
+  handleDelete,
+  localBookToCart,
+  sumTotal,
+  handleDecrement,
+  handleIncrement
+}) {
   return (
     <div>
       <div className="col-sm-12">
@@ -20,7 +29,6 @@ export default function Cart({ booksToCart, handleDelete }) {
           <tbody>
             {booksToCart &&
               booksToCart.map(book => {
-                // {console.log("soy book", book.cant)}
                 return (
                   <tr>
                     <td className="col-sm-8 col-md-6">
@@ -35,7 +43,11 @@ export default function Cart({ booksToCart, handleDelete }) {
                         </a>
                         <div className="media-body my-auto">
                           <h4 className="media-heading">
-                            <a href="">{book.book.title}</a>
+                            <Link
+                              to={`/books/${book.book.title}/${book.book.id}`}
+                            >
+                              {book.book.title}
+                            </Link>
                           </h4>
                           <h5 className="media-heading">
                             Autor: <a href="" />
@@ -54,6 +66,33 @@ export default function Cart({ booksToCart, handleDelete }) {
                         value={book.cant}
                         min="1"
                       />
+                      <span class="input-group-btn">
+                        <button
+                          type="button"
+                          class="quantity-left-minus btn btn-danger btn-number"
+                          data-type="minus"
+                          data-field="-"
+                          onClick={() => {
+                            handleDecrement(book);
+                          }}
+                        >
+                        >
+                          -
+                        </button>
+                      </span>
+                      <span class="input-group-btn">
+                        <button
+                          type="button"
+                          class="quantity-right-plus btn btn-success btn-number"
+                          data-type="plus"
+                          data-field="+"
+                          onClick={() => {
+                            handleIncrement(book);
+                          }}
+                        >
+                          +
+                        </button>
+                      </span>
                     </td>
                     <td className="col-sm-1 col-md-1 text-center">
                       <strong>{book.book.price}</strong>
@@ -83,7 +122,7 @@ export default function Cart({ booksToCart, handleDelete }) {
               </td>
               <td>
                 <h3 className="text-center">
-                  {/* <strong>{book.book.price * book.cant}</strong> */}
+                  <strong>{sumTotal(localBookToCart)}</strong>
                 </h3>
               </td>
               <td />
@@ -100,6 +139,7 @@ export default function Cart({ booksToCart, handleDelete }) {
                 </a>
               </td>
               <td>
+                {/* <Route path="/checkout" render={() => <CheckoutContainer sumTotal={sumTotal}/>} /> */}
                 <Link to="/checkout">
                   <button type="button" className="btn btn-success ">
                     Checkout

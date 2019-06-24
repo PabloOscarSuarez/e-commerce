@@ -17,7 +17,7 @@ export default () => (
                 <Route exact path="/books/:bookTitle/:id" render={({ match }) => <BookContainer match={match} />} />
                 <Route path="/search" render={() => <SearchResult />} />
                 <Route path="/cart" render={() => <CartContainer />} />
-                <Route path="/checkout" render={() => <CheckoutContainer />} />
+                <Route path="/checkout" component={CheckoutContainer} />
             </Switch>
         </div>
     </div>

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, Route } from "react-router-dom";
-import AddToCartContainer from "../AddToCartContainer/index";
+// import AddToCartContainer from "../AddToCartContainer/index";
 
-export default function Books({ books, handleClick}) {
+export default function Books({ books, handleClick, sumTotal}) {
   return (
     <div>
       <div className="row mt-5">
@@ -41,7 +41,6 @@ export default function Books({ books, handleClick}) {
                       >
                         AddtoCart
                       </button>
-                      {/* <Route render={() =><AddToCartContainer book = {book}/> }/> */}
                     </div>
                   </div>
                 </div>
