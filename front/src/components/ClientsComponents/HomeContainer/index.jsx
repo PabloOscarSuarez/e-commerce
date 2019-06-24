@@ -74,7 +74,7 @@ class HomeContainer extends React.Component {
       <div>
 
         <Carrousel />
-        <Books books={this.props.books} handleClick={this.handleClick} sumTotal={this.sumTotal}/>
+        <Books books={this.props.books} handleClick={this.handleClick}/>
       </div>
     );
   }

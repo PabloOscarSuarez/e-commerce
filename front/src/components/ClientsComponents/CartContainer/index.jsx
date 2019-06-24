@@ -15,6 +15,23 @@ class CartContainer extends React.Component {
     this.handleIncrement = this.handleIncrement.bind(this);
   }
 
+  render() {
+    return (
+      <div>
+        <Cart
+          booksToCart={this.props.booksToCart}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          handleDelete={this.handleDelete}
+          localBookToCart={this.state.localBookToCart}
+          sumTotal={this.sumTotal}
+          handleDecrement={this.handleDecrement}
+          handleIncrement={this.handleIncrement}
+        />
+      </div>
+    );
+  }
+
   componentDidMount() {
     this.setState({
       localBookToCart: this.props.booksToCart //1er seteo del estado local
@@ -38,6 +55,7 @@ class CartContainer extends React.Component {
     for (let i = 0; i < bookList.length; i++) {
       if (bookList[i].book.id == book.book.id) {
         if (book.cant > 1) {
+
           bookList[i].cant = bookList[i].cant + 1;
           bookList[i].price = bookList[i].price + book.book.price;
         }
@@ -72,18 +90,6 @@ class CartContainer extends React.Component {
         bookList.splice(bookList[i], 1);
       }
     }
-    //quita elementos del carrito y actualiza el localState al final
-    // var bookList = this.props.booksToCart;
-    // for (let i = 0; i < bookList.length; i++) {
-    //   if (bookList[i].book.id == book.book.id) {
-    //     if (book.cant == 1) {
-    //       bookList.splice(bookList[i], 1);
-    //     } else if (book.cant > 1) {
-    //       bookList[i].cant = bookList[i].cant - 1;
-    //       bookList[i].price = bookList[i].price - book.book.price;
-    //     }
-    //   }
-    // }
     this.setState({
       localBookToCart: bookList
     });
@@ -95,26 +101,9 @@ class CartContainer extends React.Component {
       .map(book => book.price) //mapeo
       .reduce((prev, cur) => prev + cur, 0); //sumo
   }
-
-  render() {
-    return (
-      <div>
-        <Cart
-          booksToCart={this.props.booksToCart}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          handleDelete={this.handleDelete}
-          localBookToCart={this.state.localBookToCart}
-          sumTotal={this.sumTotal}
-          handleDecrement={this.handleDecrement}
-          handleIncrement= {this.handleIncrement}
-        />
-      </div>
-    );
-  }
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = function (state) {
   return {
     booksToCart: state.cart.booksToCart
   };

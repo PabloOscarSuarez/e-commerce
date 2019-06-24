@@ -28,9 +28,9 @@ export default function Cart({
 
           <tbody>
             {booksToCart &&
-              booksToCart.map(book => {
+              booksToCart.map((book,id) => {
                 return (
-                  <tr>
+                  <tr key={id}>
                     <td className="col-sm-8 col-md-6">
                       <div className="media">
                         <a className="thumbnail pull-left" href="#">
@@ -66,10 +66,10 @@ export default function Cart({
                         value={book.cant}
                         min="1"
                       />
-                      <span class="input-group-btn">
+                      <span className="input-group-btn">
                         <button
                           type="button"
-                          class="quantity-left-minus btn btn-danger btn-number"
+                          className="quantity-left-minus btn btn-danger btn-number"
                           data-type="minus"
                           data-field="-"
                           onClick={() => {
@@ -80,10 +80,10 @@ export default function Cart({
                           -
                         </button>
                       </span>
-                      <span class="input-group-btn">
+                      <span className="input-group-btn">
                         <button
                           type="button"
-                          class="quantity-right-plus btn btn-success btn-number"
+                          className="quantity-right-plus btn btn-success btn-number"
                           data-type="plus"
                           data-field="+"
                           onClick={() => {
