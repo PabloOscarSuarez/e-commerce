@@ -6,6 +6,7 @@ import HomeContainer from "../HomeContainer";
 import NavbarContainer from "../NavbarContainer";
 import CartContainer from "../CartContainer"
 import BooksOfGenreContainer from "../BooksOfGenreContainer"
+import CheckoutContainer from "../CheckOutContainer"
 
 
 export default () => (
@@ -18,6 +19,7 @@ export default () => (
                 <Route path="/search/:searched" component={SearchResult} />
                 <Route path="/genres/:id/:genre" component={BooksOfGenreContainer} />
                 <Route path="/cart" render={() => <CartContainer />} />
+                <Route path="/checkout" component={CheckoutContainer} />
             </Switch>
         </div>
     </div>

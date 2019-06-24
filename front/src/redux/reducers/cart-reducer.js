@@ -1,16 +1,23 @@
-import { ADD_BOOK_TO_CART } from "../../constants";
+import { ADD_BOOK_TO_CART, ADD_NEW_TRANSACTION, REMOVE_BOOK_FROM_CART, } from "../../constants";
 
 const initialState = {
-  booksToCart: []
+  booksToCart: [],
+  newTransaction: {}
 };
 
 export default (state = initialState, action) => {
+ 
   switch (action.type) {
     case ADD_BOOK_TO_CART:
       return {
-        ...state,
-        booksToCart: [...state.booksToCart, action.bookToCart]
+        ...state, booksToCart: action.bookToCart
       };
+    case REMOVE_BOOK_FROM_CART:
+      return{
+        ...state, booksToCart: action.updatedBooksToCart
+      }
+    // case ADD_NEW_TRANSACTION:
+    //     ...state, 
 
     default:
       return state;

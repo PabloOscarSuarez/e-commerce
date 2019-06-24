@@ -51,7 +51,7 @@ export default function Navbar() {
               {/* <Link className="nav-link" to={`/profile`}>Profile</Link> */}
             </li>
             <li className="nav-item">
-              {/* <Link to="/cart">
+              <Link to="/cart">
                 <div className="ml-auto">
                   <img
                     src="https://image.flaticon.com/icons/png/512/107/107831.png"
@@ -59,7 +59,7 @@ export default function Navbar() {
                     width="30px"
                   />
                 </div>
-              </Link> */}
+              </Link>
             </li>
           </ul>
           {/* {

@@ -4,9 +4,9 @@ const Author = require('./author');
 const Genre = require('./genre');
 const User = require('./user');
 const Comment = require('./comment');
-
-// Comment.belongsTo(Book)
-// Comment.belongsTo(User)
+const Transaction = require("./transactions");
+const Status = require("./status")
+const TransactionDetail = require("./transactionDetail");
 
 Book.belongsTo(Author, { as: 'author' })
 Author.hasMany(Book)
@@ -18,4 +18,9 @@ const BookGenre = require('./book_genre');
 Book.belongsToMany(User, { through: Comment, foreignKey: 'bookId' })
 User.belongsToMany(Book, { through: Comment, foreignKey: 'userId' })
 
-module.exports = { db, Book, Author, Genre, User, BookGenre , Comment};
+Transaction.belongsTo(User, { as: "user" })
+Transaction.belongsTo(Status, { as: "status" })
+Transaction.belongsToMany(Book, { through: TransactionDetail })
+Book.belongsToMany(Transaction, { through: TransactionDetail })
+
+module.exports = { db, Book, Author, Genre, User, Transaction, Status, BookGenre, TransactionDetail, Comment };

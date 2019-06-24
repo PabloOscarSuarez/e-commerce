@@ -1,12 +1,19 @@
 import React from "react";
+import { Route } from "react-router-dom";
+import CheckoutContainer from "../CheckOutContainer";
 
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function Cart({ booksToCart }) {
+export default function Cart({
+  booksToCart,
+  handleDelete,
+  localBookToCart,
+  sumTotal,
+  handleDecrement,
+  handleIncrement
+}) {
   return (
-
     <div>
-      {console.log("soy books to cart del cart", booksToCart)}
       <div className="col-sm-12">
         <table className="table table-hover">
           <thead>
@@ -18,28 +25,32 @@ export default function Cart({ booksToCart }) {
               <th> </th>
             </tr>
           </thead>
-          
-                <tbody>
-                {booksToCart &&
-            booksToCart.map(book => {
-              return (
+
+          <tbody>
+            {booksToCart &&
+              booksToCart.map(book => {
+                return (
                   <tr>
                     <td className="col-sm-8 col-md-6">
                       <div className="media">
                         <a className="thumbnail pull-left" href="#">
                           <img
                             className="media-object mr-3"
-                            src=""
+                            src={book.book.urlImage}
                             width="72px"
                             height="72px"
                           />
                         </a>
                         <div className="media-body my-auto">
                           <h4 className="media-heading">
-                            <a href="">{book.title}</a>
+                            <Link
+                              to={`/books/${book.book.title}/${book.book.id}`}
+                            >
+                              {book.book.title}
+                            </Link>
                           </h4>
                           <h5 className="media-heading">
-                            Autor: <a href=""></a>
+                            Autor: <a href="" />
                           </h5>
                           <span>Stock: </span>
                           <span className="text-success">
@@ -52,57 +63,91 @@ export default function Cart({ booksToCart }) {
                       <input
                         type="number"
                         className="form-control"
-                        value="3"
+                        value={book.cant}
                         min="1"
                       />
+                      <span class="input-group-btn">
+                        <button
+                          type="button"
+                          class="quantity-left-minus btn btn-danger btn-number"
+                          data-type="minus"
+                          data-field="-"
+                          onClick={() => {
+                            handleDecrement(book);
+                          }}
+                        >
+                        >
+                          -
+                        </button>
+                      </span>
+                      <span class="input-group-btn">
+                        <button
+                          type="button"
+                          class="quantity-right-plus btn btn-success btn-number"
+                          data-type="plus"
+                          data-field="+"
+                          onClick={() => {
+                            handleIncrement(book);
+                          }}
+                        >
+                          +
+                        </button>
+                      </span>
                     </td>
                     <td className="col-sm-1 col-md-1 text-center">
-                      <strong>$300</strong>
+                      <strong>{book.book.price}</strong>
                     </td>
                     <td className="col-sm-1 col-md-1 text-center">
-                      <strong>$900</strong>
+                      <strong>{book.price}</strong>
                     </td>
                     <td className="col-sm-1 col-md-1">
-                      <button type="button" className="btn btn-danger">
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => {
+                          handleDelete(book);
+                        }}
+                      >
                         Quitar
                       </button>
                     </td>
-                  </tr>);
-            })}
-                  <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td>
-                      <h3>Total</h3>
-                    </td>
-                    <td>
-                      <h3 className="text-center">
-                        <strong>$1000</strong>
-                      </h3>
-                    </td>
-                    <td />
                   </tr>
-                  <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td>
-                      <a href="">
-                        <button type="button" className="btn btn-info">
-                          Volver
-                        </button>
-                      </a>
-                    </td>
-                    <td>
-                      <a href="">
-                        <button type="button" className="btn btn-success ">
-                          Checkout
-                        </button>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              
+                );
+              })}
+            <tr>
+              <td> </td>
+              <td> </td>
+              <td>
+                <h3>Total</h3>
+              </td>
+              <td>
+                <h3 className="text-center">
+                  <strong>{sumTotal(localBookToCart)}</strong>
+                </h3>
+              </td>
+              <td />
+            </tr>
+            <tr>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td>
+                <a href="">
+                  <button type="button" className="btn btn-info">
+                    Volver
+                  </button>
+                </a>
+              </td>
+              <td>
+                {/* <Route path="/checkout" render={() => <CheckoutContainer sumTotal={sumTotal}/>} /> */}
+                <Link to="/checkout">
+                  <button type="button" className="btn btn-success ">
+                    Checkout
+                  </button>
+                </Link>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>

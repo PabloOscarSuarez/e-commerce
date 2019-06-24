@@ -27,5 +27,4 @@ var Book = db.define('book', {
     },
 });
 
-
 module.exports = Book

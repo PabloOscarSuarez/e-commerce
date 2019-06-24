@@ -21,3 +21,7 @@ export const ADD_BOOK_TO_CART = "ADD_BOOK_TO_CART";
 // comments
 export const ADD_COMMENT = "ADD_COMMENT";
 export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS";
+
+// transactions
+export const ADD_NEW_TRANSACTION = "ADD_NEW_TRANSACTION";
+export const REMOVE_BOOK_FROM_CART = "REMOVE_BOOK_FROM_CART";
