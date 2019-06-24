@@ -217,6 +217,9 @@ router.route("/:id")
         },
         {
           model: User,
+        },
+        {
+          model: Genre,
         }
       ]
     })

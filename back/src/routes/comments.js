@@ -38,12 +38,23 @@ router.get('/prueba', (req, res) => {
 })
 
 router.post('/create', (req, res) => {
+
+    // const comment = Comment.build({
+    //     bookId: req.body.bookId,
+    //     userId: 1, 
+    //     // userId: req.body.bookId, ESTO VA VA CAMBIAR CUANDO TENGA EL USER LOGUEADO CON SU ID
+    //     description: req.body.description
+    // })
+    // return comment.save()
+
     User.findByPk(1)
         .then(user => {
             Book.findByPk(req.body.bookId)
                 .then(book => {
-                    user.addBook(book, { through: { description: req.body.description }});
-                    res.send(book)
+                    return user.addBook(book, { through: { description: req.body.description }})
+                    .then((algo)=>{
+                        res.send(book)
+                    })
                 })
         })
 })

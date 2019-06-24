@@ -35,7 +35,7 @@ export default ({
                                 </div>
                                 <div className="form-group">
                                     <label>Autor</label>
-                                    <select className="form-control" placeholder="Autor" name="author" onChange={handleChangeAuthor}>
+                                    <select className="form-control" placeholder="Autor" defaultValue="0" name="author" onChange={handleChangeAuthor}>
                                         <option value="0">Seleccione un autor..</option>
                                         {
                                             authors.map(author => {
