@@ -12,13 +12,15 @@ class BooksOfGenreContainer extends React.Component {
             <div>
                 <h1 className="text-center">Libros de {this.props.genreName}</h1>
                 <PanelBooks
-                   books={this.props.books} 
+                    books={this.props.books}
+                    history={this.props.history}
+                    where ='genres'
                 />
             </div>
         )
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.fetchBooksofGenre(this.props.genreName)
     }
 
@@ -26,14 +28,14 @@ class BooksOfGenreContainer extends React.Component {
 
 const mapStateToProps = function (state, ownProps) {
     return {
-        genreName : ownProps.match.params.genre,
+        genreName: ownProps.match.params.genre,
         books: state.genres.booksByGenre,
     };
 }
 
 const mapDispatchToProps = function (dispatch) {
     return {
-        fetchBooksofGenre: (genreName) => dispatch(fetchBooksofGenre(genreName)),        
+        fetchBooksofGenre: (genreName) => dispatch(fetchBooksofGenre(genreName)),
     };
 }
 

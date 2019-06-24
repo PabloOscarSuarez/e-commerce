@@ -12,6 +12,9 @@ import PanelAdminsContainer from '../PanelAdminsContainer';
 import CreateAdminContainer from '../CreateAdminContainer';
 import PanelVentasContainer from '../PanelVentasContainer';
 import SidebarContainer from '../SidebarContainer';
+import BookDescriptionContainer from '../BookDescriptionContainer';
+import EditBookContainer from '../EditBookContainer';
+import EditBookStockContainer from '../EditBookStockContainer';
 
 
 export default () => (
@@ -23,7 +26,10 @@ export default () => (
       <div className="col-10 p-0">
         <Switch>
           <Route exact path="/admin/books" component={PanelBooksContainer} />
+          <Route exact path="/admin/books/edit/:id" component={EditBookContainer} />
+          <Route exact path="/admin/books/edit_stock/:id" component={EditBookStockContainer} />
           <Route exact path="/admin/books/create" component={CreateBookContainer} />
+          <Route exact path="/admin/books/:id" component={BookDescriptionContainer} />
           <Route exact path="/admin/authors" component={PanelAuthorsContainer} />
           <Route exact path="/admin/authors/create" component={CreateAuthorContainer} />
           <Route exact path="/admin/authors/:author/:id" component={BooksOfAuthorContainer} />

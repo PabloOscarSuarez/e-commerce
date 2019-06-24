@@ -4,18 +4,22 @@ import PanelBooks from './PanelBooks'
 import { fetchAllBooks } from '../../../redux/actions/books';
 import { Link } from 'react-router-dom';
 
-
-
 class PanelBooksContainer extends React.Component {
 
     render() {
+        // console.log(this.props.history)
         return (
             <div>
                 <h1 className="text-center">Libros</h1>
                 <Link to="/admin/books/create">
                     <button type="button" className="btn btn-sm btn-success">Agregar nuevo Libro</button>
                 </Link>
-                <PanelBooks books={this.props.books} />
+                <PanelBooks 
+                history ={this.props.history}
+                where ='books'
+                books={this.props.books} 
+                handleClickDelete={this.handleClickDelete}
+                />
             </div>
         )
     }
