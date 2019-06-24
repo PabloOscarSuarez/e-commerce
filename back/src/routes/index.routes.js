@@ -9,6 +9,8 @@ router.use('/authors', require('./authors'));
 router.use('/genres', require('./genres'));
 router.use('/comments', require('./comments'));
 router.use ('/cart', require ("./cart"))
+router.use ('/sales', require ("./sales"))
+router.use ('/statuses', require ("./statuses"))
 
 // Make sure this is after all of
 // the registered routes!

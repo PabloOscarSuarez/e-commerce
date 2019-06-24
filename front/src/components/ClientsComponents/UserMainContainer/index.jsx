@@ -7,6 +7,7 @@ import NavbarContainer from "../NavbarContainer";
 import CartContainer from "../CartContainer"
 import BooksOfGenreContainer from "../BooksOfGenreContainer"
 import CheckoutContainer from "../CheckOutContainer"
+import ConfirmCheckoutContainer from "../ConfirmCheckoutContainer"
 
 
 export default () => (
@@ -20,6 +21,7 @@ export default () => (
                 <Route path="/genres/:id/:genre" component={BooksOfGenreContainer} />
                 <Route path="/cart" render={() => <CartContainer />} />
                 <Route path="/checkout" component={CheckoutContainer} />
+                <Route path="/confirm-checkout" component={ConfirmCheckoutContainer} />
             </Switch>
         </div>
     </div>

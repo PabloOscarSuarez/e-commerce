@@ -14,12 +14,13 @@ export const addBookToCart = function(bookToCart) {
   };
 };
 
-// export const addNewTransaction = function(newTransaction) {
-//   return {
-//     type: ADD_NEW_TRANSACTION,
-//     newTransaction
-//   };
-// };
+export const addNewTransaction = function(newTransaction) {
+  return {
+    type: ADD_NEW_TRANSACTION,
+    newTransaction
+  };
+};
+
 export const removeBookFromCart = function(updatedBooksToCart) {
   return {
     type: REMOVE_BOOK_FROM_CART,
@@ -38,6 +39,9 @@ export const createNewTransaction = (userData, bookToCart) => dispatch => {
   return axios
     .post(`http://localhost:8000/cart/notLogged/createTransaction`, {userData, bookToCart})
     .then(res =>  res.data)
+    .then((transaction)=>{
+      dispatch(addNewTransaction(transaction))
+    })
   
 };
 

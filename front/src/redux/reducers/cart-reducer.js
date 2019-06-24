@@ -16,8 +16,8 @@ export default (state = initialState, action) => {
       return{
         ...state, booksToCart: action.updatedBooksToCart
       }
-    // case ADD_NEW_TRANSACTION:
-    //     ...state, 
+    case ADD_NEW_TRANSACTION:
+      return { ...state, newTransaction: action.newTransaction };
 
     default:
       return state;

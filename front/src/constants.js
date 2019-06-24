@@ -25,3 +25,11 @@ export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS";
 // transactions
 export const ADD_NEW_TRANSACTION = "ADD_NEW_TRANSACTION";
 export const REMOVE_BOOK_FROM_CART = "REMOVE_BOOK_FROM_CART";
+
+// statuses
+export const RECEIVE_STATUSES = "RECEIVE_STATUSES";
+
+// sales
+export const RECEIVE_SALES = "RECEIVE_SALES";
+export const RECEIVE_SALE = "RECEIVE_SALE";
+

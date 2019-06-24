@@ -54,7 +54,7 @@ class CartContainer extends React.Component {
 
     for (let i = 0; i < bookList.length; i++) {
       if (bookList[i].book.id == book.book.id) {
-        if (book.cant > 1) {
+        if (book.cant >= 1) {
 
           bookList[i].cant = bookList[i].cant + 1;
           bookList[i].price = bookList[i].price + book.book.price;
@@ -70,7 +70,7 @@ class CartContainer extends React.Component {
 
     for (let i = 0; i < bookList.length; i++) {
       if (bookList[i].book.id == book.book.id) {
-        if (book.cant > 1) {
+        if (book.cant >= 1) {
           bookList[i].cant = bookList[i].cant - 1;
           bookList[i].price = bookList[i].price - book.book.price;
         } else {
