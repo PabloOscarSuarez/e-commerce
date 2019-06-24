@@ -6,6 +6,7 @@ const router = new express.Router();
 const Book = require("../../db/models/index").Book;
 const Author = require("../../db/models/index").Author;
 const Genre = require("../../db/models/index").Genre;
+const User = require("../../db/models/index").User;
 
 // MODEL
 router.get("/", function (req, res) {
@@ -192,6 +193,9 @@ router.delete('/:bookId', (req, res) => {
         include: [{
           model: Author,
           as: 'author'
+        },
+        {
+          model: User,
         }]
       })
         .then(books => {
@@ -212,7 +216,7 @@ router.route("/:id")
           as: 'author',
         },
         {
-          model: Genre,
+          model: User,
         }
       ]
     })
