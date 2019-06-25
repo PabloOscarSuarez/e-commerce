@@ -8,7 +8,8 @@ import CartContainer from "../CartContainer"
 import BooksOfGenreContainer from "../BooksOfGenreContainer"
 import CheckoutContainer from "../CheckOutContainer"
 import ConfirmCheckoutContainer from "../ConfirmCheckoutContainer"
-
+import LoginContainer from "../LoginContainer"
+import RegisterContainer from "../RegisterContainer"
 
 export default () => (
     <div>
@@ -22,6 +23,8 @@ export default () => (
                 <Route path="/cart" render={() => <CartContainer />} />
                 <Route path="/checkout" component={CheckoutContainer} />
                 <Route path="/confirm-checkout" component={ConfirmCheckoutContainer} />
+                <Route path="/register" component={RegisterContainer} />
+                <Route path="/login" component={LoginContainer}/>
             </Switch>
         </div>
     </div>

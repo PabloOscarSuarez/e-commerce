@@ -3,9 +3,10 @@ import { Link, Route } from "react-router-dom";
 import SearchContainer from "../SearchContainer";
 import SelectGenreContainer from "../SelectGenreContainer";
 
-export default function Navbar() {
+export default function Navbar({user, logOutLoggedUser}) {
   return (
     <div>
+     
       <nav className="navbar navbar-expand-lg navbar-primary bg-primary mb-1">
         <Link className="navbar-brand text-white" to={`/`}>
           {/* <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" className="d-inline-block align-top" alt="" /> */}
@@ -62,10 +63,10 @@ export default function Navbar() {
               </Link>
             </li>
           </ul>
-          {/* {
+           {
                 // PREGUNTO ASI PORQUE USER ES UN OBJETO
-                user.username ?
-                    (
+                user.name ?
+                    ( 
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
                                 <Link className="nav-link" to={`/profile`}>Profile</Link>
@@ -74,7 +75,7 @@ export default function Navbar() {
                                 <Link className="nav-link" to={`/auth/logout`} onClick={logOutLoggedUser}>Logout</Link>
                             </li>
                         </ul>
-                    )
+                    ) 
                     :
                     (
                         <ul className="navbar-nav ml-auto">
@@ -85,8 +86,8 @@ export default function Navbar() {
                                 <Link className="nav-link" to={`/register`}>Register</Link>
                             </li>
                         </ul>
-                    )
-            } */}
+                    ) 
+            }
         </div>
       </nav>
     </div>

@@ -1,121 +1,67 @@
-import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-function MadeWithLove() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Built with love by the "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Material-UI
-      </Link>
-      {" team."}
-    </Typography>
-  );
-}
+export default ({ handleSubmit, handleChange }) => {
+    return (
+        <div>
+            <div className="col-md-12">
+                <h1 className="text-center mt-3">Iniciar Sesion</h1>
+                <hr />
+            </div>
 
-const useStyles = makeStyles(theme => ({
-  "@global": {
-    body: {
-      backgroundColor: theme.palette.common.white
-    }
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}));
+            {/* <!-- ACA EMPIEZA LA COLUMNA IZQUIERDA DE LA PANTALLA (FOTOS)--> */}
+            <div className="row">
+                <div className="col-md-9 banner-sec">
+                    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+                        <ol className="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
+                        </ol>
+                        <div className="carousel-inner" role="listbox">
+                            <div className="carousel-item active">
+                                <img className="d-block img-fluid" src="https://as01.epimg.net/meristation/imagenes/2019/05/02/noticias/1556796644_523477_1556796742_noticia_normal.jpg" alt="First slide" width="100%"/>                                
+                                <div className="carousel-caption d-none d-md-block">
+                                    {/* <div className="banner-text">
+                                        <h2>Empeza a sumar puntos</h2>
+                                        <p>Obtene puntos y canjealos para un mayor descuento</p>
+                                    </div> */}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/* <!-- ACA TERMINA LA COLUMNA IZQUIERDA DE LA PANTALLA (FOTOS)-->
+    <!-- ACA EMPIEZA LA COLUMNA DERECHA DE LA PANTALLA (FORM)--> */}
+                <div className="col login-sec">
 
-export default function Login() {
-  const classes = useStyles();
 
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={5}>
-        <MadeWithLove />
-      </Box>
-    </Container>
-  );
+                    <form className="login-form clearfix" onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label>Email</label>
+                            <input id="email" type="email" className="form-control" name="email"  onChange={handleChange}/>
+
+                        </div>
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input id="password" type="password" className="form-control" name="password" onChange={handleChange}/>
+
+                        </div>
+                        <button type="submit" className="btn btn-success float-right">Ingresar</button>
+                    </form>
+
+                    {/* <div className="text-danger font-weight-bold">
+                    <ul>
+
+                    </ul>
+                </div> */}
+                    <div className="etc-login-form clearfix mt-2">
+                        <div className="text-center"><p>Aún no tenes cuenta? <br/><Link to={`/register`} >Registrate acá</Link></p></div>
+                    </div>
+
+                    {/* <!-- PARA IMPRIMIR LOS ERRORES --> */}
+
+                </div>
+                {/* <!-- ACA TERMINA LA COLUMNA DERECHA DE LA PANTALLA (FORM)--> */}
+            </div>
+        </div >
+    );
 }
