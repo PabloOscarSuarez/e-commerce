@@ -9,8 +9,7 @@ class HomeContainer extends React.Component {
   constructor() {
     super();
     this.state = {
-      booksToCart: [],
-      totalPrice: 0
+ 
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -18,55 +17,13 @@ class HomeContainer extends React.Component {
   componentDidMount() {
     this.props.fetchBooks();
   }
-  componentDidUpdate(prevState) {
-    if (prevState != this.state) {
-      this.props.newBookToCart(this.state.booksToCart);
-      
-    }
-  }
  
   handleClick(book) {
-    if (this.state.booksToCart.length == 0) {
-      var bookObj = {
-        book: book,
-        cant: 1,
-        price: book.price
-      };
-
-      this.setState({
-        booksToCart: [bookObj]
-      });
-    } else if (this.state.booksToCart.length > 0) {
-      var bookObj2 = { book: book, cant: 1, price: book.price };
-      var exist = false;
-
-      for (let i = 0; i < this.state.booksToCart.length; i++) {
-        if (this.state.booksToCart[i].book.id == book.id) {
-          var bookObjOk = {
-            book: book,
-            cant: this.state.booksToCart[i].cant + 1,
-            price:
-              this.state.booksToCart[i].book.price *
-              (this.state.booksToCart[i].cant + 1)
-          };
-          var newBooksToCart = this.state.booksToCart;
-          newBooksToCart[i] = bookObjOk;
-
-          this.setState({
-            booksToCart: newBooksToCart
-          });
-          exist = true;
-          break;
-        }
-      }
-      if (exist == false) {
-        this.setState({
-          booksToCart: [...this.state.booksToCart, bookObj2]
-          // total:[...this.state.total, newBookToCart.price*cant ]
-        });
-      }
-
-    }
+    // console.log('soy book', book)
+  
+      this.props.newBookToCart(book);
+    
+    
   }
 
   render() {

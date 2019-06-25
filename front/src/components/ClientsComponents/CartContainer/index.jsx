@@ -1,98 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
-import { newBookToCart } from "../../../redux/actions/cart";
+import { newBookToCart, incrementBooksToCart, decrementBooksToCart, deleteBookFromCart } from "../../../redux/actions/cart";
 import Cart from "../CartContainer/Cart";
 
 class CartContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      localBookToCart: [] //maneja localmente los cambios de booksToCart
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    
+    
     this.handleDelete = this.handleDelete.bind(this);
     this.handleDecrement = this.handleDecrement.bind(this);
     this.handleIncrement = this.handleIncrement.bind(this);
   }
 
-  render() {
-    return (
-      <div>
-        <Cart
-          booksToCart={this.props.booksToCart}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          handleDelete={this.handleDelete}
-          localBookToCart={this.state.localBookToCart}
-          sumTotal={this.sumTotal}
-          handleDecrement={this.handleDecrement}
-          handleIncrement={this.handleIncrement}
-        />
-      </div>
-    );
-  }
-
-  componentDidMount() {
-    this.setState({
-      localBookToCart: this.props.booksToCart //1er seteo del estado local
-    });
-  }
-
-  componentDidUpdate(prevState) {
-    if (prevState != this.state.localBookToCart) {
-      this.props.newBookToCart(this.state.localBookToCart);
-      //actualiza el booksToCart del store, permite que se quiten auto los libros del carrito
-    }
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-  }
-
+ 
   handleIncrement(book) {
-    var bookList = this.props.booksToCart;
-
-    for (let i = 0; i < bookList.length; i++) {
-      if (bookList[i].book.id == book.book.id) {
-        if (book.cant > 1) {
-
-          bookList[i].cant = bookList[i].cant + 1;
-          bookList[i].price = bookList[i].price + book.book.price;
-        }
-      }
-    }
-    this.setState({
-      localBookToCart: bookList
-    });
+    
+    this.props.incrementBooksToCart(book)
+   
   }
   handleDecrement(book) {
-    var bookList = this.props.booksToCart;
+    this.props.decrementBooksToCart(book)
 
-    for (let i = 0; i < bookList.length; i++) {
-      if (bookList[i].book.id == book.book.id) {
-        if (book.cant > 1) {
-          bookList[i].cant = bookList[i].cant - 1;
-          bookList[i].price = bookList[i].price - book.book.price;
-        } else {
-          bookList.splice(bookList[i], 1);
-        }
-      }
-    }
-    this.setState({
-      localBookToCart: bookList
-    });
   }
   handleDelete(book) {
-    var bookList = this.props.booksToCart;
-
-    for (let i = 0; i < bookList.length; i++) {
-      if (bookList[i].book.id == book.book.id) {
-        bookList.splice(bookList[i], 1);
-      }
-    }
-    this.setState({
-      localBookToCart: bookList
-    });
+    this.props.deleteBookFromCart(book)
   }
 
   sumTotal(array) {
@@ -100,6 +32,21 @@ class CartContainer extends React.Component {
     return array
       .map(book => book.price) //mapeo
       .reduce((prev, cur) => prev + cur, 0); //sumo
+  }
+
+  render() {
+    return (
+      <div>
+        {console.log("SOY PROPSSSS", this.props.booksToCart)}
+        <Cart 
+          booksToCart={this.props.booksToCart}
+          handleDelete={this.handleDelete}
+          sumTotal={this.sumTotal}
+          handleDecrement={this.handleDecrement}
+          handleIncrement= {this.handleIncrement}
+        />
+      </div>
+    );
   }
 }
 
@@ -109,8 +56,10 @@ const mapStateToProps = function (state) {
   };
 };
 const mapDispatchToProps = dispatch => ({
-  newBookToCart: updatedBooksToCart =>
-    dispatch(newBookToCart(updatedBooksToCart))
+    incrementBooksToCart: updatedBooksToCart => dispatch(incrementBooksToCart(updatedBooksToCart)),
+    decrementBooksToCart: updatedBooksToCart => dispatch(decrementBooksToCart(updatedBooksToCart)),
+    deleteBookFromCart: book=>dispatch(deleteBookFromCart(book))
+   
 });
 
 export default connect(

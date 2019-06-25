@@ -5,9 +5,9 @@ import CheckoutContainer from "../CheckOutContainer";
 import { Link } from "react-router-dom";
 
 export default function Cart({
-  booksToCart,
+ 
   handleDelete,
-  localBookToCart,
+  booksToCart,
   sumTotal,
   handleDecrement,
   handleIncrement
@@ -27,8 +27,10 @@ export default function Cart({
           </thead>
 
           <tbody>
-            {booksToCart &&
-              booksToCart.map((book,id) => {
+            {console.log("soy book to cart", booksToCart)}
+            {booksToCart.length > 0 &&
+              booksToCart.map(book => {
+                console.log("soy boook del cart", book)
                 return (
                   <tr key={id}>
                     <td className="col-sm-8 col-md-6">
@@ -122,7 +124,7 @@ export default function Cart({
               </td>
               <td>
                 <h3 className="text-center">
-                  <strong>{sumTotal(localBookToCart)}</strong>
+                  <strong>{sumTotal(booksToCart)}</strong>
                 </h3>
               </td>
               <td />
