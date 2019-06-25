@@ -42,9 +42,24 @@ router.post("/notLogged/createTransaction", function(req, res) {
                     price: bookArray[i].price
                   }})
             })
-          }return transaction
+          }return transaction.save()
         }).then((transaction)=>{
-         res.send(transaction)
+          // res.send(transaction)
+          Transaction.findByPk(transaction.id,{
+            include: [
+              {
+                model: User,
+                as:'user'
+              },
+              {
+                model: Status,
+                as:'status'
+              }
+            ]
+          })
+          .then(transaction=>{
+            res.send(transaction)
+          })
         })
     });
   });

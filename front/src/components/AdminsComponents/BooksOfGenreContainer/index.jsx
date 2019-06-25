@@ -3,8 +3,6 @@ import React from 'react'
 import PanelBooks from '../PanelBooksContainer/PanelBooks'
 import { fetchBooksofGenre } from '../../../redux/actions/genres';
 
-
-
 class BooksOfGenreContainer extends React.Component {
 
     render() {

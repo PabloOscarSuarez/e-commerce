@@ -1,19 +1,19 @@
 import { connect } from 'react-redux'
 import React from 'react'
-import PanelVentas from './PanelVentas'
-import { fetchSales, fetchSalesByStatus } from '../../../redux/actions/sales';
+import PanelVentas from '../PanelVentasContainer/PanelVentas'
+import { fetchSalesByStatus } from '../../../redux/actions/sales';
 import { fetchStatuses } from "../../../redux/actions/status"
 
-class PanelVentasContainer extends React.Component {
+
+
+class SalesOfStatusContainer extends React.Component {
 
     constructor(props) {
         super(props)
-
         this.handleChangeStatus = this.handleChangeStatus.bind(this)
     }
 
     render() {
-        // console.log('SOY SALES en el container', this.props.sales)
         return (
             <div>
                 <h1 className="text-center">Ventas</h1>
@@ -27,7 +27,7 @@ class PanelVentasContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchSales()
+        this.props.fetchSalesByStatus(this.props.statusId)
         this.props.fetchStatuses()
     }
 
@@ -42,21 +42,21 @@ class PanelVentasContainer extends React.Component {
                     this.props.history.push(`/admin/ventas/status/${value}`)
                 })
         }
+
     }
 
 }
 
 const mapStateToProps = function (state, ownProps) {
     return {
-        sales: state.sales.list,
-        salesByStatus: state.sales.salesByStatus,
+        statusId: ownProps.match.params.statusId,
+        sales: state.sales.salesByStatus,
         statuses: state.statuses.list,
     };
 }
 
 const mapDispatchToProps = function (dispatch) {
     return {
-        fetchSales: () => dispatch(fetchSales()),
         fetchStatuses: () => dispatch(fetchStatuses()),
         fetchSalesByStatus: (statusId) => dispatch(fetchSalesByStatus(statusId)),
     };
@@ -66,5 +66,5 @@ const mapDispatchToProps = function (dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PanelVentasContainer)
+)(SalesOfStatusContainer)
 

@@ -24,9 +24,9 @@ class CheckoutContainer extends React.Component {
   }
   handleSubmit(e){
     e.preventDefault()
-    console.log("soy this.state", this.state, "soy booksTo", this.props.booksToCart)
+    // console.log("soy this.state", this.state, "soy booksTo", this.props.booksToCart)
     this.props.createNewTransaction(this.state, this.props.booksToCart)
-        .then(() =>  this.props.history.push("/"))
+        .then(() =>  this.props.history.push("/confirm-checkout"))
         .catch(() => this.setState({ error: true }))
 
   }

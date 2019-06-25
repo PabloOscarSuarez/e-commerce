@@ -29,7 +29,7 @@ export default function Cart({
           <tbody>
             {console.log("soy book to cart", booksToCart)}
             {booksToCart.length > 0 &&
-              booksToCart.map(book => {
+              booksToCart.map((book, id) => {
                 console.log("soy boook del cart", book)
                 return (
                   <tr key={id}>

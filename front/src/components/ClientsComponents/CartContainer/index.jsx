@@ -12,7 +12,6 @@ class CartContainer extends React.Component {
     this.handleDecrement = this.handleDecrement.bind(this);
     this.handleIncrement = this.handleIncrement.bind(this);
   }
-
  
   handleIncrement(book) {
     

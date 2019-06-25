@@ -116,8 +116,11 @@ export default (state = initialState, action) => {
         
         ...state, booksToCart: [...bookList]
       }
+      return result
+      
+    case ADD_NEW_TRANSACTION:
+      return { ...state, newTransaction: action.newTransaction };
      
-        return result
  
     case DECREMENT_BOOKS_FROM_CART:
       var bookList = state.booksToCart;
