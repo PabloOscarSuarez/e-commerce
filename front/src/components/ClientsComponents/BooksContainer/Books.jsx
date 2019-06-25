@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Route } from "react-router-dom";
 // import AddToCartContainer from "../AddToCartContainer/index";
 
-export default function Books({ books, handleClick, sumTotal}) {
+export default function Books({ books, handleClick }) {
   return (
     <div>
       <div className="row mt-5">

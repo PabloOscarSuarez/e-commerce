@@ -2,9 +2,10 @@ import React from "react";
 import { Link, Route } from "react-router-dom";
 import SearchContainer from "../SearchContainer";
 
-export default function Navbar() {
+export default function Navbar({user, logOutLoggedUser}) {
   return (
     <div>
+     
       <nav className="navbar navbar-expand-lg navbar-primary bg-primary mb-1">
         <Link className="navbar-brand text-white" to={`/`}>
           {/* <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" className="d-inline-block align-top" alt="" /> */}
@@ -17,26 +18,7 @@ export default function Navbar() {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            {/* <li className="nav-item">
-                    <Link className="nav-link" to={`/search`}>Search</Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to={`/users`}>Usuarios</Link>
-                </li> */}
-            {/* <li className="nav-item dropdown">
-              <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Categorias
-                        </Link>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <Link className="dropdown-item" to="#">Action</Link>
-                <Link className="dropdown-item" to="#">Another action</Link>
-                <div className="dropdown-divider"></div>
-                <Link className="dropdown-item" to="#">Something else here</Link>
-              </div>
-            </li> */}
-            {/* <li className="nav-item">
-                    <Link className="nav-link disabled" to="#" aria-disabled="true">Disabled</Link>
-                </li> */}
+           
           </ul>
           {/* ************************************************************************** */}
           {/* ************************************************************************** */}
@@ -60,10 +42,10 @@ export default function Navbar() {
               </Link>
             </li>
           </ul>
-          {/* {
+           {
                 // PREGUNTO ASI PORQUE USER ES UN OBJETO
-                user.username ?
-                    (
+                user.name ?
+                    ( 
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
                                 <Link className="nav-link" to={`/profile`}>Profile</Link>
@@ -72,7 +54,7 @@ export default function Navbar() {
                                 <Link className="nav-link" to={`/auth/logout`} onClick={logOutLoggedUser}>Logout</Link>
                             </li>
                         </ul>
-                    )
+                    ) 
                     :
                     (
                         <ul className="navbar-nav ml-auto">
@@ -83,8 +65,8 @@ export default function Navbar() {
                                 <Link className="nav-link" to={`/register`}>Register</Link>
                             </li>
                         </ul>
-                    )
-            } */}
+                    ) 
+            }
         </div>
       </nav>
     </div>

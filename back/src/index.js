@@ -4,7 +4,8 @@ const cors = require("cors");
 const router = require("./routes/index.routes");
 const db = require('../db/models').db
 const app = express();
-
+const session = require("express-session");
+const passport = require("../config/passport")
 // Db connection
 
 // Settings
@@ -15,7 +16,15 @@ app.use(morgan("dev"));
 app.use(express.json()); // cumple el mismo funcionamiento que bodyparser
 //hablito cors para poder pedir a mi API desde un cliente externo
 app.use(cors());
+//Passport middleware
+app.use(session({ secret: "cats" }));
+app.use(passport.initialize());
+app.use(passport.session());
 
+app.use((req, res, next) =>{
+app.locals.user = req.user;
+next()
+})
 // Routes
 app.use("/", router);
 
