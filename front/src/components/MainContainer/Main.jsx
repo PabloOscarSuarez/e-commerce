@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import PanelConainer from "../AdminsComponents/PanelContainer";
 import UserMainContainer from '../ClientsComponents/UserMainContainer'
 
@@ -10,6 +10,7 @@ export default () => {
       <Switch>
         <Route path="/admin" component={PanelConainer} />
         <Route path="/" component={UserMainContainer} />
+        <Redirect from="/" to="/" />
       </Switch>
     </div>
   );

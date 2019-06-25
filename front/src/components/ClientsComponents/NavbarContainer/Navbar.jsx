@@ -72,7 +72,7 @@ export default function Navbar({user, logOutLoggedUser}) {
                                 <Link className="nav-link" to={`/profile`}>Profile</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={`/auth/logout`} onClick={logOutLoggedUser}>Logout</Link>
+                                <Link className="nav-link" to={`/login`} onClick={logOutLoggedUser}>Logout</Link>
                             </li>
                         </ul>
                     ) 

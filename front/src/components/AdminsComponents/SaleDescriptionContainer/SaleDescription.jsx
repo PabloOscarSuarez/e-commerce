@@ -23,7 +23,17 @@ export default ({ selectedSale }) => (
                         </div> */}
                         <h3 className="card-title">Compra realizada por {selectedSale.user && selectedSale.user.name}</h3>
                         {/* <p className="card-text text-secondary"><b>Email: &nbsp;</b>{selectedSale.user.email && selectedSale.user.email}</p> */}
-                        <p className="card-text text-secondary"><b>Email : &nbsp;</b>{selectedSale.user && selectedSale.user.email}</p>
+                        {
+                            selectedSale.user ?
+                            (
+                                selectedSale.user.email ?
+                                <p className="card-text text-secondary"><b>Email : &nbsp;</b>{selectedSale.user && selectedSale.user.email}</p>
+                                :
+                                <p className="card-text text-secondary"><b>Email : &nbsp;</b>{selectedSale.user &&  selectedSale.user.anonimousEmail}</p>
+                            )
+                            :
+                            null
+                        }
                         <p className="card-text text-secondary"><b>Direccion de entraga : &nbsp;</b>{selectedSale.user && selectedSale.user.address}</p>
                         <p className="card-text text-secondary"><b>Fecha de compra : &nbsp;</b>{selectedSale.createdAt && selectedSale.createdAt.split('T')[0]}</p>
                         <p className="card-text text-secondary"><b>Estado de compra: &nbsp;</b>{selectedSale.status && selectedSale.status.name}</p>

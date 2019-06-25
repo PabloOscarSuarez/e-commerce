@@ -49,7 +49,7 @@ export default ({ sales, statuses, handleChangeStatus }) => (
                     Ver Detalle
                   </Link>
                 </td>
-                <td>{sale.user.email}</td>
+                <td>{sale.user.email ? sale.user.email : sale.user.anonimousEmail}</td>
                 <td>{sale.total}</td>
                 <td>
                   <Link className="text-primary" to={`/admin/ventas/status/${sale.status.id}`}>

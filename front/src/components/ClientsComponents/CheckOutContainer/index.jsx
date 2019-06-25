@@ -8,7 +8,7 @@ class CheckoutContainer extends React.Component {
     super()
     this.state = {
       name: "",
-      email:"",
+      anonimousEmail:"",
       address:"",
       password:"111"
   }
