@@ -1,9 +1,10 @@
-import { RECEIVE_BOOKS, RECEIVE_BOOK, RECEIVE_BOOK_BY_TITLE, RECEIVE_ALL_BOOKS } from "../../constants";
+import { RECEIVE_BOOKS, RECEIVE_BOOK, RECEIVE_BOOK_BY_TITLE, RECEIVE_ALL_BOOKS, SET_TITLE_SEARCHED } from "../../constants";
 
 const init = {
   books: [],
   selectedBook: {},
   allBooks : [],
+  titleSearched: '',
   bookByTitle: []
 };
 
@@ -18,6 +19,9 @@ export default (state = init, action) => {
       
     case RECEIVE_BOOK:
       return Object.assign({}, state, { selectedBook: action.book });
+
+    case SET_TITLE_SEARCHED:
+      return Object.assign({}, state, { titleSearched: action.title });
 
     case RECEIVE_BOOK_BY_TITLE:
       return {...state, bookByTitle : action.bookByTitle}

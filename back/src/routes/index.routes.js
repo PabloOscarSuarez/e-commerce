@@ -7,8 +7,9 @@ module.exports = router;
 router.use('/books', require('./books'));
 router.use('/authors', require('./authors'));
 router.use('/genres', require('./genres'));
-router.use ('/cart', require ("./cart"));
 router.use ('/users', require ("./users"));
+router.use('/comments', require('./comments'));
+router.use ('/cart', require ("./cart"))
 
 // Make sure this is after all of
 // the registered routes!

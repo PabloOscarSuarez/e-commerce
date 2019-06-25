@@ -12,7 +12,6 @@ class BookContainer extends React.Component {
   }
 
   componentDidMount() {
-
     this.props.fetchBook(this.props.bookId)
   }
 

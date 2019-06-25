@@ -6,6 +6,7 @@ const router = new express.Router();
 const Book = require("../../db/models/index").Book;
 const Author = require("../../db/models/index").Author;
 const Genre = require("../../db/models/index").Genre;
+const User = require("../../db/models/index").User;
 
 // MODEL
 router.get("/", function (req, res) {
@@ -44,13 +45,32 @@ router.get("/all", function (req, res) {
 
 router.get("/search/:title", function (req, res, next) {
 
-  Book.findAll({
+  Author.findAll({
+    // BUSCO A LOS AUTORES QUE TIENEN ESE NOMBRE PARA LUEGO GUARDAR SU ID
     where: {
-      title: { [Op.like]: `%${req.params.title}%` }
+      name: { [Op.iLike]: `%${req.params.title}%` }
     }
   })
-    .then(books => res.send(books))
-    .catch(() => res.sendStatus(404));
+    .then(authors => {
+      var arrayOfAuthorsId = authors.map(author => author.id)
+      // RETORNO LOS ID DE LOS AUTORES EN UN ARRAY
+      return arrayOfAuthorsId
+    })
+    .then((arrayOfAuthorsId) => {
+      // console.log(' array authorsID', arrayOfAuthorsId)
+      Book.findAll({
+        where: {
+          [Op.or]: [
+            { title: { [Op.iLike]: `%${req.params.title}%` } },
+            { authorId: { [Op.in]: arrayOfAuthorsId } },
+          ]
+        }
+      })
+        .then(books => {
+          res.send(books)
+        })
+        .catch(() => res.sendStatus(404));
+    })
 });
 
 router.route("/create").post((req, res) => {
@@ -82,25 +102,131 @@ router.route("/create").post((req, res) => {
   });
 });
 
-router.route("/:id").get(function (req, res, next) {
-  Book.findOne({
-    where: {
-      id: req.params.id
-    },
-    include: [
-      {
-        model: Author,
-        as: 'author',
-      },
-      {
-        model: Genre,
-      }
-    ]
-  })
-    .then(function (Book) {
-      res.send(Book);
+
+router.put("/edit_stock/:bookId", function (req, res) {
+  Book.update({
+    stock: req.body.stock,
+  }, { returning: true, where: { id: req.params.bookId } })
+    .then(function ([rowsUpdate, [updatedBook]]) {
+      // console.log('SOY UPDATED BOOK DESDE ROUTES DE BOOK', updatedBook)
+      return updatedBook
     })
-    .catch(next);
+    .then(book => {
+      Book.findAll({
+        include: [{
+          model: Author,
+          as: 'author'
+        }]
+      })
+        .then(books => {
+          // console.log('SOY BOOKS DEL RES.SEND', books)
+          res.send(books)
+        })
+    })
 });
+
+
+router.put("/edit/:bookId", function (req, res, next) {
+
+  // console.log("soy req.body del back DEL EDIT", req.body);
+
+  var arrayGenres = req.body.genres ? req.body.genres : [];
+
+  Author.findOrCreate({ where: { id: req.body.authorId } })
+    .then(function (values) {
+      var author = values[0];
+      Book.update({
+        title: req.body.title,
+        price: req.body.price,
+        stock: req.body.stock,
+        urlImage: req.body.urlImage,
+        description: req.body.description
+      }, { returning: true, where: { id: req.params.bookId } })
+        .then(function ([rowsUpdate, [updatedBook]]) {
+          // console.log('SOY UPDATED BOOK DESDE ROUTES DE BOOK', updatedBook)
+          return updatedBook
+        })
+        .then(function (book) {
+          // res.send(book);
+
+          Genre.findAll()
+            .then(genres => {
+              return book.removeGenres(genres)
+            })
+            .then(() => {
+              for (let i = 0; i < arrayGenres.length; i++) {
+                const genreId = arrayGenres[i];
+                Genre.findByPk(genreId).then(genre => {
+                  book.addGenre(genre);
+                });
+              }
+            })
+            .then(() => {
+              return book.setAuthor(author);
+            })
+            .then(() => {
+              Book.findAll({
+                include: [{
+                  model: Author,
+                  as: 'author'
+                }]
+              })
+                .then(books => {
+                  // console.log('SOY BOOKS DEL RES.SEND', books)
+                  res.send(books)
+                })
+            })
+
+        });
+    });
+});
+
+router.delete('/:bookId', (req, res) => {
+
+  Book.destroy({
+    where: {
+      id: req.params.bookId
+    }
+  })
+    .then(() => {
+      Book.findAll({
+        include: [{
+          model: Author,
+          as: 'author'
+        },
+        {
+          model: User,
+        }]
+      })
+        .then(books => {
+          res.send(books)
+        })
+    })
+})
+
+router.route("/:id")
+  .get(function (req, res, next) {
+    Book.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [
+        {
+          model: Author,
+          as: 'author',
+        },
+        {
+          model: User,
+        },
+        {
+          model: Genre,
+        }
+      ]
+    })
+      .then(function (Book) {
+        res.send(Book);
+      })
+      .catch(next);
+  });
 
 module.exports = router;

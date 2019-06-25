@@ -50,7 +50,7 @@ class CartContainer extends React.Component {
   }
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = function (state) {
   return {
     booksToCart: state.cart.booksToCart
   };

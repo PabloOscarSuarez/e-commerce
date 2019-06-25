@@ -4,7 +4,7 @@ const db = require('../../db');
 var Book = db.define('book', {
     title: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
     },
     description: {
         type: Sequelize.TEXT,
@@ -17,7 +17,7 @@ var Book = db.define('book', {
     stock: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        validate :{
+        validate: {
             min: 0
         }
     },
@@ -26,13 +26,5 @@ var Book = db.define('book', {
         allowNull: true,
     },
 });
-
-Book.beforeSave (function(book){
-    console.log("entre aal hook", book)
-    if(book.title){
-        book.title = book.title.toLowerCase()
-    }
- 
-})
 
 module.exports = Book

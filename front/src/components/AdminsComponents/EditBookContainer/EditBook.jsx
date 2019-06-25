@@ -1,7 +1,8 @@
 import React from 'react';
-// import { Route, Redirect, Switch, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default ({
+    // selectedBook
     handleChangeTitle,
     handleChangeAuthor,
     handleChangeGenre,
@@ -11,28 +12,41 @@ export default ({
     handleChangeDescription,
     handleSubmit,
     genres,
-    authors
+    authors,
+    inputTitle,
+    inputAuthor,
+    inputGenre,
+    inputPrice,
+    inputStock,
+    inputUrlImage,
+    inputDescription,
 }) => (
         <div>
-            {/* {console.log('SOY GENRES', genres)}
-            {console.log('SOY AUTHORS', authors)} */}
+            {/* {console.log('SOY inputGenre', inputGenre)} */}
+            {/* {console.log('SOY AUTHORS', authors)} */}
             <div className="row">
                 <div className="col-md-6 offset-md-3 mt-5">
                     <div className="card">
                         <div className="card-body">
-                            <form action="/tasks/create" method="post" onSubmit={handleSubmit}>
+                            <form method="post" onSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <label>Titulo</label>
-                                    <input type="text" name="title" placeholder="Ej: Desing Patterns" className="form-control" autoFocus onChange={handleChangeTitle} />
+                                    <input type="text" name="title" placeholder="Ej: Desing Patterns" value={inputTitle} className="form-control" autoFocus onChange={handleChangeTitle} />
                                 </div>
                                 <div className="form-group">
                                     <label>Autor</label>
-                                    <select className="form-control" placeholder="Autor" name="author" onChange={handleChangeAuthor}>
+                                    <select className="form-control" placeholder="Autor" defaultValue="0" name="author" onChange={handleChangeAuthor}>
                                         <option value="0">Seleccione un autor..</option>
                                         {
                                             authors.map(author => {
                                                 return (
-                                                    <option key={author.id} value={author.id}>{author.name}</option>
+                                                    <option 
+                                                    key={author.id} 
+                                                    value={author.id}
+                                                    selected={author.id == inputAuthor}
+                                                    >
+                                                    {author.name}
+                                                    </option>
                                                 )
                                             })
                                         }
@@ -48,7 +62,22 @@ export default ({
                                                         <label className="form-check-label mr-1" >
                                                             {genre.name}
                                                         </label>
-                                                        <input className="form-check-input" name="genres" type="checkbox" value={genre.id} onChange={handleChangeGenre}/>
+                                                        <input 
+                                                        className="form-check-input" 
+                                                        name="genres" 
+                                                        type="checkbox" 
+                                                        value={genre.id} 
+                                                        onChange={handleChangeGenre} 
+                                                        checked={inputGenre.includes(genre.id.toString())}
+                                                        
+                                                            // inputGenre.map(genre=>{
+                                                            //     return(
+                                                                    
+                                                            //     )
+                                                            // })
+                                                        
+                                                        // selected={genre.id == inputAuthor}
+                                                        />
                                                     </div>
                                                 )
                                             })
@@ -59,24 +88,24 @@ export default ({
                                     <div className="form-row">
                                         <div className="col">
                                             <label>Precio</label>
-                                            <input type="number" className="form-control" placeholder="$" name="price" onChange={handleChangePrice} />
+                                            <input type="number" className="form-control" value={inputPrice} placeholder="$" name="price" onChange={handleChangePrice} min="0"/>
                                         </div>
                                         <div className="col">
                                             <label>Stock</label>
-                                            <input type="number" className="form-control" placeholder="Cantidad" name="stock" onChange={handleChangeStock} min="0"/>
+                                            <input type="number" className="form-control" value={inputStock} placeholder="Cantidad" name="stock" onChange={handleChangeStock} min="0" />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="form-group">
                                     <label>Url de la imagen</label>
-                                    <input type="text" name="urlImage" placeholder="Pega la url de la imagen" className="form-control" onChange={handleChangeImage} />
+                                    <input type="text" name="urlImage" value={inputUrlImage} placeholder="Pega la url de la imagen" className="form-control" onChange={handleChangeImage} />
                                 </div>
                                 <div className="form-group">
-                                    <textarea className="form-control" name="description" rows="4" placeholder="Escribi el description" onChange={handleChangeDescription}></textarea>
+                                    <textarea className="form-control" value={inputDescription} name="description" rows="4" placeholder="Escribi el description" onChange={handleChangeDescription}></textarea>
                                 </div>
                                 <button type="submit" className="btn btn-success btn-block">
                                     Guardar
-                            </button>
+                    </button>
                             </form>
                         </div>
                     </div>

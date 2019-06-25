@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Route } from "react-router-dom";
 import SearchContainer from "../SearchContainer";
+import SelectGenreContainer from "../SelectGenreContainer";
 
 export default function Navbar({user, logOutLoggedUser}) {
   return (
@@ -18,7 +19,27 @@ export default function Navbar({user, logOutLoggedUser}) {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-           
+            {/* <li className="nav-item">
+                    <Link className="nav-link" to={`/search`}>Search</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link" to={`/users`}>Usuarios</Link>
+                </li> */}
+            {/* <li className="nav-item dropdown">
+              <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categorias
+                        </Link>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link className="dropdown-item" to="#">Action</Link>
+                <Link className="dropdown-item" to="#">Another action</Link>
+                <div className="dropdown-divider"></div>
+                <Link className="dropdown-item" to="#">Something else here</Link>
+              </div>
+            </li> */}
+          <Route component={SelectGenreContainer} />
+            {/* <li className="nav-item">
+                    <Link className="nav-link disabled" to="#" aria-disabled="true">Disabled</Link>
+                </li> */}
           </ul>
           {/* ************************************************************************** */}
           {/* ************************************************************************** */}
