@@ -8,7 +8,7 @@ const Transaction = require("../../db/models/index").Transaction;
 // const TransactionDetail = require("../../db/models/index").TransactionDetail;
 // MODEL
 
-router.post("/notLogged/createTransaction", function(req, res) {
+router.post("/notLogged/createTransaction", function (req, res) {
   console.log("SOY BOOOK TO CART", req.body.bookToCart);
   var arrayTotal = req.body.bookToCart;
 
@@ -36,30 +36,40 @@ router.post("/notLogged/createTransaction", function(req, res) {
           var bookArray = req.body.bookToCart;
           for (let i = 0; i < bookArray.length; i++) {
 
-            Book.findByPk(bookArray[i].book.id).then(book=>{
-              book.addTransaction(transaction,{through: {
-                    quantity: bookArray[i].cant,
-                    price: bookArray[i].price
-                  }})
+            Book.findByPk(bookArray[i].book.id).then(book => {
+
+              var actualStock = book.stock
+              actualStock = actualStock - bookArray[i].cant
+
+              book.update({
+                stock: actualStock
+              })
+
+              book.addTransaction(transaction, {
+                through: {
+                  quantity: bookArray[i].cant,
+                  price: bookArray[i].price
+                }
+              })
             })
-          }return transaction.save()
-        }).then((transaction)=>{
+          } return transaction.save()
+        }).then((transaction) => {
           // res.send(transaction)
-          Transaction.findByPk(transaction.id,{
+          Transaction.findByPk(transaction.id, {
             include: [
               {
                 model: User,
-                as:'user'
+                as: 'user'
               },
               {
                 model: Status,
-                as:'status'
+                as: 'status'
               }
             ]
           })
-          .then(transaction=>{
-            res.send(transaction)
-          })
+            .then(transaction => {
+              res.send(transaction)
+            })
         })
     });
   });

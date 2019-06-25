@@ -30,7 +30,7 @@ class LoginContainer extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.props.logginUser(this.state)
-            .then(() => this.props.history.push("/users/profile"))
+            .then(() => this.props.history.push("/"))
             .catch(() => this.setState({ error: true }))
     }
     render() {

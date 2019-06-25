@@ -38,7 +38,7 @@ export default function checkOut({ handleSubmit, handleChange }) {
                   <div className="form-group">
                     <label>Email</label>
                     <input
-                      name="email"
+                      name="anonimousEmail"
                       className="form-control"
                       onChange={handleChange} min="0"
                     />

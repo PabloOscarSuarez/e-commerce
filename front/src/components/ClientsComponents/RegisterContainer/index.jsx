@@ -32,8 +32,17 @@ class RegisterContainer extends React.Component {
     handleSubmit(e) {
         e.preventDefault()
         console.log("soy this state", this.state)
-        this.props.createNewUser(this.state)
-            .then(() =>  this.props.history.push("/users/login"))
+
+        const newUser = {
+            name:this.state.name,
+            email:this.state.email,
+            address:this.state.address,
+            password:this.state.password,
+            isAdmin:false
+        }
+
+        this.props.createNewUser(newUser)
+            .then(() =>  this.props.history.push("/"))
             .catch(() => this.setState({ error: true }))
            
     }

@@ -20,10 +20,18 @@ const User = db.define('user', {
     email: {
         type: Sequelize.STRING,
         validate: {
-            notEmpty: true,
+            isEmail: true
+        },
+        unique: true
+    },
+    isAdmin: {
+        type: Sequelize.BOOLEAN,
+    },
+    anonimousEmail: {
+        type: Sequelize.STRING,
+        validate: {
             isEmail: true
         }
-
     },
     password: {
         type: Sequelize.STRING,
