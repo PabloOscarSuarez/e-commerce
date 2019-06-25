@@ -1,8 +1,13 @@
 import axios from 'axios'
-import { RECEIVE_SALES, RECEIVE_SALE } from '../../constants';
+import { RECEIVE_SALES, RECEIVE_SALE, RECEIVE_SALES_BY_STATUS } from '../../constants';
 
 const receiveSales = (sales) => ({
   type: RECEIVE_SALES,
+  sales,
+});
+
+const receiveSalesByStatus = (sales) => ({
+  type: RECEIVE_SALES_BY_STATUS,
   sales,
 });
 
@@ -17,6 +22,13 @@ export const fetchSales = () => dispatch =>
     .then(sales => {
       // console.log(sales ,'SOY SALES EN EL ACTION DE FETCHSALES')
       dispatch(receiveSales(sales))
+    });
+
+export const fetchSalesByStatus = (statusId) => dispatch =>
+  axios.get(`http://localhost:8000/sales/status/${statusId}`)
+    .then(res => res.data)
+    .then(sales => {
+      dispatch(receiveSalesByStatus(sales))
     });
 
 export const fetchSale = id => dispatch =>

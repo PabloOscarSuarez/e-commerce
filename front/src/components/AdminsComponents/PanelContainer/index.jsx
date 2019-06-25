@@ -17,6 +17,7 @@ import EditBookContainer from '../EditBookContainer';
 import EditBookStockContainer from '../EditBookStockContainer';
 import SaleDescriptionContainer from '../SaleDescriptionContainer';
 import EditStatusContainer from '../EditStatusContainer';
+import SalesOfStatusContainer from '../SalesOfStatusContainer';
 
 
 export default () => (
@@ -42,6 +43,7 @@ export default () => (
           <Route exact path="/admin/admins/create" component={CreateAdminContainer} />
           <Route exact path="/admin/ventas" component={PanelVentasContainer} />
           <Route exact path="/admin/ventas/edit_status/:id" component={EditStatusContainer} />
+          <Route exact path="/admin/ventas/status/:statusId" component={SalesOfStatusContainer} />
           <Route exact path="/admin/ventas/:id" component={SaleDescriptionContainer} />
           <Redirect from="/" to="/admin/books" />
         </Switch>

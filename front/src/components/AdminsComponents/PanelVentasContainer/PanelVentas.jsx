@@ -1,10 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default ({ sales }) => (
+export default ({ sales, statuses, handleChangeStatus }) => (
   <div>
     {/* {console.log('SOY SALESSSS', sales)} */}
-    <h1 className="text-center">Ventas</h1>
+    <div className="row">
+      <div className="col-md-3">
+        <select className="form-control" name="status" onChange={handleChangeStatus}>
+          <option value="0">Filtro por Estado de Compra</option>
+          {
+            statuses.map((status, id) => {
+              return (
+                // ESTA LOGICA ES PARA NO PODER CAMBIAR EL ESTADO A CARRITO
+                status.name !== 'carrito' ?
+                  <option key={id} value={status.id} >{status.name}</option>
+                  :
+                  null
+              )
+            })
+          }
+        </select>
+      </div>
+    </div>
     <table className="table mt-2">
       <thead className="thead-dark">
         <tr>
@@ -12,7 +29,8 @@ export default ({ sales }) => (
           <th scope="col">Comprador</th>
           <th scope="col">Precio Total</th>
           <th scope="col">Estado</th>
-          <th scope="col"></th>
+          <th scope="col" >
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -33,7 +51,11 @@ export default ({ sales }) => (
                 </td>
                 <td>{sale.user.email}</td>
                 <td>{sale.total}</td>
-                <td>{sale.status.name}</td>
+                <td>
+                  <Link className="text-primary" to={`/admin/ventas/status/${sale.status.id}`}>
+                    {sale.status.name}
+                  </Link>
+                </td>
                 <td>
                   <Link className="btn btn-sm btn-info" to={`/admin/ventas/edit_status/${sale.id}`}>
                     Cambiar Estado

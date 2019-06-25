@@ -27,6 +27,28 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/status/:statusId', (req, res) => {
+
+  Transaction.findAll({
+    where:{
+      statusId: req.params.statusId
+    },
+    include: [
+      {
+        model: User,
+        as: 'user'
+      },
+      {
+        model: Status,
+        as: 'status'
+      }
+    ]
+  })
+    .then(transaction => {
+      res.send(transaction)
+    })
+})
+
 
 router.put("/edit_status/:saleId", function (req, res) {
 
