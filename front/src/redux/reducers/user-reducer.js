@@ -1,19 +1,22 @@
-import { POST_NEW_USER, POST_LOGGIN_USER, USER_LOGOUT} from "../../constants";
+import { POST_NEW_USER, POST_LOGGIN_USER, USER_LOGOUT, RECEIVE_ADMINS } from "../../constants";
 
 const initialState = {
   user: {},
-  
-
+  admins: []
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case POST_NEW_USER:
-      return {...state, user:action.newUser}
+      return { ...state, user: action.newUser }
     case POST_LOGGIN_USER:
-      return {...state, user:action.userData}
+      return { ...state, user: action.userData }
     case USER_LOGOUT:
-      return {...state, user:{}}
+      return { ...state, user: {} }
+
+    case RECEIVE_ADMINS:
+      return { ...state, admins: action.admins };
+
     default:
       return state;
   }
