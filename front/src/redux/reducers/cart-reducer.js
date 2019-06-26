@@ -4,25 +4,24 @@ import {
   REMOVE_BOOK_FROM_CART,
   INCREMENT_BOOKS_FROM_CART,
   DECREMENT_BOOKS_FROM_CART,
-  
+  ADD_USER_LOCAL_CART
 } from "../../constants";
 
 const initialState = {
-  booksToCart: [],
+  booksToCart: []
   // newTransaction: {}
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_BOOK_TO_CART:
-      console.log("entro al add to cart", action.bookToCart)
       if (state.booksToCart.length == 0) {
         var bookObj = {
           book: action.bookToCart,
           cant: 1,
           price: action.bookToCart.price
         };
-        console.log("1)se crea el primer Objeto")   
+     
         return {
           ...state,
           booksToCart: [bookObj]
@@ -37,7 +36,6 @@ export default (state = initialState, action) => {
 
         for (let i = 0; i < state.booksToCart.length; i++) {
           if (state.booksToCart[i].book.id == action.bookToCart.id) {
-
             if (state.booksToCart[i].cant < action.bookToCart.stock) {
               var bookObjOk = {
                 book: action.bookToCart,
@@ -49,31 +47,27 @@ export default (state = initialState, action) => {
               var newBooksToCart = state.booksToCart;
               newBooksToCart[i] = bookObjOk;
               exist = true;
-               
+
               return {
                 ...state,
                 booksToCart: newBooksToCart
               };
-              
-            }
-            else{
+            } else {
               var bookObjOk = {
                 book: action.bookToCart,
                 cant: action.bookToCart.stock,
                 price:
-                  state.booksToCart[i].book.price *
-                  (state.booksToCart[i].cant)
+                  state.booksToCart[i].book.price * state.booksToCart[i].cant
               };
               var newBooksToCart = state.booksToCart;
               newBooksToCart[i] = bookObjOk;
               exist = true;
-               
+
               return {
                 ...state,
                 booksToCart: newBooksToCart
               };
             }
-
           }
         }
         if (exist == false) {
@@ -85,61 +79,66 @@ export default (state = initialState, action) => {
       }
 
     case REMOVE_BOOK_FROM_CART:
-        var bookList = state.booksToCart;
+      var bookList = state.booksToCart;
 
-        for (let i = 0; i < bookList.length; i++) {
-          if (bookList[i].book.id == action.updatedBooksToCart.book.id) {
-            bookList.splice(bookList[i], 1);
-          }
-          // console.log("soy i",bookList[i])
+      for (let i = 0; i < bookList.length; i++) {
+        if (bookList[i].book.id == action.updatedBooksToCart.book.id) {
+          bookList.splice(bookList[i], 1);
         }
-        // console.log("soy action del remove",action.updatedBooksToCart.book.id)
+        // console.log("soy i",bookList[i])
+      }
+      // console.log("soy action del remove",action.updatedBooksToCart.book.id)
       return {
-        ...state, booksToCart: [...bookList]
+        ...state,
+        booksToCart: [...bookList]
       };
 
     case INCREMENT_BOOKS_FROM_CART:
-        var bookList = state.booksToCart;
-        // console.log('INCREMENT', bookList)
+      var bookList = state.booksToCart;
+      // console.log('INCREMENT', bookList)
 
-        for (let i = 0; i < bookList.length; i++) {
-          if (bookList[i].book.id == action.updatedBooksToCart.book.id) {
-            if (action.updatedBooksToCart.cant >= 1) {
-              if (action.updatedBooksToCart.cant < action.updatedBooksToCart.book.stock) {
-                bookList[i].cant = bookList[i].cant + 1;
-                bookList[i].price = bookList[i].price + action.updatedBooksToCart.book.price;
-              }
+      for (let i = 0; i < bookList.length; i++) {
+        if (bookList[i].book.id == action.updatedBooksToCart.book.id) {
+          if (action.updatedBooksToCart.cant >= 1) {
+            if (
+              action.updatedBooksToCart.cant <
+              action.updatedBooksToCart.book.stock
+            ) {
+              bookList[i].cant = bookList[i].cant + 1;
+              bookList[i].price =
+                bookList[i].price + action.updatedBooksToCart.book.price;
             }
           }
         }
-        var result={
-        
-        ...state, booksToCart: [...bookList]
       }
-      return result
-      
+      var result = {
+        ...state,
+        booksToCart: [...bookList]
+      };
+      return result;
+
     case ADD_NEW_TRANSACTION:
-      return { ...state, newTransaction: action.newTransaction };
-     
- 
+      return { ...state, booksToCart: [...action.newTransaction] };
+
     case DECREMENT_BOOKS_FROM_CART:
       var bookList = state.booksToCart;
-      // console.log("entreeeeeee")
       for (let i = 0; i < bookList.length; i++) {
         if (bookList[i].book.id == action.updatedBooksToCart.book.id) {
           if (action.updatedBooksToCart.cant > 1) {
-            // console.log('soy book decretemt', bookList)
             bookList[i].cant = bookList[i].cant - 1;
             bookList[i].price = bookList[i].price - action.updatedBooksToCart.book.price;
-          } else {
-            console.log('soy book splice', bookList)
-            bookList.splice(bookList[i], 1);
-          }
+          } else bookList.splice(bookList[i], 1);
         }
       }
       return {
-        ...state, booksToCart: [...bookList]
+        ...state,
+        booksToCart: [...bookList]
       };
+
+    case ADD_USER_LOCAL_CART:
+      var localCart = JSON.parse(localStorage.getItem("cart"));
+   
+      return { ...state, booksToCart: localCart };
 
     default:
       return state;

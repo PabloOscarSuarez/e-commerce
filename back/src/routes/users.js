@@ -20,6 +20,7 @@ router.post('/login', passport.authenticate("local"), function (req, res, next) 
 })
 router.get('/logout', function (req, res) {
   req.logout();
+  res.json(req.user);
   // res.send(req.user);
 });
 

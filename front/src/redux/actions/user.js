@@ -49,7 +49,6 @@ export const logginUser = userData => dispatch => {
     .post("http://localhost:8000/users/login", userData)
     .then(res => res.data)
     .then(userData =>{
-      console.log('SOY EL USER DATA DEL ACTION LOGGEDUSER', userData)
       dispatch(receiveLoggedUser(userData))
     }) 
 }
@@ -59,12 +58,12 @@ export const fetchLoggedUser = () => dispatch => {
   return axios.get("http://localhost:8000/users/logged")
     .then(res => res.data)
     .then(user => {
-      console.log(user, 'SOY EL USERRRRRRRRRRRRRRRRRRRRRRR')
       dispatch(receiveLoggedUser(user))
     })
 }
 
 export const logout = () => dispatch => {
+
   axios.get("http://localhost:8000/users/logout")
     .then(() => dispatch(userLogout()))
 

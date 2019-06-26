@@ -5,8 +5,10 @@ import {
   REMOVE_BOOK_FROM_CART,
   INCREMENT_BOOKS_FROM_CART,
   DECREMENT_BOOKS_FROM_CART,
+  ADD_USER_LOCAL_CART
  
 } from "../../constants";
+import { func } from "prop-types";
 
 export const addBookToCart = function(bookToCart) {
   // console.log("soy bookToCart del action", bookToCart);
@@ -41,6 +43,13 @@ export const decrementBooksFromCart = function(updatedBooksToCart) {
     updatedBooksToCart
   };
 };
+export const addUserLocalCart =function() {
+
+  return {
+    type: ADD_USER_LOCAL_CART,
+    
+  };
+}
 
 export const newBookToCart = bookToCart => dispatch =>
   dispatch(addBookToCart(bookToCart));
@@ -53,6 +62,9 @@ dispatch(incrementBooksFromCart(updatedBooksToCart));
 
 export const decrementBooksToCart = updatedBooksToCart => dispatch =>
 dispatch(decrementBooksFromCart(updatedBooksToCart));
+
+export const userLocalCart = () => dispatch =>
+dispatch(addUserLocalCart());
 
 export const createNewTransaction = (userData, bookToCart) => dispatch => {
   // console.log("soy la data de user",userData, "y de book", bookToCart )
