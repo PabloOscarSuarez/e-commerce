@@ -10,6 +10,8 @@ import CheckoutContainer from "../CheckOutContainer"
 import ConfirmCheckoutContainer from "../ConfirmCheckoutContainer"
 import LoginContainer from "../LoginContainer"
 import RegisterContainer from "../RegisterContainer"
+import ProfileContainer from "../ProfileContainer"
+import EditProfileContainer from "../EditProfileContainer"
 
 export default () => (
     <div>
@@ -24,6 +26,8 @@ export default () => (
                 <Route path="/checkout" component={CheckoutContainer} />
                 <Route path="/confirm-checkout" component={ConfirmCheckoutContainer} />
                 <Route path="/register" component={RegisterContainer} />
+                <Route path="/profile" component={ProfileContainer} />
+                <Route path="/edit-profile" component={EditProfileContainer} />
                 <Route path="/login" component={LoginContainer}/>
             </Switch>
         </div>

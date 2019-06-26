@@ -3,10 +3,10 @@ import { Link, Route } from "react-router-dom";
 import SearchContainer from "../SearchContainer";
 import SelectGenreContainer from "../SelectGenreContainer";
 
-export default function Navbar({user, logOutLoggedUser}) {
+export default function Navbar({ user, logOutLoggedUser }) {
   return (
     <div>
-     
+
       <nav className="navbar navbar-expand-lg navbar-primary bg-primary mb-1">
         <Link className="navbar-brand text-white" to={`/`}>
           {/* <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" className="d-inline-block align-top" alt="" /> */}
@@ -19,12 +19,10 @@ export default function Navbar({user, logOutLoggedUser}) {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            {/* <li className="nav-item">
-                    <Link className="nav-link" to={`/search`}>Search</Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to={`/users`}>Usuarios</Link>
-                </li> */}
+            <li className="nav-item">
+              <Link className="nav-link text-white" to={`/admin`}>Panel Administrador</Link>
+            </li>
+
             {/* <li className="nav-item dropdown">
               <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Categorias
@@ -36,7 +34,7 @@ export default function Navbar({user, logOutLoggedUser}) {
                 <Link className="dropdown-item" to="#">Something else here</Link>
               </div>
             </li> */}
-          <Route component={SelectGenreContainer} />
+            <Route component={SelectGenreContainer} />
             {/* <li className="nav-item">
                     <Link className="nav-link disabled" to="#" aria-disabled="true">Disabled</Link>
                 </li> */}
@@ -47,10 +45,42 @@ export default function Navbar({user, logOutLoggedUser}) {
           {/* LO HAGO CON ROUTE PARA TENER HISTORY EN SEARCHCONTAINER COMO PROPS */}
           {/* ************************************************************************** */}
           {/* ************************************************************************** */}
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              {/* <Link className="nav-link" to={`/profile`}>Profile</Link> */}
-            </li>
+          
+          {
+            // PREGUNTO ASI PORQUE USER ES UN OBJETO
+            user.name ?
+              (
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item dropdown">
+                    <Link className="nav-link dropdown-toggle text-white" to={`/profile`} id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Perfil
+                    </Link>
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <Link className="dropdown-item" to={`/profile`}>Perfil</Link>
+                      <Link className="dropdown-item" to={`/compras`}>Compras</Link>
+                      <Link className="dropdown-item" to={`/edit-profile`}>Editar Perfil</Link>
+                      <Link className="dropdown-item" to={`/admin`}>Panel Admin</Link>
+                    </div>
+                  </li>
+
+                  <li className="nav-item">
+                    <Link className="nav-link text-white" to={`/login`} onClick={logOutLoggedUser}>Logout</Link>
+                  </li>
+                </ul>
+              )
+              :
+              (
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <Link className="nav-link text-white" to={`/login`}>Login</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link text-white" to={`/register`}>Register</Link>
+                  </li>
+                </ul>
+              )
+          }
+          <ul className="navbar-nav ml-2">
             <li className="nav-item">
               <Link to="/cart">
                 <div className="ml-auto">
@@ -63,31 +93,6 @@ export default function Navbar({user, logOutLoggedUser}) {
               </Link>
             </li>
           </ul>
-           {
-                // PREGUNTO ASI PORQUE USER ES UN OBJETO
-                user.name ?
-                    ( 
-                        <ul className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <Link className="nav-link" to={`/profile`}>Profile</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to={`/login`} onClick={logOutLoggedUser}>Logout</Link>
-                            </li>
-                        </ul>
-                    ) 
-                    :
-                    (
-                        <ul className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <Link className="nav-link" to={`/login`}>Login</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to={`/register`}>Register</Link>
-                            </li>
-                        </ul>
-                    ) 
-            }
         </div>
       </nav>
     </div>
