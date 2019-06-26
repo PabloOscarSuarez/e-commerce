@@ -25,6 +25,7 @@ router.get('/logout', function (req, res) {
 
 router.get('/logged', function (req, res, next) {
   console.log("entre al logged!!")
+  console.log(req.user, 'SOY EL REQ.USER')
   res.send(req.user)
 })
 
