@@ -1,39 +1,53 @@
 import React from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import Books from "../BooksContainer/Books";
-import {fetchBooks} from "../../../redux/actions/books"
+import Carrousel from "../Carrousel/Carrousel";
+import { fetchBooks } from "../../../redux/actions/books";
+import { newBookToCart } from "../../../redux/actions/cart";
 
 class HomeContainer extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+ 
+    };
+
+    this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
-
-  this.props.fetchBooks()
-
+    this.props.fetchBooks();
+  }
+ 
+  handleClick(book) {
+    // console.log('soy book', book)
+  
+      this.props.newBookToCart(book);
+    
+    
   }
 
   render() {
     return (
       <div>
-        <Books books = {this.props.books}/>
+
+        <Carrousel />
+        <Books books={this.props.books} handleClick={this.handleClick}/>
       </div>
     );
   }
 }
 
-
 const mapStateToProps = function(state) {
   return {
     books: state.books.books
-    };
-  }
-const mapDispatchToProps = (dispatch)=>({
+  };
+};
+const mapDispatchToProps = dispatch => ({
+  fetchBooks: () => dispatch(fetchBooks()),
+  newBookToCart: booksToCart => dispatch(newBookToCart(booksToCart))
+});
 
-  fetchBooks: () => dispatch(fetchBooks())
-
-})
-
-
-export default connect (mapStateToProps, mapDispatchToProps)(HomeContainer)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeContainer);

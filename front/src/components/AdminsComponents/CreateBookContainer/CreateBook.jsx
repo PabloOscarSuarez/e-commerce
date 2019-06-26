@@ -14,11 +14,10 @@ export default ({
     authors
 }) => (
         <div>
-            {console.log('SOY GENRES', genres)}
-            {console.log('SOY AUTHORS', authors)}
-            <h1 className="text-center">Estoy en create book</h1>
+            {/* {console.log('SOY GENRES', genres)}
+            {console.log('SOY AUTHORS', authors)} */}
             <div className="row">
-                <div className="col-md-6 offset-md-3">
+                <div className="col-md-6 offset-md-3 mt-5">
                     <div className="card">
                         <div className="card-body">
                             <form action="/tasks/create" method="post" onSubmit={handleSubmit}>

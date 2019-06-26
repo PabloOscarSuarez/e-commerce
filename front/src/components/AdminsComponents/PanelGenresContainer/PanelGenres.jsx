@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default ({genres}) => (
+export default ({genres, handleClickDelete}) => (
 
   <div>
     <h1 className="text-center">Generos</h1>
@@ -20,9 +20,14 @@ export default ({genres}) => (
           genres && genres.map((genre, id) => {
             return (
               <tr key={id}>
-                <td>{genre.name}</td>
+                <td><Link className="text-decoration-none text-dark" to={`/admin/genres/${genre.name}`}>{genre.name}</Link></td>
                 <td>
-                  <button type="button" className="btn  btn-sm btn-danger">Eliminar</button>
+                  {
+                    genre.books.length === 0 ?
+                    <button type="button" className="btn  btn-sm btn-danger" value={genre.id} onClick={handleClickDelete}>Eliminar</button>
+                    :
+                    <button type="button" className="btn  btn-sm btn-danger" title={`No puede eliminar "${genre.name}" porque tiene libros asignados`} disabled>Eliminar</button>
+                  }
                 </td>
               </tr>
             )

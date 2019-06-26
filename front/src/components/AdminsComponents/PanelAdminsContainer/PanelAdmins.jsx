@@ -1,7 +1,7 @@
 import React from 'react';
-import { Route, Redirect, Switch, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-export default () => (
+export default ({ admins, handleClickDelete }) => (
 
   <div>
     <h1 className="text-center">Administradores</h1>
@@ -11,16 +11,24 @@ export default () => (
     <table className="table mt-2">
       <thead className="thead-dark">
         <tr>
+          <th scope="col">Name</th>
           <th scope="col">Email</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Mark@algo.com</td>
-        </tr>
-        <tr>
-          <td>Mark@algo.com</td>
-        </tr>
+        {
+          admins.map((admin, id) => {
+            return (
+              <tr key={id}>
+                <td>{admin.name}</td>
+                <td>{admin.email}</td>
+                <td><button type="button" className="btn  btn-sm btn-danger" value={admin.id} onClick={handleClickDelete}>Eliminar</button></td>
+              </tr>
+            )
+          })
+        }
+
       </tbody>
     </table>
 

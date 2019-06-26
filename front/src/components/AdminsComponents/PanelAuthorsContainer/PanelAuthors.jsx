@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default ({ authors }) => (
-
+export default ({ authors, handleClickDelete }) => (
     <div>
         <h1 className="text-center">Autores</h1>
         <Link to="/admin/authors/create">
@@ -20,9 +19,14 @@ export default ({ authors }) => (
                     authors && authors.map((author, id) => {
                         return (
                             <tr key={id}>
-                                <td>{author.name}</td>
+                                <td><Link className="text-decoration-none text-dark" to={`/admin/authors/${author.name}/${author.id}`}>{author.name}</Link></td>
                                 <td>
-                                    <button type="button" className="btn  btn-sm btn-danger">Eliminar</button>
+                                    {
+                                        author.books.length === 0 ?
+                                            <button type="button" className="btn  btn-sm btn-danger" value={author.id} onClick={handleClickDelete}>Eliminar</button>
+                                            :
+                                            <button type="button" className="btn  btn-sm btn-danger" title={`No puede eliminar a "${author.name}" porque tiene libros asignados`} disabled>Eliminar</button>
+                                    }
                                 </td>
                             </tr>
                         )

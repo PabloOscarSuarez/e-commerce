@@ -1,22 +1,46 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-import BookContainer from "../ClientsComponents/BookContainer";
-import HomeContainer from "../ClientsComponents/HomeContainer";
-import NavbarContainer from "../ClientsComponents/NavbarContainer";
-import SearchResult from "../ClientsComponents/SearchResult/SearchResult"
+import { Route, Switch, Redirect } from "react-router-dom";
 import PanelConainer from "../AdminsComponents/PanelContainer";
+import UserMainContainer from '../ClientsComponents/UserMainContainer'
+import {fetchLoggedUser, logout} from "../../redux/actions/user"
+import { connect } from "react-redux";
 
+// export default () => {
+//   return (
+    
+//   );
+// };
 
-export default () => {  
-  return (
-    <div>
-      <NavbarContainer/>
+class MainContainer extends React.Component {
+  
+  componentDidMount(){
+   this.props.fetchLoggedUser()
+  }
+
+  render() {
+    return(
+      <div>
       <Switch>
-      <Route exact path= "/" render = {() => <HomeContainer/>} />
-      <Route exact path= "/book/:id" render = {({match})=> <BookContainer match = {match}/>} />
-      <Route exact path= "/search" render = {()=> <SearchResult/>} />
-      <Route path="/admin" component={PanelConainer} />
+        <Route path="/admin" component={PanelConainer} />
+        <Route path="/" component={UserMainContainer} />
+        <Redirect from="/" to="/" />
       </Switch>
     </div>
-  );
+    )
+  }
+}
+
+const mapStateToProps = function(state) {
+  return {
+    user: state.user.user
+  };
 };
+const mapDispatchToProps = function(dispatch) {
+  return {
+    fetchLoggedUser: ()=>dispatch(fetchLoggedUser()),
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainContainer);
