@@ -18,7 +18,7 @@ export default ({ handleSubmit, handleChange }) => {
                         </ol>
                         <div className="carousel-inner" role="listbox">
                             <div className="carousel-item active">
-                                <img className="d-block img-fluid" src="https://as01.epimg.net/meristation/imagenes/2019/05/02/noticias/1556796644_523477_1556796742_noticia_normal.jpg" alt="First slide" width="100%"/>                                
+                                <img className="d-block img-fluid" src="https://www.infobae.com/new-resizer/Rn-V5d5hFMnaBVT8hBhut2DEbiM=/1200x0/filters:quality(100)/s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2018/02/10162054/Libros-Liliana-Bodoc-SF-Portada.jpg" alt="First slide" width="1024px" height="675px"/>                                
                                 <div className="carousel-caption d-none d-md-block">
                                     {/* <div className="banner-text">
                                         <h2>Empeza a sumar puntos</h2>

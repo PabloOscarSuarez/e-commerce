@@ -18,7 +18,7 @@ export default ({ handleSubmit, handleChange }) => {
                         </ol>
                         <div className="carousel-inner" role="listbox">
                             <div className="carousel-item active">
-                                <img className="d-block img-fluid" src="https://www.unir.net/wp-content/uploads/2019/03/Pulp.jpg" alt="First slide" width="100%"/>
+                                <img className="d-block img-fluid" src="https://s2.eestatic.com/2018/04/23/corazon/famosos/Belen_Esteban_Menendez-David_Bisbal-Pelayo_Diaz-Maria_Lapiedra-Famosos_301982131_74980857_1024x576.jpg" alt="First slide" width="1024px" height="675px"/>
                                 <div className="carousel-caption d-none d-md-block">
                                     <div className="banner-text">
                                     </div>

@@ -4,23 +4,21 @@ import {fetchLoggedUser, logout} from "../../../redux/actions/user"
 import Navbar from "../NavbarContainer/Navbar";
 
 class NavBarContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user:{}
-    };
-    this.logOutLoggedUser= this.logOutLoggedUser.bind(this)
-  }
-  componentDidMount(){
-   this.props.fetchLoggedUser(this.props.user)
-  }
-  logOutLoggedUser(){
-    this.props.logout()
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     user:{}
+  //   };
+  //   this.logOutLoggedUser= this.logOutLoggedUser.bind(this)
+  // }
+  // componentDidMount(){
+  //  this.props.fetchLoggedUser()
+  // }
+
   render() {
     return(
           <div>
-            <Navbar user={this.props.user} logOutLoggedUser={this.logOutLoggedUser}/>
+            <Navbar user={this.props.user} logOutLoggedUser={this.props.logout}/>
           </div>
     )
   }
@@ -33,7 +31,7 @@ const mapStateToProps = function(state) {
 };
 const mapDispatchToProps = function(dispatch) {
   return {
-    fetchLoggedUser: (userData)=>dispatch(fetchLoggedUser(userData)),
+    fetchLoggedUser: ()=>dispatch(fetchLoggedUser()),
     logout:()=>dispatch(logout())
   };
 };
