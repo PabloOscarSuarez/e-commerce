@@ -1,8 +1,9 @@
-import { RECEIVE_SALES, RECEIVE_SALE, RECEIVE_SALES_BY_STATUS } from '../../constants'
+import { RECEIVE_SALES, RECEIVE_SALE, RECEIVE_SALES_BY_STATUS, RECEIVE_SALES_BY_USER } from '../../constants'
 
 const initialState = {
     list: [],
     salesByStatus: [],
+    salesByUser: [],
     selectedSale: {}
 };
 
@@ -16,6 +17,9 @@ export default (state = initialState, action) => {
 
         case RECEIVE_SALES_BY_STATUS:
             return Object.assign({}, state, { salesByStatus: action.sales });
+
+        case RECEIVE_SALES_BY_USER:
+            return Object.assign({}, state, { salesByUser: action.sales });
 
         default:
             return state;

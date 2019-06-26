@@ -19,6 +19,7 @@ class ConfirmCheckoutContainer extends React.Component {
 const mapStateToProps = function (state, ownProps) {
     return {
         newTransaction: state.cart.newTransaction,
+        user: state.user.user
     }
 }
 const mapDispatchToprops = () => dispatch => (

@@ -52,9 +52,9 @@ export default function Navbar({ user, logOutLoggedUser }) {
               (
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item dropdown">
-                    <Link className="nav-link dropdown-toggle text-white" to={`/profile`} id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a className="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Perfil
-                    </Link>
+                    </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                       <Link className="dropdown-item" to={`/profile`}>Perfil</Link>
                       <Link className="dropdown-item" to={`/compras`}>Compras</Link>
@@ -63,8 +63,8 @@ export default function Navbar({ user, logOutLoggedUser }) {
                     </div>
                   </li>
 
-                  <li className="nav-item">
-                    <Link className="nav-link text-white" to={`/login`} onClick={logOutLoggedUser}>Logout</Link>
+                  <li className="nav-item" onClick={()=>logOutLoggedUser()}>
+                    <a className="nav-link text-white" href="#" >Logout</a>
                   </li>
                 </ul>
               )
