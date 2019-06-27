@@ -4,9 +4,12 @@ import { Link } from 'react-router-dom';
 export default ({ user, logOutLoggedUser }) => (
 
     <div className="background-dark">
-        <nav className="navbar navbar-primary bg-primary">
+        <nav className="navbar navbar-success bg-success">
             <Link className="navbar-brand text-white" to={`/`}>
                 FullBook
+            </Link>
+            <Link className="navbar-brand text-white" to={`/admin`}>
+                Panel Administrador
             </Link>
             {
                 user.name ?

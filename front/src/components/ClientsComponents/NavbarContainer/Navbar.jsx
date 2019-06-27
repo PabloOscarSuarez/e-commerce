@@ -20,7 +20,7 @@ export default function Navbar({ user, logOutLoggedUser }) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link className="nav-link text-white" to={`/admin`}>Panel Administrador</Link>
+              <Link className="nav-link text-success" to={`/admin`}>Panel Administrador</Link>
             </li>
 
             {/* <li className="nav-item dropdown">
@@ -59,7 +59,7 @@ export default function Navbar({ user, logOutLoggedUser }) {
                       <Link className="dropdown-item" to={`/profile`}>Perfil</Link>
                       <Link className="dropdown-item" to={`/compras`}>Compras</Link>
                       <Link className="dropdown-item" to={`/edit-profile`}>Editar Perfil</Link>
-                      <Link className="dropdown-item" to={`/admin`}>Panel Admin</Link>
+                      <Link className="dropdown-item text-success" to={`/admin`}>Panel Admin</Link>
                     </div>
                   </li>
 
