@@ -3,7 +3,7 @@ import { Link, Route } from "react-router-dom";
 import SearchContainer from "../SearchContainer";
 import SelectGenreContainer from "../SelectGenreContainer";
 
-export default function Navbar({ user, logOutLoggedUser }) {
+export default function Navbar({ user, logout }) {
   return (
     <div>
 
@@ -64,7 +64,7 @@ export default function Navbar({ user, logOutLoggedUser }) {
                   </li>
 
                   <li className="nav-item">
-                    <Link className="nav-link text-white" to={`/login`} onClick={logOutLoggedUser}>Logout</Link>
+                    <button className="nav-link text-white" to={`/login`} onClick={()=> logout()}> Logout</button> 
                   </li>
                 </ul>
               )

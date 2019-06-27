@@ -14,6 +14,7 @@ export default function Cart({
 }) {
   return (
     <div>
+      {/* {console.log("so carrrrrr", booksToCart)} */}
       <div className="col-sm-12">
         <table className="table table-hover">
           <thead>
@@ -27,10 +28,10 @@ export default function Cart({
           </thead>
 
           <tbody>
-            {console.log("soy book to cart", booksToCart)}
-            {booksToCart.length > 0 &&
+            {/* {console.log("soy book to cart", booksToCart)} */}
+            {booksToCart ?
               booksToCart.map((book, id) => {
-                console.log("soy boook del cart", book)
+                // console.log("soy boook del cart", book)
                 return (
                   <tr key={id}>
                     <td className="col-sm-8 col-md-6">
@@ -115,7 +116,7 @@ export default function Cart({
                     </td>
                   </tr>
                 );
-              })}
+              }): "falan libros"}
             <tr>
               <td> </td>
               <td> </td>

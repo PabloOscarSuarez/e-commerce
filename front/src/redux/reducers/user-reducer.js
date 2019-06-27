@@ -16,6 +16,7 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, { user: action.loggedUser });
 
     case USER_LOGOUT:
+    
       return { ...state, user: {} }
 
     case RECEIVE_ADMINS:
