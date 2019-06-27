@@ -111,9 +111,11 @@ export default (state = initialState, action) => {
           }
         }
       }
+      localStorage.setItem("cart", JSON.stringify(bookList))
+      var localCart = JSON.parse(localStorage.getItem("cart"))
       var result = {
         ...state,
-        booksToCart: [...bookList]
+        booksToCart: [...localCart]
       };
       return result;
 
@@ -130,9 +132,11 @@ export default (state = initialState, action) => {
           } else bookList.splice(bookList[i], 1);
         }
       }
+      localStorage.setItem("cart", JSON.stringify(bookList))
+      var localCart = JSON.parse(localStorage.getItem("cart"))
       return {
         ...state,
-        booksToCart: [...bookList]
+        booksToCart: [...localCart]
       };
 
     case ADD_USER_LOCAL_CART:

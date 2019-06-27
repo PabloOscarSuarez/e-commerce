@@ -24,8 +24,10 @@ class CartContainer extends React.Component {
       localStorage.setItem("cart", JSON.stringify(this.props.booksToCart));
     }
      this.props.userLocalCart();
+     
 
   }
+ 
   handleIncrement(book) {
     this.props.incrementBooksToCart(book);
   }

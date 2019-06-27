@@ -37379,6 +37379,8 @@ function (_React$Component) {
 
       this.props.createNewTransaction(this.state, this.props.booksToCart).then(function () {
         return _this2.props.history.push("/confirm-checkout");
+      }).then(function (transaction) {
+        return _this2.props.sendEmailConfirm(_this2.props.user);
       })["catch"](function () {
         return _this2.setState({
           error: true
@@ -37400,6 +37402,7 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
+    user: state.user.user,
     booksToCart: state.cart.booksToCart
   };
 };
@@ -37408,6 +37411,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     createNewTransaction: function createNewTransaction(userData, booksData) {
       return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_3__["createNewTransaction"])(userData, booksData));
+    },
+    sendEmailConfirm: function sendEmailConfirm(userData) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_3__["sendEmailConfirm"])(userData));
     }
   };
 };
@@ -39762,7 +39768,7 @@ var removeBook = function removeBook(bookId) {
 /*!***********************************!*\
   !*** ./src/redux/actions/cart.js ***!
   \***********************************/
-/*! exports provided: addBookToCart, addNewTransaction, removeBookFromCart, incrementBooksFromCart, decrementBooksFromCart, addUserLocalCart, newBookToCart, deleteBookFromCart, incrementBooksToCart, decrementBooksToCart, userLocalCart, createNewTransaction */
+/*! exports provided: addBookToCart, addNewTransaction, removeBookFromCart, incrementBooksFromCart, decrementBooksFromCart, addUserLocalCart, newBookToCart, deleteBookFromCart, incrementBooksToCart, decrementBooksToCart, userLocalCart, createNewTransaction, sendEmailConfirm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39779,6 +39785,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decrementBooksToCart", function() { return decrementBooksToCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userLocalCart", function() { return userLocalCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewTransaction", function() { return createNewTransaction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sendEmailConfirm", function() { return sendEmailConfirm; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../constants */ "./src/constants.js");
@@ -39857,7 +39864,16 @@ var createNewTransaction = function createNewTransaction(userData, bookToCart) {
     }).then(function (res) {
       return res.data;
     }).then(function (transaction) {
+      console.log("soosososoosos", transaction);
       dispatch(addNewTransaction(transaction));
+    });
+  };
+};
+var sendEmailConfirm = function sendEmailConfirm(userData) {
+  return function (dispatch) {
+    console.log('so user daa del axios', userData);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/cart/emailConfirm", userData).then(function (emailConfirm) {
+      return emailConfirm;
     });
   };
 };
@@ -40440,8 +40456,11 @@ var initialState = {
         }
       }
 
+      localStorage.setItem("cart", JSON.stringify(bookList));
+      var localCart = JSON.parse(localStorage.getItem("cart"));
+
       var result = _objectSpread({}, state, {
-        booksToCart: _toConsumableArray(bookList)
+        booksToCart: _toConsumableArray(localCart)
       });
 
       return result;
@@ -40463,8 +40482,10 @@ var initialState = {
         }
       }
 
+      localStorage.setItem("cart", JSON.stringify(bookList));
+      var localCart = JSON.parse(localStorage.getItem("cart"));
       return _objectSpread({}, state, {
-        booksToCart: _toConsumableArray(bookList)
+        booksToCart: _toConsumableArray(localCart)
       });
 
     case _constants__WEBPACK_IMPORTED_MODULE_0__["ADD_USER_LOCAL_CART"]:
