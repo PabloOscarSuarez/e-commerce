@@ -27556,7 +27556,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -37377,16 +37377,16 @@ function (_React$Component) {
 
       e.preventDefault(); // console.log("soy this.state", this.state, "soy booksTo", this.props.booksToCart)
 
-      this.props.createNewTransaction(this.state, this.props.booksToCart).then(function () {
-        return _this2.props.history.push("/confirm-checkout");
-      }).then(function (transaction) {
-        return _this2.props.sendEmailConfirm(_this2.props.user);
+      this.props.createNewTransaction(this.state, this.props.booksToCart) // .then(() => this.props.history.push("/confirm-checkout"))
+      .then(function (transaction) {
+        return console.log("so ransaccion del checkou", transaction);
       })["catch"](function () {
         return _this2.setState({
           error: true
         });
       });
-    }
+    } // this.props.sendEmailConfirm(this.props.user)
+
   }, {
     key: "render",
     value: function render() {
@@ -39768,7 +39768,7 @@ var removeBook = function removeBook(bookId) {
 /*!***********************************!*\
   !*** ./src/redux/actions/cart.js ***!
   \***********************************/
-/*! exports provided: addBookToCart, addNewTransaction, removeBookFromCart, incrementBooksFromCart, decrementBooksFromCart, addUserLocalCart, newBookToCart, deleteBookFromCart, incrementBooksToCart, decrementBooksToCart, userLocalCart, createNewTransaction, sendEmailConfirm */
+/*! exports provided: addBookToCart, addNewTransaction, removeBookFromCart, incrementBooksFromCart, decrementBooksFromCart, addUserLocalCart, newBookToCart, deleteBookFromCart, incrementBooksToCart, decrementBooksToCart, userLocalCart, createNewTransaction, createNewCart, sendEmailConfirm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39785,6 +39785,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decrementBooksToCart", function() { return decrementBooksToCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userLocalCart", function() { return userLocalCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewTransaction", function() { return createNewTransaction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewCart", function() { return createNewCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sendEmailConfirm", function() { return sendEmailConfirm; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -39864,15 +39865,33 @@ var createNewTransaction = function createNewTransaction(userData, bookToCart) {
     }).then(function (res) {
       return res.data;
     }).then(function (transaction) {
-      console.log("soosososoosos", transaction);
-      dispatch(addNewTransaction(transaction));
+      return dispatch(addNewTransaction(transaction));
     });
   };
 };
-var sendEmailConfirm = function sendEmailConfirm(userData) {
+var createNewCart = function createNewCart(userData, bookToCart) {
   return function (dispatch) {
-    console.log('so user daa del axios', userData);
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/cart/emailConfirm", userData).then(function (emailConfirm) {
+    // console.log("soy la data de user",userData, "y de book", bookToCart )
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/cart/logged/createNewCart", {
+      userData: userData,
+      bookToCart: bookToCart
+    }).then(function (res) {
+      return res.data;
+    }).then(function (bookToCart) {
+      return dispatch(addBookToCart(bookToCart));
+    });
+  };
+};
+var sendEmailConfirm = function sendEmailConfirm(userData, transaction) {
+  return function (dispatch) {
+    console.log("so user daa del axios", {
+      userData: userData,
+      transaction: transaction
+    });
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/cart/emailConfirm", {
+      userData: userData,
+      transaction: transaction
+    }).then(function (emailConfirm) {
       return emailConfirm;
     });
   };
@@ -40364,8 +40383,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var initialState = {
-  booksToCart: [] // newTransaction: {}
-
+  booksToCart: [],
+  newTransaction: {}
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -40435,11 +40454,12 @@ var initialState = {
           bookList.splice(bookList[_i], 1);
         } // console.log("soy i",bookList[i])
 
-      } // console.log("soy action del remove",action.updatedBooksToCart.book.id)
+      }
 
-
+      localStorage.setItem("cart", JSON.stringify(bookList));
+      var localCart = JSON.parse(localStorage.getItem("cart"));
       return _objectSpread({}, state, {
-        booksToCart: _toConsumableArray(bookList)
+        booksToCart: _toConsumableArray(localCart)
       });
 
     case _constants__WEBPACK_IMPORTED_MODULE_0__["INCREMENT_BOOKS_FROM_CART"]:

@@ -26,9 +26,10 @@ class CheckoutContainer extends React.Component {
     this.props
       .createNewTransaction(this.state, this.props.booksToCart)
       // .then(() => this.props.history.push("/confirm-checkout"))
-      .then((transaction) => this.props.sendEmailConfirm(this.props.user))
+      .then((transaction) => console.log("so ransaccion del checkou", transaction))
       .catch(() => this.setState({ error: true }));
   }
+  // this.props.sendEmailConfirm(this.props.user)
   render() {
     return (
       <CheckOut

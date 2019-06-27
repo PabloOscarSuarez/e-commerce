@@ -70,11 +70,9 @@ export const createNewTransaction = (userData, bookToCart) => dispatch => {
       bookToCart
     })
     .then(res => res.data)
-    .then(transaction => {
-      console.log("soosososoosos", transaction);
-      dispatch(addNewTransaction(transaction));
-    });
-};
+    .then(transaction => dispatch(addNewTransaction(transaction)))};
+
+    
 export const createNewCart = (userData, bookToCart) => dispatch => {
   // console.log("soy la data de user",userData, "y de book", bookToCart )
   return axios
