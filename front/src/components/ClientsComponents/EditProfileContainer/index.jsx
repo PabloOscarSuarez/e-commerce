@@ -2,6 +2,8 @@ import { connect } from 'react-redux'
 import React from 'react'
 import EditProfile from './EditProfile'
 import { editUser } from '../../../redux/actions/user';
+import { fetchLoggedUser } from '../../../redux/actions/user';
+
 // import { fetchFavouritesMovies } from '../redux/actions/movies';
 
 
@@ -10,10 +12,10 @@ class EditProfileContainer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: "",
-            email: "",
-            address: "",
-            password: ""
+            name: this.props.user.name,
+            email: this.props.user.email,
+            address: this.props.user.address,
+            password: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,11 +29,17 @@ class EditProfileContainer extends React.Component {
             <EditProfile
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
+                user={this.props.user}
+                name={this.state.name}
+                email={this.state.email}
+                address={this.state.address}
+                password={this.state.password}
             />
         )
     }
 
     componentDidMount() {
+        this.props.fetchLoggedUser()
     }
 
     handleChange(e) {
@@ -53,7 +61,7 @@ class EditProfileContainer extends React.Component {
             password: this.state.password,
         }
 
-            // this.props.editUser(userId, editedUser)
+            this.props.editUser(this.props.user.id, editedUser)
             .then(() => this.props.history.push("/profile"))
             .catch(() => this.setState({ error: true }))
 
@@ -64,6 +72,7 @@ class EditProfileContainer extends React.Component {
 const mapStateToProps = function (state, ownProps) {
     return {
         // loggedUser: state.users.loggedUser,
+        user: state.user.user,
     };
 }
 
@@ -71,6 +80,7 @@ const mapDispatchToProps = function (dispatch) {
     return {
         // fetchLoggedUser: () => dispatch(fetchLoggedUser()),
         // fetchLoggedUser: () => dispatch(fetchLoggedUser()),
+        fetchLoggedUser: () => dispatch(fetchLoggedUser()),
         editUser: (userId, reqbody) => dispatch(editUser(userId, reqbody)),
     };
 }

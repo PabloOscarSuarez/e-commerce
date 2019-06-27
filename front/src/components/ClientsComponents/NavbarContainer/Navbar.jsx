@@ -20,7 +20,7 @@ export default function Navbar({ user, logout }) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link className="nav-link text-white" to={`/admin`}>Panel Administrador</Link>
+              <Link className="nav-link text-success" to={`/admin`}>Panel Administrador</Link>
             </li>
 
             {/* <li className="nav-item dropdown">
@@ -52,19 +52,19 @@ export default function Navbar({ user, logout }) {
               (
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item dropdown">
-                    <Link className="nav-link dropdown-toggle text-white" to={`/profile`} id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a className="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Perfil
-                    </Link>
+                    </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                       <Link className="dropdown-item" to={`/profile`}>Perfil</Link>
                       <Link className="dropdown-item" to={`/compras`}>Compras</Link>
                       <Link className="dropdown-item" to={`/edit-profile`}>Editar Perfil</Link>
-                      <Link className="dropdown-item" to={`/admin`}>Panel Admin</Link>
+                      <Link className="dropdown-item text-success" to={`/admin`}>Panel Admin</Link>
                     </div>
                   </li>
 
-                  <li className="nav-item">
-                    <button className="nav-link text-white" to={`/login`} onClick={()=> logout()}> Logout</button> 
+                  <li className="nav-item" onClick={()=>logout()}>
+                    <a className="nav-link text-white" href="#" >Logout</a>
                   </li>
                 </ul>
               )

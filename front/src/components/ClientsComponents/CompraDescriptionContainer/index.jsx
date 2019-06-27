@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 import React from 'react'
-import SaleDescription from './SaleDescription'
+import CompraDescription from './CompraDescription'
 import { fetchSale } from "../../../redux/actions/sales"
 import { newBookToCart } from "../../../redux/actions/cart";
 
 
-class SaleDescriptionContainer extends React.Component {
+class CompraDescriptionContainer extends React.Component {
 
     constructor() {
         super();
@@ -19,7 +19,7 @@ class SaleDescriptionContainer extends React.Component {
     render() {
         console.log('soy selectedSale', this.props.selectedSale)
         return (
-            <SaleDescription
+            <CompraDescription
                 selectedSale={this.props.selectedSale}
                 handleClick={this.handleClick}
             />
@@ -55,5 +55,5 @@ const mapDispatchToProps = function (dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(SaleDescriptionContainer)
+)(CompraDescriptionContainer)
 
