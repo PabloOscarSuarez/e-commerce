@@ -4,13 +4,13 @@ import {fetchLoggedUser, logout} from "../../../redux/actions/user"
 import Navbar from "../NavbarContainer/Navbar";
 
 class NavBarContainer extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     user:{}
-  //   };
-  //   this.logOutLoggedUser= this.logOutLoggedUser.bind(this)
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      user:{}
+    };
+
+  }
   // componentDidMount(){
   //  this.props.fetchLoggedUser()
   // }
@@ -20,7 +20,7 @@ class NavBarContainer extends React.Component {
   render() {
     return(
           <div>
-            <Navbar user={this.props.user} logOutLoggedUser={this.props.logout}/>
+            <Navbar user={this.props.user} logout={this.props.logout}/>
           </div>
     )
   }

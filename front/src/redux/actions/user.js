@@ -49,7 +49,6 @@ export const logginUser = userData => dispatch => {
         .post("http://localhost:8000/users/login", userData)
         .then(res => res.data)
         .then(userData => {
-            console.log('SOY EL USER DATA DEL ACTION LOGGEDUSER', userData)
             dispatch(receiveLoggedUser(userData))
         })
 }

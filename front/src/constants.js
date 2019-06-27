@@ -16,6 +16,7 @@ export const SET_TITLE_SEARCHED = "SET_TITLE_SEARCHED"
 
 //cart
 export const ADD_BOOK_TO_CART = "ADD_BOOK_TO_CART";
+export const ADD_USER_LOCAL_CART = "ADD_USER_LOCAL_CART";
 
 // comments
 export const ADD_COMMENT = "ADD_COMMENT";
