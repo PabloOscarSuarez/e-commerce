@@ -40977,8 +40977,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var initialState = {
-  booksToCart: [] // newTransaction: {}
-
+  booksToCart: [],
+  newTransaction: {}
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -41048,11 +41048,12 @@ var initialState = {
           bookList.splice(bookList[_i], 1);
         } // console.log("soy i",bookList[i])
 
-      } // console.log("soy action del remove",action.updatedBooksToCart.book.id)
+      }
 
-
+      localStorage.setItem("cart", JSON.stringify(bookList));
+      var localCart = JSON.parse(localStorage.getItem("cart"));
       return _objectSpread({}, state, {
-        booksToCart: _toConsumableArray(bookList)
+        booksToCart: _toConsumableArray(localCart)
       });
 
     case _constants__WEBPACK_IMPORTED_MODULE_0__["INCREMENT_BOOKS_FROM_CART"]:

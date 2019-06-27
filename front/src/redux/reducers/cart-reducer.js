@@ -8,8 +8,8 @@ import {
 } from "../../constants";
 
 const initialState = {
-  booksToCart: []
-  // newTransaction: {}
+  booksToCart: [],
+  newTransaction: {}
 };
 
 export default (state = initialState, action) => {
@@ -87,10 +87,12 @@ export default (state = initialState, action) => {
         }
         // console.log("soy i",bookList[i])
       }
-      // console.log("soy action del remove",action.updatedBooksToCart.book.id)
+      localStorage.setItem("cart", JSON.stringify(bookList))
+      var localCart = JSON.parse(localStorage.getItem("cart"))
+      
       return {
         ...state,
-        booksToCart: [...bookList]
+        booksToCart: [...localCart]
       };
 
     case INCREMENT_BOOKS_FROM_CART:
