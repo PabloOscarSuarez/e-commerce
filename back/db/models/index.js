@@ -20,7 +20,8 @@ User.belongsToMany(Book, { through: Comment, foreignKey: 'userId' })
 
 Transaction.belongsTo(User, { as: "user" })
 Transaction.belongsTo(Status, { as: "status" })
-Transaction.belongsToMany(Book, { through: TransactionDetail })
-Book.belongsToMany(Transaction, { through: TransactionDetail })
+
+Transaction.belongsToMany(Book, { through: TransactionDetail, foreignKey: 'transactionId' })
+Book.belongsToMany(Transaction, { through: TransactionDetail, foreignKey: 'bookId' })
 
 module.exports = { db, Book, Author, Genre, User, Transaction, Status, BookGenre, TransactionDetail, Comment };

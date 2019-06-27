@@ -23,7 +23,7 @@ class MainContainer extends React.Component {
       <Switch>
         <Route path="/admin" component={PanelConainer} />
         <Route path="/" component={UserMainContainer} />
-        <Redirect from="/" to="/" />
+        {/* <Redirect from="/" to="/" /> */}
       </Switch>
     </div>
     )

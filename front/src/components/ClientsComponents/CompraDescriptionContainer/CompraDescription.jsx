@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Books from '../../ClientsComponents/BooksContainer/Books'
+import Books from '../BooksContainer/Books'
 
 export default ({ selectedSale, handleClick }) => (
 
@@ -9,19 +9,7 @@ export default ({ selectedSale, handleClick }) => (
             <div className="col-12 col-md-8 offset-md-2">
                 <div className="card">
                     <div className="card-body shadow-lg">
-                        {/* <h3 className="card-title"><Link to={`/books/${selectedBook.title}/${selectedBook.id}`} className="card-link text-dark" >{selectedBook.title}</Link></h3>
-                        <p className="card-text text-secondary"><b>Autor: &nbsp;</b>{selectedBook.author && selectedBook.author.name}</p>
 
-                        <p className="card-text text-secondary"><b>Precio: &nbsp;</b> {selectedBook.price}</p>
-                        <p className="card-text text-secondary"><b>Stock: &nbsp;</b> {selectedBook.stock}</p>
-                        <p className="card-text text-secondary"><b>Descripcion: &nbsp;</b> {selectedBook.description}</p>
-                        <div className="row">
-                            <div className="col-8">
-                            </div>
-                            <div className="ml-auto">
-                                <Link className="btn btn-sm btn-info" to={`/admin/books/edit/${selectedBook.id}`}>Editar</Link>
-                            </div>
-                        </div> */}
                         <h3 className="card-title">Compra realizada por {selectedSale.user && selectedSale.user.name}</h3>
                         {/* <p className="card-text text-secondary"><b>Email: &nbsp;</b>{selectedSale.user.email && selectedSale.user.email}</p> */}
                         {
@@ -40,13 +28,15 @@ export default ({ selectedSale, handleClick }) => (
                         <p className="card-text text-secondary"><b>Estado de compra: &nbsp;</b>{selectedSale.status && selectedSale.status.name}</p>
                         <h4 className="card-text text-secondary"><b>Total : &nbsp;</b>{selectedSale.total}</h4>
                         <div className="text-right">
-                            <Link className="btn btn-sm btn-info" to={`/admin/ventas/edit_status/${selectedSale.id}`}>Cambiar Estado</Link>
+                            <Link className="btn btn-sm btn-info" to={`/compras`}>Volver</Link>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <h3 className="text-center mt-5">Libros de esta Compra</h3>
-        <Books books={selectedSale.books} handleClick={handleClick} />
+            <h3 className="text-center mt-5">Libros de esta Compra</h3>
+        <div className="row">
+            <Books books={selectedSale.books} handleClick={handleClick} />
+        </div>
     </div>
 );

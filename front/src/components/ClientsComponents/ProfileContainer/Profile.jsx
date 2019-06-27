@@ -16,10 +16,10 @@ export default ({ user }) => {
                 <div className="col">
                     <div className="card shadow">
                         <div className="card-body">
-                            <h5 className="card-title">nombre</h5>
+                            <h5 className="card-title">{user.name}</h5>
                             <ul className="list-group list-group-flush">
-                                <li className="list-group-item"><p className="card-text">Email: </p></li>
-                                <li className="list-group-item"><p className="card-text">Direccion: </p></li>
+                                <li className="list-group-item"><p className="card-text">Email: {user.email}</p></li>
+                                <li className="list-group-item"><p className="card-text">Direccion: {user.address}</p></li>
                             </ul>
                         </div>
                     </div>

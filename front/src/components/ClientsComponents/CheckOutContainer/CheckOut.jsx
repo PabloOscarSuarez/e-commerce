@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom"
 
-export default function checkOut({ handleSubmit, handleChange }) {
+export default function checkOut({ user, handleSubmit, handleChange }) {
   return (
     <div>
       <div>
@@ -22,14 +22,28 @@ export default function checkOut({ handleSubmit, handleChange }) {
                   <div className="form-group">
                     <label>Nombre</label>
                     <input
+                      value={user.name && user.name}
                       name="name"
                       className="form-control"
                       onChange={handleChange}
+                      disabled ={
+                        user.name ? true :false
+                      }
                     />
                   </div>
                   <div className="form-group">
                     <label>Direccion</label>
+                    {
+                      user.name ? 
+                      <div>
+                        <br />
+                        <label>Si queres podes cambiar tu direccion de envio</label>
+                      </div> 
+                      :
+                      null
+                    }
                     <input
+                      value={user.name && user.address}
                       name="address"
                       className="form-control"
                       onChange={handleChange} min="0"
@@ -38,9 +52,13 @@ export default function checkOut({ handleSubmit, handleChange }) {
                   <div className="form-group">
                     <label>Email</label>
                     <input
-                      name="anonimousEmail"
+                      value={user.name && user.email}
+                      name="email"
                       className="form-control"
                       onChange={handleChange} min="0"
+                      disabled ={
+                        user.name ? true :false
+                      }
                     />
                   </div>
                   <button type="submit" className="btn btn-success btn-block">
@@ -48,11 +66,19 @@ export default function checkOut({ handleSubmit, handleChange }) {
                     </button>
                   <br />
                 </form>
-                <div className="text-center">
-                  <Link className="text-decoration-primary text-primary" to='/login'>
-                    Si tenes cuenta ingresá acá
-                  </Link>
-                </div>
+                {
+                  user.name ?
+                    null
+                    :
+                    (
+                      <div className="text-center">
+                        <Link className="text-decoration-primary text-primary" to='/login'>
+                          Si tenes cuenta ingresá acá
+                        </Link>
+                      </div>
+
+                    )
+                }
               </div>
             </div>
           </div>

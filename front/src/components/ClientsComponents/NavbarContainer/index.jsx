@@ -15,6 +15,8 @@ class NavBarContainer extends React.Component {
   //  this.props.fetchLoggedUser()
   // }
 
+  
+
   render() {
     return(
           <div>

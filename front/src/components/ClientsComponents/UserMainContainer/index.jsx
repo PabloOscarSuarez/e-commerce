@@ -12,6 +12,8 @@ import LoginContainer from "../LoginContainer"
 import RegisterContainer from "../RegisterContainer"
 import ProfileContainer from "../ProfileContainer"
 import EditProfileContainer from "../EditProfileContainer"
+import ComprasContainer from "../ComprasContainer"
+import CompraDescriptionContainer from "../CompraDescriptionContainer"
 
 export default () => (
     <div>
@@ -28,6 +30,8 @@ export default () => (
                 <Route path="/register" component={RegisterContainer} />
                 <Route path="/profile" component={ProfileContainer} />
                 <Route path="/edit-profile" component={EditProfileContainer} />
+                <Route exact path="/compras" component={ComprasContainer} />
+                <Route path="/compras/:id" component={CompraDescriptionContainer} />
                 <Route path="/login" component={LoginContainer}/>
             </Switch>
         </div>
