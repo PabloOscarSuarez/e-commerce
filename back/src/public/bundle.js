@@ -27556,7 +27556,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33541,7 +33541,7 @@ __webpack_require__.r(__webpack_exports__);
       handleChange = _ref.handleChange;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
     className: "text-center"
-  }, "Estoy en create admin"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Creaci\xF3n de administrador"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-6 offset-md-3"
@@ -33717,7 +33717,7 @@ __webpack_require__.r(__webpack_exports__);
       handleSubmit = _ref.handleSubmit;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
     className: "text-center"
-  }, "Estoy en create Author"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Creaci\xF3n de un nuevo Autor"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-6 offset-md-3"
@@ -34236,7 +34236,7 @@ __webpack_require__.r(__webpack_exports__);
       handleSubmit = _ref.handleSubmit;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
     className: "text-center"
-  }, "Estoy en create genre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Creaci\xF3n de generos"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-6 offset-md-3"
@@ -36837,11 +36837,7 @@ __webpack_require__.r(__webpack_exports__);
     onClick: function onClick() {
       handleClick(selectedBook);
     }
-  }, "AddtoCart")))))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    component: _NewCommentContainer__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    component: _CommentsContainer__WEBPACK_IMPORTED_MODULE_3__["default"]
-  }));
+  }, "AddtoCart")))))))));
 });
 
 /***/ }),

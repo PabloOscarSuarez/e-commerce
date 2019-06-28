@@ -3,7 +3,7 @@ import React from 'react';
 export default ({ handleSubmit, handleChange }) => (
 
     <div>
-        <h1 className="text-center">Estoy en create admin</h1>
+        <h1 className="text-center">Creación de administrador</h1>
         <div className="row">
             <div className="col-md-6 offset-md-3">
                 <div className="card">

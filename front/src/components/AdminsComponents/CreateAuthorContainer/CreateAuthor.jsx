@@ -7,7 +7,7 @@ export default ({
 }) => (
 
         <div>
-            <h1 className="text-center">Estoy en create Author</h1>
+            <h1 className="text-center">Creación de un nuevo Autor</h1>
             <div className="row">
                 <div className="col-md-6 offset-md-3">
                     <div className="card">

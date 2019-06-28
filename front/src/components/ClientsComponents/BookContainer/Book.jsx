@@ -73,8 +73,8 @@ export default ({ selectedBook, handleClick }) => (
         </div>
       </div>
     </div>
-          <Route component={NewCommentContainer} />
-          <Route component={CommentsContainer} />
+          {/* <Route component={NewCommentContainer} />
+          <Route component={CommentsContainer} /> */}
   </div>
 
 )
