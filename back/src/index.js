@@ -28,25 +28,25 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  app.locals.user = req.user;
-  next()
+    app.locals.user = req.user;
+    next()
 })
 
 app.use("/", router);
 
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, './public', 'index.html'));
+    res.sendFile(path.join(__dirname, './public', 'index.html'));
 })
 
 // Starting the server
 
 db.sync({ force: false })
-  .then(() => {
-    console.log("DB CONNECTED!")
-    app.listen(app.get("port"), () => {
-      console.log(`Server on port ${app.get("port")}`);
-    });
-  })
-  .catch(console.error);
+    .then(() => {
+        console.log("DB CONNECTED!")
+        app.listen(app.get("port"), () => {
+            console.log(`Server on port ${app.get("port")}`);
+        });
+    })
+    .catch(console.error);
 
 module.exports = app;

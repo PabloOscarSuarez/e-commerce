@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Route, Redirect, Switch, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default ({
     handleChangeTitle,
@@ -27,6 +27,8 @@ export default ({
                                 </div>
                                 <div className="form-group">
                                     <label>Autor</label>
+                                    &nbsp;
+                                    <Link to={`/admin/authors/create`} className="btn btn-success btn-sm" title="Agrega al autor si no está en la lista">Nuevo</Link>
                                     <select className="form-control" placeholder="Autor" name="author" onChange={handleChangeAuthor}>
                                         <option value="0">Seleccione un autor..</option>
                                         {
@@ -40,6 +42,9 @@ export default ({
                                 </div>
                                 <div className="form-group">
                                     <label>Género</label>
+                                    &nbsp;
+                                    <Link to={`/admin/genres/create`} className="btn btn-success btn-sm" title="Agrega el genero si no está en la lista">Nuevo</Link>
+                                    
                                     <div className="form-check form-check-inline d-flex flex-wrap justify-content-start">
                                         {
                                             genres.map(genre => {

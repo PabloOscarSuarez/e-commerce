@@ -2,7 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-export default ({ user, handleSubmit, handleChange }) => {
+export default ({ user, handleSubmit, handleChange, name,
+    email,
+    address,
+    password }) => {
     // console.log(user)
     return (
         <div>
@@ -22,26 +25,27 @@ export default ({ user, handleSubmit, handleChange }) => {
                             <form className="login-form clearfix" onSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <label>Nombre</label>
-                                    <input id="name" type="username" className="form-control" name="name" onChange={handleChange} />
+                                    <input id="name" type="username" className="form-control" name="name" value={name} onChange={handleChange} />
                                 </div>
                                 <div className="form-group">
                                     <label>Domicilio</label>
-                                    <input id="address" type="username" className="form-control" name="address" onChange={handleChange} />
+                                    <input id="address" type="username" className="form-control" value={address} name="address" onChange={handleChange} />
                                 </div>
                                 <div className="form-group">
                                     <label>Email</label>
-                                    <input id="email" type="username" className="form-control" name="email" onChange={handleChange} />
+                                    <input id="email" type="username" className="form-control" value={email} name="email" onChange={handleChange} />
                                 </div>
                                 <div className="form-group">
-                                    <label>Password</label>
-                                    <input id="password" type="password" className="form-control" name="password" onChange={handleChange} />
+                                    {/* <label>Password</label> */}
+                                    <span>Ingresá el password para confirmar cambios</span>
+                                    <input id="password" type="password" className="form-control" value={password} name="password" onChange={handleChange} />
                                 </div>
                                 <button type="submit" className="btn btn-success float-right">Editar</button>
                             </form>
                         </div>
                     </div>
 
-                    
+
                 </div>
 
             </div>

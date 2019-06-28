@@ -3,7 +3,7 @@ import { Link, Route } from "react-router-dom";
 import SearchContainer from "../SearchContainer";
 import SelectGenreContainer from "../SelectGenreContainer";
 
-export default function Navbar({ user, logOutLoggedUser }) {
+export default function Navbar({ user, logout, removeAllCart }) {
   return (
     <div>
 
@@ -19,9 +19,14 @@ export default function Navbar({ user, logOutLoggedUser }) {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link className="nav-link text-white" to={`/admin`}>Panel Administrador</Link>
-            </li>
+            {
+              user.isAdmin ?
+                <li className="nav-item">
+                  <Link className="nav-link text-success" to={`/admin`}>Panel Administrador</Link>
+                </li>
+                :
+                null
+            }
 
             {/* <li className="nav-item dropdown">
               <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,26 +50,35 @@ export default function Navbar({ user, logOutLoggedUser }) {
           {/* LO HAGO CON ROUTE PARA TENER HISTORY EN SEARCHCONTAINER COMO PROPS */}
           {/* ************************************************************************** */}
           {/* ************************************************************************** */}
-          
+
           {
             // PREGUNTO ASI PORQUE USER ES UN OBJETO
             user.name ?
               (
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item dropdown">
-                    <Link className="nav-link dropdown-toggle text-white" to={`/profile`} id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a className="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Perfil
-                    </Link>
+                    </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                       <Link className="dropdown-item" to={`/profile`}>Perfil</Link>
                       <Link className="dropdown-item" to={`/compras`}>Compras</Link>
                       <Link className="dropdown-item" to={`/edit-profile`}>Editar Perfil</Link>
-                      <Link className="dropdown-item" to={`/admin`}>Panel Admin</Link>
+                      {
+                        user.isAdmin ?
+                          <Link className="dropdown-item text-success" to={`/admin`}>Panel Admin</Link>
+                          :
+                          null
+                      }
                     </div>
                   </li>
 
-                  <li className="nav-item">
-                    <Link className="nav-link text-white" to={`/login`} onClick={logOutLoggedUser}>Logout</Link>
+                  <li className="nav-item" onClick={() => {
+                    localStorage.clear()
+                    logout()
+                    removeAllCart()
+                  }}>
+                    <a className="nav-link text-white" href="#" >Logout</a>
                   </li>
                 </ul>
               )
