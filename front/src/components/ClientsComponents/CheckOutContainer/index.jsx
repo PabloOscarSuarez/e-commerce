@@ -19,7 +19,7 @@ class CheckoutContainer extends React.Component {
   }
 
   render() {
-    console.log('SOY EL USUARIO LOGUEDO', this.props.user)
+  
     return (
       <CheckOut user={this.props.user} handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
     );
@@ -52,12 +52,17 @@ class CheckoutContainer extends React.Component {
         address: this.state.address,
         password: "111"
       }
-
+      
       this.props.createNewTransaction(anonimousUser, this.props.booksToCart)
-        .then(() => this.props.history.push("/confirm-checkout"))
-        .then((transaction) => this.props.sendEmailConfirm(this.props.user))
+        .then((e) => {
+          console.log("so emailllllllll", this.state.email)
+          this.props.sendEmailConfirm(anonimousUser, this.props.newTransaction)
+          this.props.history.push("/confirm-checkout")
+        })
         .catch(() => this.setState({ error: true }))
     }
+    // this.props.sendEmailConfirm(this.props.user)
+    // .then(() => this.props.history.push("/confirm-checkout"))
     else {
       // ESTO LO HAGO SI HAY USUARIO LOGUEADO
 
@@ -66,21 +71,18 @@ class CheckoutContainer extends React.Component {
         email: this.props.user.email,
         address: this.state.address,
       }
-      console.log('ENTRE COMO USUARIO LOGUEADO')
       this.props.createNewTransactionToLoggedUser(loggedUser, this.props.booksToCart)
         .then(() => this.props.history.push("/confirm-checkout"))
         .catch(() => this.setState({ error: true }))
     }
-
-
   }
-
 }
 const mapStateToProps = function (state) {
 
   return {
     booksToCart: state.cart.booksToCart,
     user: state.user.user,
+    newTransaction : state.cart.newTransaction
   }
 }
 const mapDispatchToProps = function (dispatch) {
@@ -88,7 +90,8 @@ const mapDispatchToProps = function (dispatch) {
     createNewTransaction: (userData, booksData) => dispatch(createNewTransaction(userData, booksData)),
     createNewTransactionToLoggedUser: (userData, booksData) => dispatch(createNewTransactionToLoggedUser(userData, booksData)),
     fetchLoggedUser: () => dispatch(fetchLoggedUser()),
-    sendEmailConfirm: userData => dispatch(sendEmailConfirm(userData))
+    sendEmailConfirm: (userData, Transaction) => dispatch(sendEmailConfirm(userData, Transaction))
   }
 }
 
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutContainer)
