@@ -33866,7 +33866,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
- // import { Route, Redirect, Switch, Link } from 'react-router-dom';
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 /* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
   var handleChangeTitle = _ref.handleChangeTitle,
@@ -33902,7 +33903,11 @@ __webpack_require__.r(__webpack_exports__);
     onChange: handleChangeTitle
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Autor"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Autor"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/admin/authors/create",
+    className: "btn btn-success btn-sm",
+    title: "Agrega al autor si no est\xE1 en la lista"
+  }, "Nuevo"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
     className: "form-control",
     placeholder: "Autor",
     name: "author",
@@ -33916,7 +33921,11 @@ __webpack_require__.r(__webpack_exports__);
     }, author.name);
   }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "G\xE9nero"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "G\xE9nero"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/admin/genres/create",
+    className: "btn btn-success btn-sm",
+    title: "Agrega el genero si no est\xE1 en la lista"
+  }, "Nuevo"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-check form-check-inline d-flex flex-wrap justify-content-start"
   }, genres.map(function (genre) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -36900,6 +36909,11 @@ function (_React$Component) {
     key: "handleClick",
     value: function handleClick(book) {
       this.props.newBookToCart(book);
+
+      if (this.props.booksToCart.length > 0 && this.props.user.name) {
+        console.log(this.props.booksToCart);
+        this.props.createNewCart(this.props.user, this.props.booksToCart);
+      }
     }
   }, {
     key: "render",
@@ -36928,6 +36942,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     newBookToCart: function newBookToCart(booksToCart) {
       return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["newBookToCart"])(booksToCart));
+    },
+    createNewCart: function createNewCart(user, cart) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["createNewCart"])(user, cart));
     }
   };
 };
