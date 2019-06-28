@@ -27556,7 +27556,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -35294,7 +35294,8 @@ __webpack_require__.r(__webpack_exports__);
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "nav-item",
     onClick: function onClick() {
-      return logOutLoggedUser();
+      localStorage.clear();
+      logOutLoggedUser();
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     className: "nav-link text-white",
@@ -35328,9 +35329,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -35346,10 +35347,14 @@ var NavbarContainer =
 function (_React$Component) {
   _inherits(NavbarContainer, _React$Component);
 
-  function NavbarContainer() {
+  function NavbarContainer(props) {
+    var _this;
+
     _classCallCheck(this, NavbarContainer);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(NavbarContainer).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(NavbarContainer).call(this, props));
+    _this.handleClickLogout = _this.handleClickLogout.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(NavbarContainer, [{
@@ -35359,6 +35364,13 @@ function (_React$Component) {
         user: this.props.user,
         logOutLoggedUser: this.props.logout
       });
+    }
+  }, {
+    key: "handleClickLogout",
+    value: function handleClickLogout() {
+      console.log('ENTRE AL LOGUOT');
+      localStorage.clear();
+      this.props.logout();
     }
   }]);
 
@@ -37171,7 +37183,7 @@ function Cart(_ref) {
     className: "text-center"
   }, "Precio"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
     className: "text-center"
-  }, "Total"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, booksToCart ? booksToCart.map(function (book, id) {
+  }, "Total"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, booksToCart != null ? booksToCart.map(function (book, id) {
     // console.log("soy boook del cart", book)
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
       key: id
@@ -37312,41 +37324,6 @@ function (_React$Component) {
   }
 
   _createClass(CartContainer, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      if (this.props.booksToCart.length > 0) {
-        localStorage.setItem("cart", JSON.stringify(this.props.booksToCart));
-      }
-
-      this.props.userLocalCart();
-    }
-  }, {
-    key: "handleIncrement",
-    value: function handleIncrement(book) {
-      this.props.incrementBooksToCart(book);
-    }
-  }, {
-    key: "handleDecrement",
-    value: function handleDecrement(book) {
-      this.props.decrementBooksToCart(book);
-    }
-  }, {
-    key: "handleDelete",
-    value: function handleDelete(book) {
-      this.props.deleteBookFromCart(book);
-    }
-  }, {
-    key: "sumTotal",
-    value: function sumTotal(array) {
-      //suma el total de lo ingresado al carrito
-      return array.map(function (book) {
-        return book.price;
-      }) //mapeo
-      .reduce(function (prev, cur) {
-        return prev + cur;
-      }, 0); //sumo
-    }
-  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartContainer_Cart__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -37356,6 +37333,103 @@ function (_React$Component) {
         handleDecrement: this.handleDecrement,
         handleIncrement: this.handleIncrement
       }));
+    } // componentDidMount() {
+    //   if (this.props.user.name) {
+    //     // SI HAY USER
+    //     console.log('SOY this.props.booksToCart !!!!!!!!!!!!!!', this.props.booksToCart)
+    //     if (this.props.booksToCart.length > 0) {
+    //       // this.props.fetchCart(this.props.user)
+    //       this.props.createNewCart(this.props.user, this.props.booksToCart)
+    //         .then(() => {
+    //           this.props.fetchCart(this.props.user)
+    //         })
+    //     }
+    //   }
+    //    else {
+    //     // SI NO HAY USER
+    //     if (this.props.booksToCart.length > 0) {
+    //       localStorage.setItem("cart", JSON.stringify(this.props.booksToCart));
+    //     }
+    //     this.props.userLocalCart();
+    //   }
+    // }
+
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      console.log('USER', this.props.user);
+
+      if (this.props.user.name) {
+        // SI HAY USER
+        console.log('SOY this.props.booksToCart !!!!!!!!!!!!!!', this.props.booksToCart);
+        this.props.fetchCart(this.props.user); // if (this.props.booksToCart.length > 0) {
+        // this.props.fetchCart(this.props.user)
+        // }
+        // .then(() => {
+        // this.props.createNewCart(this.props.user, this.props.booksToCart)
+        // .then(carrito => console.log(carrito))
+        // })
+        // this.props.fetchCart(this.props.user)
+        // ESTA SI VA 
+      } else {
+        // SI NO HAY USER
+        if (this.props.booksToCart.length > 0) {
+          localStorage.setItem("cart", JSON.stringify(this.props.booksToCart));
+        }
+
+        this.props.userLocalCart();
+      }
+    } // componentDidUpdate(prevProps) {
+    //   console.log(this.props.booksToCart)
+    //   if (prevProps.booksToCart != this.props.booksToCart) {
+    //     this.props.createNewCart(this.props.user, this.props.booksToCart)
+    //     // localStorage.clear()
+    //   }
+    // }
+
+  }, {
+    key: "handleIncrement",
+    value: function handleIncrement(book) {
+      console.log("tendria que ser el usuario", this.props.user);
+      this.props.incrementBooksToCart(book, this.props.user);
+
+      if (this.props.booksToCart.length > 0 && this.props.user.name) {
+        console.log(this.props.booksToCart);
+        this.props.createNewCart(this.props.user, this.props.booksToCart);
+      }
+    }
+  }, {
+    key: "handleDecrement",
+    value: function handleDecrement(book) {
+      this.props.decrementBooksToCart(book, this.props.user);
+
+      if (this.props.booksToCart.length >= 0 && this.props.user.name) {
+        console.log(this.props.booksToCart);
+        this.props.createNewCart(this.props.user, this.props.booksToCart);
+      } // this.props.createNewCart(this.props.booksToCart, this.props.user)
+
+    }
+  }, {
+    key: "handleDelete",
+    value: function handleDelete(book) {
+      this.props.deleteBookFromCart(book, this.props.user);
+      console.log(this.props.booksToCart, '1');
+
+      if (this.props.booksToCart.length > 0 && this.props.user.name) {
+        console.log(this.props.booksToCart, '2');
+        this.props.createNewCart(this.props.user, this.props.booksToCart);
+      }
+    }
+  }, {
+    key: "sumTotal",
+    value: function sumTotal(array) {
+      //suma el total de lo ingresado al carrito
+      return array && array.map(function (book) {
+        return book.price;
+      }) //mapeo
+      .reduce(function (prev, cur) {
+        return prev + cur;
+      }, 0); //sumo
     }
   }]);
 
@@ -37371,8 +37445,8 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    incrementBooksToCart: function incrementBooksToCart(updatedBooksToCart) {
-      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["incrementBooksToCart"])(updatedBooksToCart));
+    incrementBooksToCart: function incrementBooksToCart(book, updatedBooksToCart, user) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["incrementBooksToCart"])(book, updatedBooksToCart, user));
     },
     decrementBooksToCart: function decrementBooksToCart(updatedBooksToCart) {
       return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["decrementBooksToCart"])(updatedBooksToCart));
@@ -37382,6 +37456,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     userLocalCart: function userLocalCart() {
       return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["userLocalCart"])());
+    },
+    fetchCart: function fetchCart(user) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["fetchCart"])(user));
+    },
+    createNewCart: function createNewCart(user, cart) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["createNewCart"])(user, cart));
     }
   };
 };
@@ -37565,13 +37645,8 @@ function (_React$Component) {
         };
         this.props.createNewTransaction(anonimousUser, this.props.booksToCart).then(function () {
           return _this2.props.history.push("/confirm-checkout");
-        }).then(function (transaction) {
-          return _this2.props.sendEmailConfirm(_this2.props.user);
-        })["catch"](function () {
-          return _this2.setState({
-            error: true
-          });
-        });
+        }); // .then((transaction) => this.props.sendEmailConfirm(this.props.user))
+        // .catch(() => this.setState({ error: true }))
       } else {
         // ESTO LO HAGO SI HAY USUARIO LOGUEADO
         var loggedUser = {
@@ -38479,6 +38554,11 @@ function (_React$Component) {
     value: function handleClick(book) {
       // console.log('soy book', book)
       this.props.newBookToCart(book);
+
+      if (this.props.booksToCart.length > 0 && this.props.user.name) {
+        console.log(this.props.booksToCart);
+        this.props.createNewCart(this.props.user, this.props.booksToCart);
+      }
     }
   }, {
     key: "render",
@@ -38495,7 +38575,9 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    books: state.books.books
+    books: state.books.books,
+    booksToCart: state.cart.booksToCart,
+    user: state.user.user
   };
 };
 
@@ -38506,6 +38588,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     newBookToCart: function newBookToCart(booksToCart) {
       return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_5__["newBookToCart"])(booksToCart));
+    },
+    createNewCart: function createNewCart(user, cart) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_5__["createNewCart"])(user, cart));
     }
   };
 };
@@ -38728,7 +38813,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function Navbar(_ref) {
   var user = _ref.user,
-      logout = _ref.logout;
+      logout = _ref.logout,
+      removeAllCart = _ref.removeAllCart;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
     className: "navbar navbar-expand-lg navbar-primary bg-primary mb-1"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -38789,7 +38875,9 @@ function Navbar(_ref) {
   }, "Panel Admin"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "nav-item",
     onClick: function onClick() {
-      return logout();
+      localStorage.clear();
+      logout();
+      removeAllCart();
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     className: "nav-link text-white",
@@ -38836,7 +38924,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_actions_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../redux/actions/user */ "./src/redux/actions/user.js");
-/* harmony import */ var _NavbarContainer_Navbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../NavbarContainer/Navbar */ "./src/components/ClientsComponents/NavbarContainer/Navbar.jsx");
+/* harmony import */ var _redux_actions_cart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../redux/actions/cart */ "./src/redux/actions/cart.js");
+/* harmony import */ var _NavbarContainer_Navbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../NavbarContainer/Navbar */ "./src/components/ClientsComponents/NavbarContainer/Navbar.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38854,6 +38943,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -38883,9 +38973,10 @@ function (_React$Component) {
   _createClass(NavBarContainer, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NavbarContainer_Navbar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NavbarContainer_Navbar__WEBPACK_IMPORTED_MODULE_4__["default"], {
         user: this.props.user,
-        logout: this.props.logout
+        logout: this.props.logout,
+        removeAllCart: this.props.removeAllCart
       }));
     }
   }]);
@@ -38906,6 +38997,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     logout: function logout() {
       return dispatch(Object(_redux_actions_user__WEBPACK_IMPORTED_MODULE_2__["logout"])());
+    },
+    removeAllCart: function removeAllCart() {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_3__["removeAllCart"])());
     }
   };
 };
@@ -39923,6 +40017,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ClientsComponents_UserMainContainer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ClientsComponents/UserMainContainer */ "./src/components/ClientsComponents/UserMainContainer/index.jsx");
 /* harmony import */ var _redux_actions_user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../redux/actions/user */ "./src/redux/actions/user.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_actions_cart__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../redux/actions/cart */ "./src/redux/actions/cart.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39940,6 +40035,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -39964,8 +40060,36 @@ function (_React$Component) {
 
   _createClass(MainContainer, [{
     key: "componentDidMount",
+    // componentDidUpdate() {
+    //   // this.props.fetchLoggedUser()
+    //   if (!this.props.user.name) {
+    //     this.props.fetchLoggedUser()
+    //     // this.props.fetchLoggedUser()
+    //   }
+    // }
     value: function componentDidMount() {
-      this.props.fetchLoggedUser();
+      this.props.fetchLoggedUser(); // if (this.props.user.name) {
+      // SI HAY USER
+      // console.log('SOY this.props.booksToCart !!!!!!!!!!!!!!', this.props.booksToCart)
+      // if (this.props.booksToCart.length > 0) {
+      //   console.log('1 - CREATE NEW CART!!!CREADO Y FECHEADO')
+      //   this.props.createNewCart(this.props.user, this.props.booksToCart)
+      //     .then(() => {
+      //       console.log('CREADO Y FECHEADO')
+      //       this.props.fetchCart(this.props.user)
+      //     })
+      //     // NO VA
+      //     // this.props.fetchCart(this.props.user)
+      //   }
+      // NO VA O SI ?
+      // this.props.fetchCart(this.props.user)
+      // } else {
+      //   // SI NO HAY USER
+      //   if (this.props.booksToCart.length > 0) {
+      //     localStorage.setItem("cart", JSON.stringify(this.props.booksToCart));
+      //   }
+      //   this.props.userLocalCart();
+      // }
     }
   }, {
     key: "render",
@@ -39985,7 +40109,8 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    user: state.user.user
+    user: state.user.user,
+    booksToCart: state.cart.booksToCart
   };
 };
 
@@ -39993,6 +40118,15 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchLoggedUser: function fetchLoggedUser() {
       return dispatch(Object(_redux_actions_user__WEBPACK_IMPORTED_MODULE_4__["fetchLoggedUser"])());
+    },
+    userLocalCart: function userLocalCart() {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_6__["userLocalCart"])());
+    },
+    fetchCart: function fetchCart(user) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_6__["fetchCart"])(user));
+    },
+    createNewCart: function createNewCart(user, cart) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_6__["createNewCart"])(user, cart));
     }
   };
 };
@@ -40005,7 +40139,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 /*!**************************!*\
   !*** ./src/constants.js ***!
   \**************************/
-/*! exports provided: RECEIVE_AUTHORS, RECEIVE_BOOKS_BY_AUTHOR, RECEIVE_GENRES, RECEIVE_BOOKS_BY_GENRE, RECEIVE_BOOKS_BY_GENRE_IN_STOCK, RECEIVE_BOOKS, RECEIVE_ALL_BOOKS, RECEIVE_BOOK, RECEIVE_BOOK_BY_TITLE, SET_TITLE_SEARCHED, ADD_BOOK_TO_CART, ADD_USER_LOCAL_CART, ADD_COMMENT, RECEIVE_COMMENTS, ADD_NEW_TRANSACTION, REMOVE_BOOK_FROM_CART, RECEIVE_STATUSES, RECEIVE_SALES, RECEIVE_SALE, RECEIVE_SALES_BY_STATUS, RECEIVE_SALES_BY_USER, DECREMENT_BOOKS_FROM_CART, INCREMENT_BOOKS_FROM_CART, POST_NEW_USER, POST_LOGGIN_USER, USER_LOGOUT, RECEIVE_ADMINS, RECEIVE_LOGGED_USER */
+/*! exports provided: RECEIVE_AUTHORS, RECEIVE_BOOKS_BY_AUTHOR, RECEIVE_GENRES, RECEIVE_BOOKS_BY_GENRE, RECEIVE_BOOKS_BY_GENRE_IN_STOCK, RECEIVE_BOOKS, RECEIVE_ALL_BOOKS, RECEIVE_BOOK, RECEIVE_BOOK_BY_TITLE, SET_TITLE_SEARCHED, ADD_BOOK_TO_CART, ADD_USER_LOCAL_CART, NEW_CART, REMOVE_CART, ADD_COMMENT, RECEIVE_COMMENTS, ADD_NEW_TRANSACTION, REMOVE_BOOK_FROM_CART, RECEIVE_STATUSES, RECEIVE_SALES, RECEIVE_SALE, RECEIVE_SALES_BY_STATUS, RECEIVE_SALES_BY_USER, DECREMENT_BOOKS_FROM_CART, INCREMENT_BOOKS_FROM_CART, POST_NEW_USER, POST_LOGGIN_USER, USER_LOGOUT, RECEIVE_ADMINS, RECEIVE_LOGGED_USER */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40022,6 +40156,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TITLE_SEARCHED", function() { return SET_TITLE_SEARCHED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_BOOK_TO_CART", function() { return ADD_BOOK_TO_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_USER_LOCAL_CART", function() { return ADD_USER_LOCAL_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NEW_CART", function() { return NEW_CART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_CART", function() { return REMOVE_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_COMMENT", function() { return ADD_COMMENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COMMENTS", function() { return RECEIVE_COMMENTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_NEW_TRANSACTION", function() { return ADD_NEW_TRANSACTION; });
@@ -40053,7 +40189,9 @@ var RECEIVE_BOOK_BY_TITLE = "RECEIVE_BOOK_BY_TITLE";
 var SET_TITLE_SEARCHED = "SET_TITLE_SEARCHED"; //cart
 
 var ADD_BOOK_TO_CART = "ADD_BOOK_TO_CART";
-var ADD_USER_LOCAL_CART = "ADD_USER_LOCAL_CART"; // comments
+var ADD_USER_LOCAL_CART = "ADD_USER_LOCAL_CART";
+var NEW_CART = "NEW_CART";
+var REMOVE_CART = "REMOVE_CART"; // comments
 
 var ADD_COMMENT = "ADD_COMMENT";
 var RECEIVE_COMMENTS = "RECEIVE_COMMENTS"; // transactions
@@ -40331,13 +40469,15 @@ var removeBook = function removeBook(bookId) {
 /*!***********************************!*\
   !*** ./src/redux/actions/cart.js ***!
   \***********************************/
-/*! exports provided: addBookToCart, addNewTransaction, removeBookFromCart, incrementBooksFromCart, decrementBooksFromCart, addUserLocalCart, newBookToCart, deleteBookFromCart, incrementBooksToCart, decrementBooksToCart, userLocalCart, createNewTransaction, createNewTransactionToLoggedUser, createNewCart, sendEmailConfirm */
+/*! exports provided: addBookToCart, newCart, addNewTransaction, removeCart, removeBookFromCart, incrementBooksFromCart, decrementBooksFromCart, addUserLocalCart, newBookToCart, deleteBookFromCart, incrementBooksToCart, decrementBooksToCart, userLocalCart, createNewTransaction, createNewTransactionToLoggedUser, createNewCart, removeAllCart, fetchCart, sendEmailConfirm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addBookToCart", function() { return addBookToCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "newCart", function() { return newCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addNewTransaction", function() { return addNewTransaction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeCart", function() { return removeCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeBookFromCart", function() { return removeBookFromCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "incrementBooksFromCart", function() { return incrementBooksFromCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decrementBooksFromCart", function() { return decrementBooksFromCart; });
@@ -40350,6 +40490,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewTransaction", function() { return createNewTransaction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewTransactionToLoggedUser", function() { return createNewTransactionToLoggedUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewCart", function() { return createNewCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeAllCart", function() { return removeAllCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCart", function() { return fetchCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sendEmailConfirm", function() { return sendEmailConfirm; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -40366,28 +40508,43 @@ var addBookToCart = function addBookToCart(bookToCart) {
     bookToCart: bookToCart
   };
 };
+var newCart = function newCart(books) {
+  // console.log("soy bookToCart del action", bookToCart);
+  return {
+    type: _constants__WEBPACK_IMPORTED_MODULE_1__["NEW_CART"],
+    books: books
+  };
+};
 var addNewTransaction = function addNewTransaction(newTransaction) {
   return {
     type: _constants__WEBPACK_IMPORTED_MODULE_1__["ADD_NEW_TRANSACTION"],
     newTransaction: newTransaction
   };
 };
-var removeBookFromCart = function removeBookFromCart(updatedBooksToCart) {
+var removeCart = function removeCart() {
+  return {
+    type: _constants__WEBPACK_IMPORTED_MODULE_1__["REMOVE_CART"]
+  };
+};
+var removeBookFromCart = function removeBookFromCart(updatedBooksToCart, user) {
   return {
     type: _constants__WEBPACK_IMPORTED_MODULE_1__["REMOVE_BOOK_FROM_CART"],
-    updatedBooksToCart: updatedBooksToCart
+    updatedBooksToCart: updatedBooksToCart,
+    user: user
   };
 };
-var incrementBooksFromCart = function incrementBooksFromCart(updatedBooksToCart) {
+var incrementBooksFromCart = function incrementBooksFromCart(updatedBooksToCart, user) {
   return {
     type: _constants__WEBPACK_IMPORTED_MODULE_1__["INCREMENT_BOOKS_FROM_CART"],
-    updatedBooksToCart: updatedBooksToCart
+    updatedBooksToCart: updatedBooksToCart,
+    user: user
   };
 };
-var decrementBooksFromCart = function decrementBooksFromCart(updatedBooksToCart) {
+var decrementBooksFromCart = function decrementBooksFromCart(updatedBooksToCart, user) {
   return {
     type: _constants__WEBPACK_IMPORTED_MODULE_1__["DECREMENT_BOOKS_FROM_CART"],
-    updatedBooksToCart: updatedBooksToCart
+    updatedBooksToCart: updatedBooksToCart,
+    user: user
   };
 };
 var addUserLocalCart = function addUserLocalCart() {
@@ -40400,19 +40557,19 @@ var newBookToCart = function newBookToCart(bookToCart) {
     return dispatch(addBookToCart(bookToCart));
   };
 };
-var deleteBookFromCart = function deleteBookFromCart(updatedBooksToCart) {
+var deleteBookFromCart = function deleteBookFromCart(updatedBooksToCart, user) {
   return function (dispatch) {
-    return dispatch(removeBookFromCart(updatedBooksToCart));
+    return dispatch(removeBookFromCart(updatedBooksToCart, user));
   };
 };
-var incrementBooksToCart = function incrementBooksToCart(updatedBooksToCart) {
+var incrementBooksToCart = function incrementBooksToCart(updatedBooksToCart, user) {
   return function (dispatch) {
-    return dispatch(incrementBooksFromCart(updatedBooksToCart));
+    return dispatch(incrementBooksFromCart(updatedBooksToCart, user));
   };
 };
-var decrementBooksToCart = function decrementBooksToCart(updatedBooksToCart) {
+var decrementBooksToCart = function decrementBooksToCart(updatedBooksToCart, user) {
   return function (dispatch) {
-    return dispatch(decrementBooksFromCart(updatedBooksToCart));
+    return dispatch(decrementBooksFromCart(updatedBooksToCart, user));
   };
 };
 var userLocalCart = function userLocalCart() {
@@ -40448,14 +40605,30 @@ var createNewTransactionToLoggedUser = function createNewTransactionToLoggedUser
 };
 var createNewCart = function createNewCart(userData, bookToCart) {
   return function (dispatch) {
-    // console.log("soy la data de user",userData, "y de book", bookToCart )
+    console.log("soy la data de user", userData, "y de book", bookToCart);
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/cart/logged/createNewCart", {
       userData: userData,
       bookToCart: bookToCart
     }).then(function (res) {
+      console.log(res.data, 'estoy en el action');
       return res.data;
-    }).then(function (bookToCart) {
-      return dispatch(addBookToCart(bookToCart));
+    });
+  };
+};
+var removeAllCart = function removeAllCart() {
+  return function (dispatch) {
+    // console.log("soy la data de user",userData, "y de book", bookToCart )
+    return dispatch(removeCart());
+  };
+};
+var fetchCart = function fetchCart(userData) {
+  return function (dispatch) {
+    // console.log("soy la data de user",userData, "y de book", bookToCart )
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://localhost:8000/cart/user/".concat(userData.id)).then(function (res) {
+      return res.data;
+    }).then(function (booksToCart) {
+      console.log('SOY EL FETCH CART QUE VIENE DESDE LA BASE(ACTION)!!!!!!!!!!!!!!!!', booksToCart);
+      dispatch(newCart(booksToCart));
     });
   };
 };
@@ -40979,8 +41152,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var initialState = {
-  booksToCart: [] // newTransaction: {}
-
+  booksToCart: [],
+  newTransaction: {}
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -40994,8 +41167,10 @@ var initialState = {
           cant: 1,
           price: action.bookToCart.price
         };
+        localStorage.setItem("cart", JSON.stringify([bookObj]));
+        var localCart = JSON.parse(localStorage.getItem("cart"));
         return _objectSpread({}, state, {
-          booksToCart: [bookObj]
+          booksToCart: localCart
         });
       } else if (state.booksToCart.length > 0) {
         var bookObj2 = {
@@ -41016,6 +41191,8 @@ var initialState = {
               var newBooksToCart = state.booksToCart;
               newBooksToCart[i] = bookObjOk;
               exist = true;
+              localStorage.setItem("cart", JSON.stringify(newBooksToCart));
+              var localCart = JSON.parse(localStorage.getItem("cart"));
               return _objectSpread({}, state, {
                 booksToCart: newBooksToCart
               });
@@ -41028,16 +41205,20 @@ var initialState = {
               var newBooksToCart = state.booksToCart;
               newBooksToCart[i] = bookObjOk;
               exist = true;
+              localStorage.setItem("cart", JSON.stringify(newBooksToCart));
+              var localCart = JSON.parse(localStorage.getItem("cart"));
               return _objectSpread({}, state, {
-                booksToCart: newBooksToCart
+                booksToCart: localCart
               });
             }
           }
         }
 
         if (exist == false) {
+          localStorage.setItem("cart", JSON.stringify([].concat(_toConsumableArray(state.booksToCart), [bookObj2])));
+          var localCart = JSON.parse(localStorage.getItem("cart"));
           return _objectSpread({}, state, {
-            booksToCart: [].concat(_toConsumableArray(state.booksToCart), [bookObj2])
+            booksToCart: _toConsumableArray(localCart)
           });
         }
       }
@@ -41050,39 +41231,38 @@ var initialState = {
           bookList.splice(bookList[_i], 1);
         } // console.log("soy i",bookList[i])
 
-      } // console.log("soy action del remove",action.updatedBooksToCart.book.id)
+      }
 
-
+      localStorage.setItem("cart", JSON.stringify(bookList));
+      var localCart = JSON.parse(localStorage.getItem("cart"));
       return _objectSpread({}, state, {
-        booksToCart: _toConsumableArray(bookList)
+        booksToCart: _toConsumableArray(localCart)
       });
 
     case _constants__WEBPACK_IMPORTED_MODULE_0__["INCREMENT_BOOKS_FROM_CART"]:
-      var bookList = state.booksToCart; // console.log('INCREMENT', bookList)
+      var bookList = state.booksToCart;
 
       for (var _i2 = 0; _i2 < bookList.length; _i2++) {
         if (bookList[_i2].book.id == action.updatedBooksToCart.book.id) {
-          if (action.updatedBooksToCart.cant >= 1) {
-            if (action.updatedBooksToCart.cant < action.updatedBooksToCart.book.stock) {
-              bookList[_i2].cant = bookList[_i2].cant + 1;
-              bookList[_i2].price = bookList[_i2].price + action.updatedBooksToCart.book.price;
-            }
+          if (action.updatedBooksToCart.cant < action.updatedBooksToCart.book.stock) {
+            bookList[_i2].cant = bookList[_i2].cant + 1;
+            bookList[_i2].price = bookList[_i2].price + action.updatedBooksToCart.book.price;
           }
+
+          ;
         }
       }
 
       localStorage.setItem("cart", JSON.stringify(bookList));
       var localCart = JSON.parse(localStorage.getItem("cart"));
-
-      var result = _objectSpread({}, state, {
+      return _objectSpread({}, state, {
         booksToCart: _toConsumableArray(localCart)
       });
-
-      return result;
+    // }
 
     case _constants__WEBPACK_IMPORTED_MODULE_0__["ADD_NEW_TRANSACTION"]:
       return _objectSpread({}, state, {
-        booksToCart: _toConsumableArray(action.newTransaction)
+        booksToCart: action.newTransaction
       });
 
     case _constants__WEBPACK_IMPORTED_MODULE_0__["DECREMENT_BOOKS_FROM_CART"]:
@@ -41100,10 +41280,39 @@ var initialState = {
       localStorage.setItem("cart", JSON.stringify(bookList));
       var localCart = JSON.parse(localStorage.getItem("cart"));
       return _objectSpread({}, state, {
-        booksToCart: _toConsumableArray(localCart)
+        booksToCart: localCart
       });
 
     case _constants__WEBPACK_IMPORTED_MODULE_0__["ADD_USER_LOCAL_CART"]:
+      var localCart = JSON.parse(localStorage.getItem("cart"));
+
+      if (localCart == null) {
+        return _objectSpread({}, state, {
+          booksToCart: []
+        });
+      } // console.log(localCart, 'SOY LOCAL CART')
+
+
+      return _objectSpread({}, state, {
+        booksToCart: _toConsumableArray(localCart)
+      });
+
+    case _constants__WEBPACK_IMPORTED_MODULE_0__["NEW_CART"]:
+      // localStorage.setItem("cart", JSON.stringify(action.books))
+      // action.books ACA TENGO LOS LIBROS DE LA BASE
+      if (action.books.length > 0) {
+        localStorage.setItem("cart", JSON.stringify(action.books));
+        var localCart = JSON.parse(localStorage.getItem("cart"));
+        return _objectSpread({}, state, {
+          booksToCart: _toConsumableArray(localCart)
+        });
+      }
+
+    // return {...state, booksToCart: localCart };
+
+    case _constants__WEBPACK_IMPORTED_MODULE_0__["REMOVE_CART"]:
+      // console.log('SOY LOCAL CART!!!!!!!!!!!', localCart)
+      localStorage.setItem("cart", JSON.stringify([]));
       var localCart = JSON.parse(localStorage.getItem("cart"));
       return _objectSpread({}, state, {
         booksToCart: localCart

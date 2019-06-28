@@ -6,6 +6,12 @@ import { logout, fetchLoggedUser } from "../../../redux/actions/user"
 
 class NavbarContainer extends React.Component {
 
+    constructor(props){
+        super(props)
+
+        this.handleClickLogout = this.handleClickLogout.bind(this)  
+    }
+
     render() {
         return (
             <Navbar
@@ -13,6 +19,12 @@ class NavbarContainer extends React.Component {
                 logOutLoggedUser={this.props.logout}
             />
         );
+    }
+
+    handleClickLogout(){
+        console.log('ENTRE AL LOGUOT')
+        localStorage.clear()
+        this.props.logout()
     }
 }
 

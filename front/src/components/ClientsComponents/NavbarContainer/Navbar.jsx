@@ -3,7 +3,7 @@ import { Link, Route } from "react-router-dom";
 import SearchContainer from "../SearchContainer";
 import SelectGenreContainer from "../SelectGenreContainer";
 
-export default function Navbar({ user, logout }) {
+export default function Navbar({ user, logout, removeAllCart }) {
   return (
     <div>
 
@@ -63,7 +63,11 @@ export default function Navbar({ user, logout }) {
                     </div>
                   </li>
 
-                  <li className="nav-item" onClick={()=>logout()}>
+                  <li className="nav-item" onClick={()=>{
+                    localStorage.clear()
+                    logout()
+                    removeAllCart()
+                  }}>
                     <a className="nav-link text-white" href="#" >Logout</a>
                   </li>
                 </ul>

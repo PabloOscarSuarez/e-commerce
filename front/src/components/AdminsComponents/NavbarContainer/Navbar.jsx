@@ -17,7 +17,10 @@ export default ({ user, logOutLoggedUser }) => (
 
                         <ul className="navbar-nav ml-auto">
 
-                            <li className="nav-item" onClick={() => logOutLoggedUser()}>
+                            <li className="nav-item" onClick={() => {
+                                localStorage.clear()
+                                logOutLoggedUser()
+                            }}>
                                 <a className="nav-link text-white" href="#" >Logout</a>
                             </li>
                         </ul>

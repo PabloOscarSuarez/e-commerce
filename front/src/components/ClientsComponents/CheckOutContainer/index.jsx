@@ -55,8 +55,8 @@ class CheckoutContainer extends React.Component {
 
       this.props.createNewTransaction(anonimousUser, this.props.booksToCart)
         .then(() => this.props.history.push("/confirm-checkout"))
-        .then((transaction) => this.props.sendEmailConfirm(this.props.user))
-        .catch(() => this.setState({ error: true }))
+        // .then((transaction) => this.props.sendEmailConfirm(this.props.user))
+        // .catch(() => this.setState({ error: true }))
     }
     else {
       // ESTO LO HAGO SI HAY USUARIO LOGUEADO
