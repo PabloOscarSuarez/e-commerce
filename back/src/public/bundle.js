@@ -27556,7 +27556,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40424,9 +40424,140 @@ var removeAuthor = function removeAuthor(authorId) {
   !*** ./src/redux/actions/books.js ***!
   \************************************/
 /*! exports provided: receiveBooks, receiveAllBooks, receiveBook, bookSearched, receiveBookByTitle, fetchBooks, fetchAllBooks, fetchBook, fetchBookByTitle, setTitleSearched, createBook, editBook, editBookStock, removeBook */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/src/redux/actions/books.js: Unexpected token (1:1)\n\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 1 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   | \u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 2 | \u001b[39m\u001b[36mimport\u001b[39m axios from \u001b[32m\"axios\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 3 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 4 | \u001b[39m\u001b[36mimport\u001b[39m axios from \u001b[32m'axios'\u001b[39m\u001b[0m\n    at Object.raise (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:6344:17)\n    at Object.unexpected (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:7659:16)\n    at Object.jsxParseIdentifier (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:3377:12)\n    at Object.jsxParseNamespacedName (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:3387:23)\n    at Object.jsxParseElementName (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:3398:21)\n    at Object.jsxParseOpeningElementAt (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:3480:22)\n    at Object.jsxParseElementAt (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:3513:33)\n    at Object.jsxParseElement (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:3587:17)\n    at Object.parseExprAtom (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:3594:19)\n    at Object.parseExprSubscripts (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:8413:23)\n    at Object.parseMaybeUnary (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:8393:21)\n    at Object.parseExprOps (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:8280:23)\n    at Object.parseMaybeConditional (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:8253:23)\n    at Object.parseMaybeAssign (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:8200:21)\n    at Object.parseExpression (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:8148:23)\n    at Object.parseStatementContent (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:9917:23)\n    at Object.parseStatement (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:9788:17)\n    at Object.parseBlockOrModuleBlockBody (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:10364:25)\n    at Object.parseBlockBody (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:10351:10)\n    at Object.parseTopLevel (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:9717:10)\n    at Object.parse (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:11233:17)\n    at parse (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/parser/lib/index.js:11269:38)\n    at parser (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/core/lib/transformation/normalize-file.js:170:34)\n    at normalizeFile (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/core/lib/transformation/normalize-file.js:138:11)\n    at runSync (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/core/lib/transformation/index.js:44:43)\n    at runAsync (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/core/lib/transformation/index.js:35:14)\n    at process.nextTick (/home/alejandro/Escritorio/Ale/Plataforma5/Bootcamp/26-Ecommerce/e-commerce/front/node_modules/@babel/core/lib/transform.js:34:34)\n    at process._tickCallback (internal/process/next_tick.js:61:11)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveBooks", function() { return receiveBooks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveAllBooks", function() { return receiveAllBooks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveBook", function() { return receiveBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bookSearched", function() { return bookSearched; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveBookByTitle", function() { return receiveBookByTitle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchBooks", function() { return fetchBooks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllBooks", function() { return fetchAllBooks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchBook", function() { return fetchBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchBookByTitle", function() { return fetchBookByTitle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTitleSearched", function() { return setTitleSearched; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createBook", function() { return createBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editBook", function() { return editBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editBookStock", function() { return editBookStock; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeBook", function() { return removeBook; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../constants */ "./src/constants.js");
+
+
+var receiveBooks = function receiveBooks(books) {
+  return {
+    type: _constants__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_BOOKS"],
+    books: books
+  };
+};
+var receiveAllBooks = function receiveAllBooks(books) {
+  return {
+    type: _constants__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_ALL_BOOKS"],
+    books: books
+  };
+};
+var receiveBook = function receiveBook(book) {
+  return {
+    type: _constants__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_BOOK"],
+    book: book
+  };
+};
+var bookSearched = function bookSearched(title) {
+  return {
+    type: _constants__WEBPACK_IMPORTED_MODULE_1__["SET_TITLE_SEARCHED"],
+    title: title
+  };
+};
+var receiveBookByTitle = function receiveBookByTitle(bookByTitle) {
+  return {
+    type: _constants__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_BOOK_BY_TITLE"],
+    bookByTitle: bookByTitle
+  };
+};
+var fetchBooks = function fetchBooks() {
+  return function (dispatch) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://localhost:8000/books").then(function (res) {
+      return res.data;
+    }).then(function (books) {
+      return books;
+    }).then(function (books) {
+      return dispatch(receiveBooks(books));
+    });
+  };
+};
+var fetchAllBooks = function fetchAllBooks() {
+  return function (dispatch) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://localhost:8000/books/all").then(function (res) {
+      return res.data;
+    }).then(function (books) {
+      return dispatch(receiveAllBooks(books));
+    });
+  };
+};
+var fetchBook = function fetchBook(id) {
+  return function (dispatch) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://localhost:8000/books/".concat(id)).then(function (res) {
+      return res.data;
+    }).then(function (book) {
+      return dispatch(receiveBook(book));
+    });
+  };
+};
+var fetchBookByTitle = function fetchBookByTitle(title) {
+  return function (dispatch) {
+    // console.log(title,'SOY TITLE DEL ACTION')
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://localhost:8000/books/search/".concat(title)).then(function (res) {
+      return res.data;
+    }).then(function (bookByTitle) {
+      return dispatch(receiveBookByTitle(bookByTitle));
+    });
+  };
+};
+var setTitleSearched = function setTitleSearched(bookTitle) {
+  return function (dispatch) {
+    dispatch(bookSearched(bookTitle));
+  };
+};
+var createBook = function createBook(reqbody) {
+  return function (dispatch) {
+    console.log('SOY REQBODY DE ACTIONS DE BOOK', reqbody);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/books/create", reqbody).then(function (book) {
+      return book;
+    });
+  };
+};
+var editBook = function editBook(bookId, reqbody) {
+  return function (dispatch) {
+    // console.log('SOY EL ID Y EL REQBODY DE ACTIONS EDIT DE BOOK', bookId, reqbody)
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("http://localhost:8000/books/edit/".concat(bookId), reqbody).then(function (res) {
+      return res.data;
+    }).then(function (books) {
+      dispatch(receiveAllBooks(books));
+    });
+  };
+};
+var editBookStock = function editBookStock(bookId, reqbody) {
+  return function (dispatch) {
+    // console.log('SOY EL ID Y EL REQBODY DE ACTIONS EDIT DE BOOK', bookId, reqbody)
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("http://localhost:8000/books/edit_stock/".concat(bookId), reqbody).then(function (res) {
+      return res.data;
+    }).then(function (books) {
+      dispatch(receiveAllBooks(books));
+    });
+  };
+};
+var removeBook = function removeBook(bookId) {
+  return function (dispatch) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("http://localhost:8000/books/".concat(bookId)).then(function (res) {
+      return res.data;
+    }).then(function (books) {
+      dispatch(receiveAllBooks(books));
+    });
+  };
+};
 
 /***/ }),
 
