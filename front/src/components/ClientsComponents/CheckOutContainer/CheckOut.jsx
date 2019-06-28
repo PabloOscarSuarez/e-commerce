@@ -14,6 +14,7 @@ export default function checkOut({ user, handleSubmit, handleChange }) {
         </h4>
         <br />
         <br />
+        <h1></h1>
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <div className="card">
@@ -23,6 +24,7 @@ export default function checkOut({ user, handleSubmit, handleChange }) {
                     <label>Nombre</label>
                     <input
                       value={user.name && user.name}
+                      // user.name && user.name
                       name="name"
                       className="form-control"
                       onChange={handleChange}
@@ -44,6 +46,7 @@ export default function checkOut({ user, handleSubmit, handleChange }) {
                     }
                     <input
                       value={user.name && user.address}
+                      // user.name && user.address
                       name="address"
                       className="form-control"
                       onChange={handleChange} min="0"
@@ -53,6 +56,7 @@ export default function checkOut({ user, handleSubmit, handleChange }) {
                     <label>Email</label>
                     <input
                       value={user.name && user.email}
+                      // user.name && user.email
                       name="email"
                       className="form-control"
                       onChange={handleChange} min="0"

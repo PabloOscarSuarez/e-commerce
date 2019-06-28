@@ -31,21 +31,21 @@ class MainContainer extends React.Component {
 
 
     // if (this.props.user.name) {
-      // SI HAY USER
-      // console.log('SOY this.props.booksToCart !!!!!!!!!!!!!!', this.props.booksToCart)
-      // if (this.props.booksToCart.length > 0) {
+    // SI HAY USER
+    // console.log('SOY this.props.booksToCart !!!!!!!!!!!!!!', this.props.booksToCart)
+    // if (this.props.booksToCart.length > 0) {
 
-      //   console.log('1 - CREATE NEW CART!!!CREADO Y FECHEADO')
-      //   this.props.createNewCart(this.props.user, this.props.booksToCart)
-      //     .then(() => {
-      //       console.log('CREADO Y FECHEADO')
-      //       this.props.fetchCart(this.props.user)
-      //     })
-      //     // NO VA
-      //     // this.props.fetchCart(this.props.user)
-      //   }
-        // NO VA O SI ?
-        // this.props.fetchCart(this.props.user)
+    //   console.log('1 - CREATE NEW CART!!!CREADO Y FECHEADO')
+    //   this.props.createNewCart(this.props.user, this.props.booksToCart)
+    //     .then(() => {
+    //       console.log('CREADO Y FECHEADO')
+    //       this.props.fetchCart(this.props.user)
+    //     })
+    //     // NO VA
+    //     // this.props.fetchCart(this.props.user)
+    //   }
+    // NO VA O SI ?
+    // this.props.fetchCart(this.props.user)
 
     // } else {
     //   // SI NO HAY USER
@@ -62,9 +62,8 @@ class MainContainer extends React.Component {
     return (
       <div>
         <Switch>
-          <Route path="/admin" component={PanelConainer} />
-          <Route path="/" component={UserMainContainer} />
-          {/* <Redirect from="/" to="/" /> */}
+          <Route path="/admin" render={() => <PanelConainer user={this.props.user}/>} />
+          <Route path="/" render={() => <UserMainContainer user={this.props.user}/>} />
         </Switch>
       </div>
     )

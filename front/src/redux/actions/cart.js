@@ -28,6 +28,7 @@ export const newCart = function(books) {
 };
 
 export const addNewTransaction = function(newTransaction) {
+    console.log("enre 2")
     return {
         type: ADD_NEW_TRANSACTION,
         newTransaction
@@ -82,12 +83,12 @@ export const decrementBooksToCart = (updatedBooksToCart, user) => dispatch =>
 export const userLocalCart = () => dispatch => dispatch(addUserLocalCart());
 
 export const createNewTransaction = (userData, bookToCart) => dispatch => {
-    // console.log("soy la data de user",userData, "y de book", bookToCart )
-    return axios
-        .post(`http://localhost:8000/cart/notLogged/createTransaction`, { userData, bookToCart })
+    console.log("soy la data de user y de book!!!!!!!!!!!!!!!!!", bookToCart)
+    return axios.post(`http://localhost:8000/cart/notLogged/createTransaction`, { userData, bookToCart })
         .then(res => res.data)
         .then((transaction) => {
             dispatch(addNewTransaction(transaction))
+            return transaction
         })
 
 };
@@ -133,9 +134,9 @@ export const fetchCart = (userData) => dispatch => {
         })
 };
 
-export const sendEmailConfirm = (userData, transaction) => dispatch => {
-    console.log("so user daa del axios", { userData, transaction });
-    return axios
-        .post("/cart/emailConfirm", { userData, transaction })
+export const sendEmailConfirm = (userData, Transaction) => dispatch => {
+    console.log("so Transaction", Transaction);
+
+    return axios.post("/cart/emailConfirm", { userData: userData, Transaction: Transaction })
         .then(emailConfirm => emailConfirm);
 };

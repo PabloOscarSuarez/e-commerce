@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Navbar from './Navbar';
 import { logout, fetchLoggedUser } from "../../../redux/actions/user"
-
+import { removeAllCart } from "../../../redux/actions/cart"
 
 class NavbarContainer extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
 
-        this.handleClickLogout = this.handleClickLogout.bind(this)  
+        this.handleClickLogout = this.handleClickLogout.bind(this)
     }
 
     render() {
@@ -17,11 +17,12 @@ class NavbarContainer extends React.Component {
             <Navbar
                 user={this.props.user}
                 logOutLoggedUser={this.props.logout}
+                removeAllCart={this.props.removeAllCart}
             />
         );
     }
 
-    handleClickLogout(){
+    handleClickLogout() {
         console.log('ENTRE AL LOGUOT')
         localStorage.clear()
         this.props.logout()
@@ -37,7 +38,8 @@ const mapStateToProps = function (state, ownProps) {
 const mapDispatchToProps = function (dispatch, ownProps) {
     return {
         fetchLoggedUser: () => dispatch(fetchLoggedUser()),
-        logout: () => dispatch(logout())
+        logout: () => dispatch(logout()),
+        removeAllCart: () => dispatch(removeAllCart())
     };
 }
 

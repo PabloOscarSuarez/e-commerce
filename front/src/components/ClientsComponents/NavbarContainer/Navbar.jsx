@@ -19,9 +19,14 @@ export default function Navbar({ user, logout, removeAllCart }) {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link className="nav-link text-success" to={`/admin`}>Panel Administrador</Link>
-            </li>
+            {
+              user.isAdmin ?
+                <li className="nav-item">
+                  <Link className="nav-link text-success" to={`/admin`}>Panel Administrador</Link>
+                </li>
+                :
+                null
+            }
 
             {/* <li className="nav-item dropdown">
               <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,7 +50,7 @@ export default function Navbar({ user, logout, removeAllCart }) {
           {/* LO HAGO CON ROUTE PARA TENER HISTORY EN SEARCHCONTAINER COMO PROPS */}
           {/* ************************************************************************** */}
           {/* ************************************************************************** */}
-          
+
           {
             // PREGUNTO ASI PORQUE USER ES UN OBJETO
             user.name ?
@@ -59,11 +64,16 @@ export default function Navbar({ user, logout, removeAllCart }) {
                       <Link className="dropdown-item" to={`/profile`}>Perfil</Link>
                       <Link className="dropdown-item" to={`/compras`}>Compras</Link>
                       <Link className="dropdown-item" to={`/edit-profile`}>Editar Perfil</Link>
-                      <Link className="dropdown-item text-success" to={`/admin`}>Panel Admin</Link>
+                      {
+                        user.isAdmin ?
+                          <Link className="dropdown-item text-success" to={`/admin`}>Panel Admin</Link>
+                          :
+                          null
+                      }
                     </div>
                   </li>
 
-                  <li className="nav-item" onClick={()=>{
+                  <li className="nav-item" onClick={() => {
                     localStorage.clear()
                     logout()
                     removeAllCart()

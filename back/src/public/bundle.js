@@ -35278,7 +35278,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
   var user = _ref.user,
-      logOutLoggedUser = _ref.logOutLoggedUser;
+      logOutLoggedUser = _ref.logOutLoggedUser,
+      removeAllCart = _ref.removeAllCart;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "background-dark"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
@@ -35296,6 +35297,7 @@ __webpack_require__.r(__webpack_exports__);
     onClick: function onClick() {
       localStorage.clear();
       logOutLoggedUser();
+      removeAllCart();
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     className: "nav-link text-white",
@@ -35319,6 +35321,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _Navbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Navbar */ "./src/components/AdminsComponents/NavbarContainer/Navbar.jsx");
 /* harmony import */ var _redux_actions_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../redux/actions/user */ "./src/redux/actions/user.js");
+/* harmony import */ var _redux_actions_cart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../redux/actions/cart */ "./src/redux/actions/cart.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35336,6 +35339,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -35362,7 +35366,8 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Navbar__WEBPACK_IMPORTED_MODULE_2__["default"], {
         user: this.props.user,
-        logOutLoggedUser: this.props.logout
+        logOutLoggedUser: this.props.logout,
+        removeAllCart: this.props.removeAllCart
       });
     }
   }, {
@@ -35390,6 +35395,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     logout: function logout() {
       return dispatch(Object(_redux_actions_user__WEBPACK_IMPORTED_MODULE_3__["logout"])());
+    },
+    removeAllCart: function removeAllCart() {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_4__["removeAllCart"])());
     }
   };
 };
@@ -35931,8 +35939,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = (function () {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NavbarContainer__WEBPACK_IMPORTED_MODULE_14__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+/* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
+  var user = _ref.user;
+  return user.isAdmin ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NavbarContainer__WEBPACK_IMPORTED_MODULE_14__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "main",
     className: "container-fluid"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -36012,7 +36021,10 @@ __webpack_require__.r(__webpack_exports__);
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
     from: "/admin",
     to: "/admin/books"
-  }))))));
+  })))))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+    from: "/",
+    to: "/"
+  });
 });
 
 /***/ }),
@@ -37493,7 +37505,7 @@ function checkOut(_ref) {
     className: "text-center"
   }, "Estas a un paso de confirmar tu compra!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
     className: "text-center"
-  }, "Completa tus datos"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Completa tus datos"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-6 offset-md-3"
@@ -37506,7 +37518,8 @@ function checkOut(_ref) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Nombre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    value: user.name && user.name,
+    value: user.name && user.name // user.name && user.name
+    ,
     name: "name",
     className: "form-control",
     onChange: handleChange,
@@ -37514,7 +37527,8 @@ function checkOut(_ref) {
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Direccion"), user.name ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Si queres podes cambiar tu direccion de envio")) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    value: user.name && user.address,
+    value: user.name && user.address // user.name && user.address
+    ,
     name: "address",
     className: "form-control",
     onChange: handleChange,
@@ -37522,7 +37536,8 @@ function checkOut(_ref) {
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Email"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    value: user.name && user.email,
+    value: user.name && user.email // user.name && user.email
+    ,
     name: "email",
     className: "form-control",
     onChange: handleChange,
@@ -37607,7 +37622,6 @@ function (_React$Component) {
   _createClass(CheckoutContainer, [{
     key: "render",
     value: function render() {
-      console.log('SOY EL USUARIO LOGUEDO', this.props.user);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CheckOut__WEBPACK_IMPORTED_MODULE_2__["default"], {
         user: this.props.user,
         handleSubmit: this.handleSubmit,
@@ -37643,26 +37657,35 @@ function (_React$Component) {
           address: this.state.address,
           password: "111"
         };
-        this.props.createNewTransaction(anonimousUser, this.props.booksToCart).then(function () {
-          return _this2.props.history.push("/confirm-checkout");
-        }); // .then((transaction) => this.props.sendEmailConfirm(this.props.user))
-        // .catch(() => this.setState({ error: true }))
-      } else {
-        // ESTO LO HAGO SI HAY USUARIO LOGUEADO
-        var loggedUser = {
-          name: this.props.user.name,
-          email: this.props.user.email,
-          address: this.state.address
-        };
-        console.log('ENTRE COMO USUARIO LOGUEADO');
-        this.props.createNewTransactionToLoggedUser(loggedUser, this.props.booksToCart).then(function () {
-          return _this2.props.history.push("/confirm-checkout");
+        console.log("so emailllllllll", anonimousUser);
+        this.props.createNewTransaction(anonimousUser, this.props.booksToCart).then(function (e) {
+          _this2.props.sendEmailConfirm(anonimousUser, _this2.props.newTransaction);
+
+          _this2.props.history.push("/confirm-checkout");
         })["catch"](function () {
           return _this2.setState({
             error: true
           });
         });
-      }
+      } // this.props.sendEmailConfirm(this.props.user)
+      // .then(() => this.props.history.push("/confirm-checkout"))
+      else {
+          // ESTO LO HAGO SI HAY USUARIO LOGUEADO
+          var loggedUser = {
+            name: this.props.user.name,
+            email: this.props.user.email,
+            address: this.state.address
+          };
+          this.props.createNewTransactionToLoggedUser(loggedUser, this.props.booksToCart).then(function (e) {
+            _this2.props.sendEmailConfirm(loggedUser, _this2.props.newTransaction);
+
+            _this2.props.history.push("/confirm-checkout");
+          })["catch"](function () {
+            return _this2.setState({
+              error: true
+            });
+          });
+        }
     }
   }]);
 
@@ -37672,7 +37695,8 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     booksToCart: state.cart.booksToCart,
-    user: state.user.user
+    user: state.user.user,
+    newTransaction: state.cart.newTransaction
   };
 };
 
@@ -37687,8 +37711,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     fetchLoggedUser: function fetchLoggedUser() {
       return dispatch(Object(_redux_actions_user__WEBPACK_IMPORTED_MODULE_4__["fetchLoggedUser"])());
     },
-    sendEmailConfirm: function sendEmailConfirm(userData) {
-      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_3__["sendEmailConfirm"])(userData));
+    sendEmailConfirm: function sendEmailConfirm(userData, Transaction) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_3__["sendEmailConfirm"])(userData, Transaction));
     }
   };
 };
@@ -38835,12 +38859,12 @@ function Navbar(_ref) {
     id: "navbarSupportedContent"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "navbar-nav mr-auto"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+  }, user.isAdmin ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "nav-item"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     className: "nav-link text-success",
     to: "/admin"
-  }, "Panel Administrador")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+  }, "Panel Administrador")) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     component: _SelectGenreContainer__WEBPACK_IMPORTED_MODULE_3__["default"]
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     component: _SearchContainer__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -38869,10 +38893,10 @@ function Navbar(_ref) {
   }, "Compras"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     className: "dropdown-item",
     to: "/edit-profile"
-  }, "Editar Perfil"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+  }, "Editar Perfil"), user.isAdmin ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     className: "dropdown-item text-success",
     to: "/admin"
-  }, "Panel Admin"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+  }, "Panel Admin") : null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "nav-item",
     onClick: function onClick() {
       localStorage.clear();
@@ -39941,11 +39965,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = (function () {
+/* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
+  var user = _ref.user;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NavbarContainer__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "main",
     className: "container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+  }, user ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/",
     render: function render() {
@@ -39954,8 +39979,8 @@ __webpack_require__.r(__webpack_exports__);
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/books/:bookTitle/:id",
-    render: function render(_ref) {
-      var match = _ref.match;
+    render: function render(_ref2) {
+      var match = _ref2.match;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BookContainer__WEBPACK_IMPORTED_MODULE_3__["default"], {
         match: match
       });
@@ -39996,6 +40021,50 @@ __webpack_require__.r(__webpack_exports__);
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/login",
     component: _LoginContainer__WEBPACK_IMPORTED_MODULE_10__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+    from: "/",
+    to: "/"
+  })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/",
+    render: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_HomeContainer__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+    }
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/books/:bookTitle/:id",
+    render: function render(_ref3) {
+      var match = _ref3.match;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BookContainer__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        match: match
+      });
+    }
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/search/:searched",
+    component: _SearchResult__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/genres/:id/:genre",
+    component: _BooksOfGenreContainer__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/cart",
+    render: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartContainer__WEBPACK_IMPORTED_MODULE_6__["default"], null);
+    }
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/checkout",
+    component: _CheckOutContainer__WEBPACK_IMPORTED_MODULE_8__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/confirm-checkout",
+    component: _ConfirmCheckoutContainer__WEBPACK_IMPORTED_MODULE_9__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/register",
+    component: _RegisterContainer__WEBPACK_IMPORTED_MODULE_11__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/login",
+    component: _LoginContainer__WEBPACK_IMPORTED_MODULE_10__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+    from: "/",
+    to: "/"
   }))));
 });
 
@@ -40094,12 +40163,22 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/admin",
-        component: _AdminsComponents_PanelContainer__WEBPACK_IMPORTED_MODULE_2__["default"]
+        render: function render() {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AdminsComponents_PanelContainer__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            user: _this.props.user
+          });
+        }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/",
-        component: _ClientsComponents_UserMainContainer__WEBPACK_IMPORTED_MODULE_3__["default"]
+        render: function render() {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ClientsComponents_UserMainContainer__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            user: _this.props.user
+          });
+        }
       })));
     }
   }]);
@@ -40516,6 +40595,7 @@ var newCart = function newCart(books) {
   };
 };
 var addNewTransaction = function addNewTransaction(newTransaction) {
+  console.log("enre 2");
   return {
     type: _constants__WEBPACK_IMPORTED_MODULE_1__["ADD_NEW_TRANSACTION"],
     newTransaction: newTransaction
@@ -40579,7 +40659,7 @@ var userLocalCart = function userLocalCart() {
 };
 var createNewTransaction = function createNewTransaction(userData, bookToCart) {
   return function (dispatch) {
-    // console.log("soy la data de user",userData, "y de book", bookToCart )
+    console.log("soy la data de user y de book!!!!!!!!!!!!!!!!!", bookToCart);
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/cart/notLogged/createTransaction", {
       userData: userData,
       bookToCart: bookToCart
@@ -40587,6 +40667,7 @@ var createNewTransaction = function createNewTransaction(userData, bookToCart) {
       return res.data;
     }).then(function (transaction) {
       dispatch(addNewTransaction(transaction));
+      return transaction;
     });
   };
 };
@@ -40632,15 +40713,12 @@ var fetchCart = function fetchCart(userData) {
     });
   };
 };
-var sendEmailConfirm = function sendEmailConfirm(userData, transaction) {
+var sendEmailConfirm = function sendEmailConfirm(userData, Transaction) {
   return function (dispatch) {
-    console.log("so user daa del axios", {
-      userData: userData,
-      transaction: transaction
-    });
+    console.log("so Transaction", Transaction);
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/cart/emailConfirm", {
       userData: userData,
-      transaction: transaction
+      Transaction: Transaction
     }).then(function (emailConfirm) {
       return emailConfirm;
     });
@@ -41153,7 +41231,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var initialState = {
   booksToCart: [],
-  newTransaction: {}
+  newTransaction: []
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -41261,9 +41339,10 @@ var initialState = {
     // }
 
     case _constants__WEBPACK_IMPORTED_MODULE_0__["ADD_NEW_TRANSACTION"]:
-      return _objectSpread({}, state, {
-        booksToCart: action.newTransaction
+      var saeok = Object.assign({}, state, {
+        newTransaction: action.newTransaction
       });
+      return saeok;
 
     case _constants__WEBPACK_IMPORTED_MODULE_0__["DECREMENT_BOOKS_FROM_CART"]:
       var bookList = state.booksToCart;
