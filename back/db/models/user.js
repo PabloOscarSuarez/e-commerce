@@ -8,7 +8,6 @@ const User = db.define('user', {
         type: Sequelize.STRING,
         validate: {
             notEmpty: true,
-            isAlpha: true
         }
     },
     address: {
@@ -44,24 +43,23 @@ const User = db.define('user', {
     }
 })
 
-User.generateSalt = function () {
+User.generateSalt = function() {
     return crypto.randomBytes(20).toString('hex')
 }
 
-User.prototype.encryptPassword = function (password) {
+User.prototype.encryptPassword = function(password) {
     return crypto.createHmac('sha1', this.salt).update(password).digest('hex')
 };
 
-User.prototype.validatePassword = function (password) {
+User.prototype.validatePassword = function(password) {
     const hash = crypto.createHmac('sha1', this.salt).update(password).digest('hex')
 
     return this.password === hash;
 };
 
-User.addHook('beforeCreate',(user)=>{
+User.addHook('beforeCreate', (user) => {
     user.salt = User.generateSalt()
     user.password = user.encryptPassword(user.password)
 })
 
 module.exports = User;
-

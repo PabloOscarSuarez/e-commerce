@@ -53,9 +53,9 @@ class CheckoutContainer extends React.Component {
         password: "111"
       }
       
+      console.log("so emailllllllll", anonimousUser)
       this.props.createNewTransaction(anonimousUser, this.props.booksToCart)
         .then((e) => {
-          console.log("so emailllllllll", this.state.email)
           this.props.sendEmailConfirm(anonimousUser, this.props.newTransaction)
           this.props.history.push("/confirm-checkout")
         })
@@ -72,8 +72,11 @@ class CheckoutContainer extends React.Component {
         address: this.state.address,
       }
       this.props.createNewTransactionToLoggedUser(loggedUser, this.props.booksToCart)
-        .then(() => this.props.history.push("/confirm-checkout"))
-        .catch(() => this.setState({ error: true }))
+      .then((e) => {
+        this.props.sendEmailConfirm(loggedUser, this.props.newTransaction)
+        this.props.history.push("/confirm-checkout")
+      })
+      .catch(() => this.setState({ error: true }))
     }
   }
 }

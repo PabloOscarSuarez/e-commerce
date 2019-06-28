@@ -21,7 +21,8 @@ import EditStatusContainer from '../EditStatusContainer';
 import SalesOfStatusContainer from '../SalesOfStatusContainer';
 
 
-export default () => (
+export default ({user}) => (
+  user.isAdmin ?
   <div>
     <NavbarContainer />
     <div id="main" className="container-fluid">
@@ -53,6 +54,7 @@ export default () => (
         </div>
       </div>
     </div>
-
   </div>
+  :
+  <Redirect from="/" to="/" />
 );

@@ -29,7 +29,7 @@ export default function Cart({
 
           <tbody>
             {/* {console.log("soy book to cart", booksToCart)} */}
-            {booksToCart ?
+            {booksToCart != null ?
               booksToCart.map((book, id) => {
                 // console.log("soy boook del cart", book)
                 return (
@@ -116,7 +116,10 @@ export default function Cart({
                     </td>
                   </tr>
                 );
-              }): "falan libros"}
+              })
+              : 
+              "falan libros"
+              }
             <tr>
               <td> </td>
               <td> </td>
