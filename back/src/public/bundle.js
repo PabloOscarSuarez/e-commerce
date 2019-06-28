@@ -27556,7 +27556,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -37413,7 +37413,7 @@ function checkOut(_ref) {
     className: "text-center"
   }, "Estas a un paso de confirmar tu compra!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
     className: "text-center"
-  }, "Completa tus datos"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Completa tus datos"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-6 offset-md-3"
@@ -37426,7 +37426,8 @@ function checkOut(_ref) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Nombre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    value: user.name && user.name,
+    value: user.name && user.name // user.name && user.name
+    ,
     name: "name",
     className: "form-control",
     onChange: handleChange,
@@ -37434,7 +37435,8 @@ function checkOut(_ref) {
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Direccion"), user.name ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Si queres podes cambiar tu direccion de envio")) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    value: user.name && user.address,
+    value: user.name && user.address // user.name && user.address
+    ,
     name: "address",
     className: "form-control",
     onChange: handleChange,
@@ -37442,7 +37444,8 @@ function checkOut(_ref) {
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Email"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    value: user.name && user.email,
+    value: user.name && user.email // user.name && user.email
+    ,
     name: "email",
     className: "form-control",
     onChange: handleChange,
@@ -37465,7 +37468,7 @@ function checkOut(_ref) {
 /*!**********************************************************************!*\
   !*** ./src/components/ClientsComponents/CheckOutContainer/index.jsx ***!
   \**********************************************************************/
-/*! no exports provided */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -37527,7 +37530,6 @@ function (_React$Component) {
   _createClass(CheckoutContainer, [{
     key: "render",
     value: function render() {
-      console.log('SOY EL USUARIO LOGUEDO', this.props.user);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CheckOut__WEBPACK_IMPORTED_MODULE_2__["default"], {
         user: this.props.user,
         handleSubmit: this.handleSubmit,
@@ -37563,31 +37565,34 @@ function (_React$Component) {
           address: this.state.address,
           password: "111"
         };
-        this.props.createNewTransaction(anonimousUser, this.props.booksToCart).then(function () {
-          return _this2.props.history.push("/confirm-checkout");
-        }).then(function (transaction) {
-          return _this2.props.sendEmailConfirm(_this2.props.user);
+        this.props.createNewTransaction(anonimousUser, this.props.booksToCart).then(function (e) {
+          console.log("so emailllllllll", _this2.state.email);
+
+          _this2.props.sendEmailConfirm(anonimousUser, _this2.props.newTransaction);
+
+          _this2.props.history.push("/confirm-checkout");
         })["catch"](function () {
           return _this2.setState({
             error: true
           });
         });
-      } else {
-        // ESTO LO HAGO SI HAY USUARIO LOGUEADO
-        var loggedUser = {
-          name: this.props.user.name,
-          email: this.props.user.email,
-          address: this.state.address
-        };
-        console.log('ENTRE COMO USUARIO LOGUEADO');
-        this.props.createNewTransactionToLoggedUser(loggedUser, this.props.booksToCart).then(function () {
-          return _this2.props.history.push("/confirm-checkout");
-        })["catch"](function () {
-          return _this2.setState({
-            error: true
+      } // this.props.sendEmailConfirm(this.props.user)
+      // .then(() => this.props.history.push("/confirm-checkout"))
+      else {
+          // ESTO LO HAGO SI HAY USUARIO LOGUEADO
+          var loggedUser = {
+            name: this.props.user.name,
+            email: this.props.user.email,
+            address: this.state.address
+          };
+          this.props.createNewTransactionToLoggedUser(loggedUser, this.props.booksToCart).then(function () {
+            return _this2.props.history.push("/confirm-checkout");
+          })["catch"](function () {
+            return _this2.setState({
+              error: true
+            });
           });
-        });
-      }
+        }
     }
   }]);
 
@@ -37597,7 +37602,8 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     booksToCart: state.cart.booksToCart,
-    user: state.user.user
+    user: state.user.user,
+    newTransaction: state.cart.newTransaction
   };
 };
 
@@ -37612,11 +37618,13 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     fetchLoggedUser: function fetchLoggedUser() {
       return dispatch(Object(_redux_actions_user__WEBPACK_IMPORTED_MODULE_4__["fetchLoggedUser"])());
     },
-    sendEmailConfirm: function sendEmailConfirm(userData) {
-      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_3__["sendEmailConfirm"])(userData));
+    sendEmailConfirm: function sendEmailConfirm(userData, Transaction) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_3__["sendEmailConfirm"])(userData, Transaction));
     }
   };
 };
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(CheckoutContainer));
 
 /***/ }),
 
@@ -40365,6 +40373,7 @@ var addBookToCart = function addBookToCart(bookToCart) {
   };
 };
 var addNewTransaction = function addNewTransaction(newTransaction) {
+  console.log("enre 2");
   return {
     type: _constants__WEBPACK_IMPORTED_MODULE_1__["ADD_NEW_TRANSACTION"],
     newTransaction: newTransaction
@@ -40428,6 +40437,7 @@ var createNewTransaction = function createNewTransaction(userData, bookToCart) {
       return res.data;
     }).then(function (transaction) {
       dispatch(addNewTransaction(transaction));
+      return transaction;
     });
   };
 };
@@ -40457,15 +40467,12 @@ var createNewCart = function createNewCart(userData, bookToCart) {
     });
   };
 };
-var sendEmailConfirm = function sendEmailConfirm(userData, transaction) {
+var sendEmailConfirm = function sendEmailConfirm(userData, Transaction) {
   return function (dispatch) {
-    console.log("so user daa del axios", {
-      userData: userData,
-      transaction: transaction
-    });
+    console.log("so Transaction", Transaction);
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/cart/emailConfirm", {
       userData: userData,
-      transaction: transaction
+      Transaction: Transaction
     }).then(function (emailConfirm) {
       return emailConfirm;
     });
@@ -40978,7 +40985,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var initialState = {
   booksToCart: [],
-  newTransaction: {}
+  newTransaction: []
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -41080,9 +41087,10 @@ var initialState = {
       return result;
 
     case _constants__WEBPACK_IMPORTED_MODULE_0__["ADD_NEW_TRANSACTION"]:
-      return _objectSpread({}, state, {
-        booksToCart: _toConsumableArray(action.newTransaction)
+      var saeok = Object.assign({}, state, {
+        newTransaction: action.newTransaction
       });
+      return saeok;
 
     case _constants__WEBPACK_IMPORTED_MODULE_0__["DECREMENT_BOOKS_FROM_CART"]:
       var bookList = state.booksToCart;

@@ -5,6 +5,7 @@ const User = require("../../db/models/index").User;
 const Book = require("../../db/models/index").Book;
 const Status = require("../../db/models/index").Status;
 const Transaction = require("../../db/models/index").Transaction;
+const nodemailer = require ("nodemailer")
 // const TransactionDetail = require("../../db/models/index").TransactionDetail;
 // MODEL
 router.get("/user/:id", function(req, res) {
@@ -242,6 +243,7 @@ router.post("/logged/createNewCart", function(req, res) {
 
 router.post("/emailConfirm", function(req, res) {
     console.log("enreeeeeeeee al back email", req.body.userData)
+    console.log("sooooo rancsiooonnnnnn", req.body.Transaction)
     var transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -254,9 +256,25 @@ router.post("/emailConfirm", function(req, res) {
 
     var mailOptions = {
         from: 'pruebatechtalk@gmail.com', //DATOS DEL MAIL
-        to: req.body.email,
-        subject: "u compra fue exiosa",
-        text: "u compra fue exiosa"
+        to: req.body.userData.anonimousEmail,
+        subject: `Felicitaciones ${req.body.userData.name}, tu compra fue exitosa!`,
+        html:  `
+            Estimado ${req.body.userData.name}, estas a un paso de recibir tus libros!!
+            Tu compra esta en estado ${req.body.Transaction.status.name}
+            
+            <h3> Detalle de tu orden:</h3>
+            <ul>
+                <li>
+                ${req.body.Transaction.total},
+                ${req.body.Transaction.createdAt}
+                "Numero de seguimiento: "${req.body.Transaction.id}
+                </li>
+                <li>
+                ${req.body.userData.anonimousEmail},
+                </li>
+            </ul>
+            "Tu pedido sera enviado en las proximas 72 hrs a ${req.body.address}
+        `
     };
     console.log("sending email", mailOptions);
     transporter.sendMail(mailOptions, function(error, info) {

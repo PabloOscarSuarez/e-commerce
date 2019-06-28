@@ -9,7 +9,7 @@ import {
 
 const initialState = {
   booksToCart: [],
-  newTransaction: {}
+  newTransaction: []
 };
 
 export default (state = initialState, action) => {
@@ -122,7 +122,9 @@ export default (state = initialState, action) => {
       return result;
 
     case ADD_NEW_TRANSACTION:
-      return { ...state, booksToCart: [...action.newTransaction] };
+      var saeok= Object.assign({}, state, {newTransaction: action.newTransaction })
+
+      return saeok;
 
     case DECREMENT_BOOKS_FROM_CART:
       var bookList = state.booksToCart;
