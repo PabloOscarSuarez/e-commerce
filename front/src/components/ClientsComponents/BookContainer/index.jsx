@@ -1,6 +1,6 @@
 import React from "react";
 import { fetchBook } from "../../../redux/actions/books"
-import { newBookToCart, createNewCart } from "../../../redux/actions/cart"
+import { newBookToCart } from "../../../redux/actions/cart"
 import { connect } from "react-redux";
 import Book from '../BookContainer/Book'
 
@@ -17,18 +17,12 @@ class BookContainer extends React.Component {
 
 
   handleClick(book) {
-    this.props.newBookToCart(book)
-
-    if (this.props.booksToCart.length > 0 && this.props.user.name) {
-
-      console.log(this.props.booksToCart)
-      this.props.createNewCart(this.props.user, this.props.booksToCart)
-    }
-
+    this.props.newBookToCart(book, this.props.user)
   }
   render() {
     return (
       <div>
+        {console.log(this.props.selectedBook, 'SOY SELECTED BOOK')}
         <Book
           selectedBook={this.props.selectedBook}
           handleClick={this.handleClick}
@@ -43,7 +37,7 @@ const mapStateToProps = function (state, ownprops) {
   return {
     bookId: ownprops.match.params.id,
     selectedBook: state.books.selectedBook,
-
+    user : state.user.user
   }
 }
 
@@ -51,8 +45,7 @@ const mapStateToProps = function (state, ownprops) {
 const mapDispatchToProps = function (dispatch) {
   return {
     fetchBook: (id) => dispatch(fetchBook(id)),
-    newBookToCart: booksToCart => dispatch(newBookToCart(booksToCart)),
-    createNewCart: (user, cart) => dispatch(createNewCart(user, cart))
+    newBookToCart: (booksToCart,user) => dispatch(newBookToCart(booksToCart,user)),
   }
 }
 

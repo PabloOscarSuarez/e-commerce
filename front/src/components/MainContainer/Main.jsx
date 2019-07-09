@@ -6,8 +6,7 @@ import { fetchLoggedUser, logout } from "../../redux/actions/user"
 import { connect } from "react-redux";
 import {
   userLocalCart,
-  fetchCart,
-  createNewCart
+  fetchCart
 } from "../../redux/actions/cart";
 
 // export default () => {
@@ -81,7 +80,6 @@ const mapDispatchToProps = function (dispatch) {
     fetchLoggedUser: () => dispatch(fetchLoggedUser()),
     userLocalCart: () => dispatch(userLocalCart()),
     fetchCart: (user) => dispatch(fetchCart(user)),
-    createNewCart: (user, cart) => dispatch(createNewCart(user, cart))
   };
 };
 export default connect(

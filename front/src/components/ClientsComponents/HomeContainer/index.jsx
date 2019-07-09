@@ -3,15 +3,12 @@ import { connect } from "react-redux";
 import Books from "../BooksContainer/Books";
 import Carrousel from "../Carrousel/Carrousel";
 import { fetchBooks } from "../../../redux/actions/books";
-import { newBookToCart, createNewCart } from "../../../redux/actions/cart";
+import { newBookToCart } from "../../../redux/actions/cart";
 
 class HomeContainer extends React.Component {
   constructor() {
     super();
-    this.state = {
-
-    };
-
+  
     this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
@@ -20,20 +17,12 @@ class HomeContainer extends React.Component {
 
   handleClick(book) {
     // console.log('soy book', book)
-
-    this.props.newBookToCart(book)
-
-    if(this.props.booksToCart.length > 0 && this.props.user.name){
-
-      console.log(this.props.booksToCart)
-      this.props.createNewCart(this.props.user, this.props.booksToCart)
-    }
-
-
+    this.props.newBookToCart(book, this.props.user)
 
   }
 
   render() {
+    console.log('soy el user', this.props.user)
     return (
       <div>
         <Carrousel />
@@ -47,14 +36,12 @@ const mapStateToProps = function (state) {
   return {
     books: state.books.books,
     booksToCart: state.cart.booksToCart,
-    user: state.user.user
+    user: state.user.user,
   };
 };
 const mapDispatchToProps = dispatch => ({
   fetchBooks: () => dispatch(fetchBooks()),
-  newBookToCart: booksToCart => dispatch(newBookToCart(booksToCart)),
-  createNewCart: (user, cart) => dispatch(createNewCart(user, cart))
-
+  newBookToCart: (booksToCart,user) => dispatch(newBookToCart(booksToCart,user)),
 });
 
 export default connect(

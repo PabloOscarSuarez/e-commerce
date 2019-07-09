@@ -79,7 +79,6 @@ export default function Cart({
                             handleDecrement(book);
                           }}
                         >
-                        >
                           -
                         </button>
                       </span>
@@ -92,6 +91,13 @@ export default function Cart({
                           onClick={() => {
                             handleIncrement(book);
                           }}
+                          disabled={book.book.stock<=book.cant}
+                          title={
+                            book.book.stock<=book.cant?
+                            "No hay mas stock disponible de este producto"
+                            :
+                            null
+                          }
                         >
                           +
                         </button>

@@ -27556,7 +27556,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -36904,17 +36904,12 @@ function (_React$Component) {
   }, {
     key: "handleClick",
     value: function handleClick(book) {
-      this.props.newBookToCart(book);
-
-      if (this.props.booksToCart.length > 0 && this.props.user.name) {
-        console.log(this.props.booksToCart);
-        this.props.createNewCart(this.props.user, this.props.booksToCart);
-      }
+      this.props.newBookToCart(book, this.props.user);
     }
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BookContainer_Book__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, console.log(this.props.selectedBook, 'SOY SELECTED BOOK'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BookContainer_Book__WEBPACK_IMPORTED_MODULE_4__["default"], {
         selectedBook: this.props.selectedBook,
         handleClick: this.handleClick
       }));
@@ -36927,7 +36922,8 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state, ownprops) {
   return {
     bookId: ownprops.match.params.id,
-    selectedBook: state.books.selectedBook
+    selectedBook: state.books.selectedBook,
+    user: state.user.user
   };
 };
 
@@ -36936,11 +36932,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     fetchBook: function fetchBook(id) {
       return dispatch(Object(_redux_actions_books__WEBPACK_IMPORTED_MODULE_1__["fetchBook"])(id));
     },
-    newBookToCart: function newBookToCart(booksToCart) {
-      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["newBookToCart"])(booksToCart));
-    },
-    createNewCart: function createNewCart(user, cart) {
-      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["createNewCart"])(user, cart));
+    newBookToCart: function newBookToCart(booksToCart, user) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["newBookToCart"])(booksToCart, user));
     }
   };
 };
@@ -37253,7 +37246,7 @@ function Cart(_ref) {
       onClick: function onClick() {
         handleDecrement(book);
       }
-    }, "> -")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }, "-")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "input-group-btn"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       type: "button",
@@ -37262,7 +37255,9 @@ function Cart(_ref) {
       "data-field": "+",
       onClick: function onClick() {
         handleIncrement(book);
-      }
+      },
+      disabled: book.book.stock <= book.cant,
+      title: book.book.stock <= book.cant ? "No hay mas stock disponible de este producto" : null
     }, "+"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
       className: "col-sm-1 col-md-1 text-center"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, book.book.price)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
@@ -37358,27 +37353,7 @@ function (_React$Component) {
         handleDecrement: this.handleDecrement,
         handleIncrement: this.handleIncrement
       }));
-    } // componentDidMount() {
-    //   if (this.props.user.name) {
-    //     // SI HAY USER
-    //     console.log('SOY this.props.booksToCart !!!!!!!!!!!!!!', this.props.booksToCart)
-    //     if (this.props.booksToCart.length > 0) {
-    //       // this.props.fetchCart(this.props.user)
-    //       this.props.createNewCart(this.props.user, this.props.booksToCart)
-    //         .then(() => {
-    //           this.props.fetchCart(this.props.user)
-    //         })
-    //     }
-    //   }
-    //    else {
-    //     // SI NO HAY USER
-    //     if (this.props.booksToCart.length > 0) {
-    //       localStorage.setItem("cart", JSON.stringify(this.props.booksToCart));
-    //     }
-    //     this.props.userLocalCart();
-    //   }
-    // }
-
+    }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
@@ -37386,16 +37361,7 @@ function (_React$Component) {
 
       if (this.props.user.name) {
         // SI HAY USER
-        console.log('SOY this.props.booksToCart !!!!!!!!!!!!!!', this.props.booksToCart);
-        this.props.fetchCart(this.props.user); // if (this.props.booksToCart.length > 0) {
-        // this.props.fetchCart(this.props.user)
-        // }
-        // .then(() => {
-        // this.props.createNewCart(this.props.user, this.props.booksToCart)
-        // .then(carrito => console.log(carrito))
-        // })
-        // this.props.fetchCart(this.props.user)
-        // ESTA SI VA 
+        this.props.fetchCart(this.props.user);
       } else {
         // SI NO HAY USER
         if (this.props.booksToCart.length > 0) {
@@ -37404,46 +37370,21 @@ function (_React$Component) {
 
         this.props.userLocalCart();
       }
-    } // componentDidUpdate(prevProps) {
-    //   console.log(this.props.booksToCart)
-    //   if (prevProps.booksToCart != this.props.booksToCart) {
-    //     this.props.createNewCart(this.props.user, this.props.booksToCart)
-    //     // localStorage.clear()
-    //   }
-    // }
-
+    }
   }, {
     key: "handleIncrement",
     value: function handleIncrement(book) {
-      console.log("tendria que ser el usuario", this.props.user);
       this.props.incrementBooksToCart(book, this.props.user);
-
-      if (this.props.booksToCart.length > 0 && this.props.user.name) {
-        console.log(this.props.booksToCart);
-        this.props.createNewCart(this.props.user, this.props.booksToCart);
-      }
     }
   }, {
     key: "handleDecrement",
     value: function handleDecrement(book) {
       this.props.decrementBooksToCart(book, this.props.user);
-
-      if (this.props.booksToCart.length >= 0 && this.props.user.name) {
-        console.log(this.props.booksToCart);
-        this.props.createNewCart(this.props.user, this.props.booksToCart);
-      } // this.props.createNewCart(this.props.booksToCart, this.props.user)
-
     }
   }, {
     key: "handleDelete",
     value: function handleDelete(book) {
       this.props.deleteBookFromCart(book, this.props.user);
-      console.log(this.props.booksToCart, '1');
-
-      if (this.props.booksToCart.length > 0 && this.props.user.name) {
-        console.log(this.props.booksToCart, '2');
-        this.props.createNewCart(this.props.user, this.props.booksToCart);
-      }
     }
   }, {
     key: "sumTotal",
@@ -37470,14 +37411,14 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    incrementBooksToCart: function incrementBooksToCart(book, updatedBooksToCart, user) {
-      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["incrementBooksToCart"])(book, updatedBooksToCart, user));
+    incrementBooksToCart: function incrementBooksToCart(book, user) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["incrementBooksToCart"])(book, user));
     },
-    decrementBooksToCart: function decrementBooksToCart(updatedBooksToCart) {
-      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["decrementBooksToCart"])(updatedBooksToCart));
+    decrementBooksToCart: function decrementBooksToCart(book, user) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["decrementBooksToCart"])(book, user));
     },
-    deleteBookFromCart: function deleteBookFromCart(book) {
-      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["deleteBookFromCart"])(book));
+    deleteBookFromCart: function deleteBookFromCart(book, user) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["deleteBookFromCart"])(book, user));
     },
     userLocalCart: function userLocalCart() {
       return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["userLocalCart"])());
@@ -37485,9 +37426,19 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     fetchCart: function fetchCart(user) {
       return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["fetchCart"])(user));
     },
-    createNewCart: function createNewCart(user, cart) {
-      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_2__["createNewCart"])(user, cart));
-    }
+    newBookToCart: function (_newBookToCart) {
+      function newBookToCart(_x, _x2) {
+        return _newBookToCart.apply(this, arguments);
+      }
+
+      newBookToCart.toString = function () {
+        return _newBookToCart.toString();
+      };
+
+      return newBookToCart;
+    }(function (book, user) {
+      return dispatch(newBookToCart(book, user));
+    })
   };
 };
 
@@ -38576,7 +38527,6 @@ function (_React$Component) {
     _classCallCheck(this, HomeContainer);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(HomeContainer).call(this));
-    _this.state = {};
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     return _this;
   }
@@ -38590,16 +38540,12 @@ function (_React$Component) {
     key: "handleClick",
     value: function handleClick(book) {
       // console.log('soy book', book)
-      this.props.newBookToCart(book);
-
-      if (this.props.booksToCart.length > 0 && this.props.user.name) {
-        console.log(this.props.booksToCart);
-        this.props.createNewCart(this.props.user, this.props.booksToCart);
-      }
+      this.props.newBookToCart(book, this.props.user);
     }
   }, {
     key: "render",
     value: function render() {
+      console.log('soy el user', this.props.user);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Carrousel_Carrousel__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BooksContainer_Books__WEBPACK_IMPORTED_MODULE_2__["default"], {
         books: this.props.books,
         handleClick: this.handleClick
@@ -38623,11 +38569,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     fetchBooks: function fetchBooks() {
       return dispatch(Object(_redux_actions_books__WEBPACK_IMPORTED_MODULE_4__["fetchBooks"])());
     },
-    newBookToCart: function newBookToCart(booksToCart) {
-      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_5__["newBookToCart"])(booksToCart));
-    },
-    createNewCart: function createNewCart(user, cart) {
-      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_5__["createNewCart"])(user, cart));
+    newBookToCart: function newBookToCart(booksToCart, user) {
+      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_5__["newBookToCart"])(booksToCart, user));
     }
   };
 };
@@ -40216,9 +40159,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchCart: function fetchCart(user) {
       return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_6__["fetchCart"])(user));
-    },
-    createNewCart: function createNewCart(user, cart) {
-      return dispatch(Object(_redux_actions_cart__WEBPACK_IMPORTED_MODULE_6__["createNewCart"])(user, cart));
     }
   };
 };
@@ -40561,7 +40501,7 @@ var removeBook = function removeBook(bookId) {
 /*!***********************************!*\
   !*** ./src/redux/actions/cart.js ***!
   \***********************************/
-/*! exports provided: addBookToCart, newCart, addNewTransaction, removeCart, removeBookFromCart, incrementBooksFromCart, decrementBooksFromCart, addUserLocalCart, newBookToCart, deleteBookFromCart, incrementBooksToCart, decrementBooksToCart, userLocalCart, createNewTransaction, createNewTransactionToLoggedUser, createNewCart, removeAllCart, fetchCart, sendEmailConfirm */
+/*! exports provided: addBookToCart, newCart, addNewTransaction, removeCart, removeBookFromCart, incrementBooksFromCart, decrementBooksFromCart, addUserLocalCart, newBookToCart, incrementBooksToCart, decrementBooksToCart, deleteBookFromCart, userLocalCart, createNewTransaction, createNewTransactionToLoggedUser, removeAllCart, fetchCart, sendEmailConfirm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40575,13 +40515,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decrementBooksFromCart", function() { return decrementBooksFromCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addUserLocalCart", function() { return addUserLocalCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "newBookToCart", function() { return newBookToCart; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteBookFromCart", function() { return deleteBookFromCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "incrementBooksToCart", function() { return incrementBooksToCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decrementBooksToCart", function() { return decrementBooksToCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteBookFromCart", function() { return deleteBookFromCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userLocalCart", function() { return userLocalCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewTransaction", function() { return createNewTransaction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewTransactionToLoggedUser", function() { return createNewTransactionToLoggedUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewCart", function() { return createNewCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeAllCart", function() { return removeAllCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCart", function() { return fetchCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sendEmailConfirm", function() { return sendEmailConfirm; });
@@ -40644,25 +40583,72 @@ var addUserLocalCart = function addUserLocalCart() {
   return {
     type: _constants__WEBPACK_IMPORTED_MODULE_1__["ADD_USER_LOCAL_CART"]
   };
-};
-var newBookToCart = function newBookToCart(bookToCart) {
+}; // ale
+
+var newBookToCart = function newBookToCart(newBook, user) {
   return function (dispatch) {
-    return dispatch(addBookToCart(bookToCart));
+    if (!user) {
+      return dispatch(addBookToCart(newBook));
+    } else {
+      // COMO LOGEADO
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/cart/logged/addBookToCart", {
+        newBook: newBook
+      }).then(function (res) {
+        return res.data;
+      }).then(function (transaction) {
+        dispatch(addBookToCart(newBook));
+        return transaction;
+      });
+    }
+  };
+}; // ale
+
+var incrementBooksToCart = function incrementBooksToCart(book, user) {
+  return function (dispatch) {
+    if (!user) {
+      return dispatch(incrementBooksFromCart(book, user));
+    } else {
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/cart/logged/addBookToCart", {
+        newBook: book.book
+      }).then(function (res) {
+        return res.data;
+      }).then(function (transaction) {
+        dispatch(incrementBooksFromCart(book, user));
+        return transaction;
+      });
+    }
   };
 };
-var deleteBookFromCart = function deleteBookFromCart(updatedBooksToCart, user) {
+var decrementBooksToCart = function decrementBooksToCart(book, user) {
   return function (dispatch) {
-    return dispatch(removeBookFromCart(updatedBooksToCart, user));
+    if (!user) {
+      return dispatch(decrementBooksFromCart(book, user));
+    } else {
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/cart/logged/removeBookFromCart", {
+        book: book.book
+      }).then(function (res) {
+        return res.data;
+      }).then(function (transaction) {
+        dispatch(decrementBooksFromCart(book, user));
+        return transaction;
+      });
+    }
   };
 };
-var incrementBooksToCart = function incrementBooksToCart(updatedBooksToCart, user) {
+var deleteBookFromCart = function deleteBookFromCart(book, user) {
   return function (dispatch) {
-    return dispatch(incrementBooksFromCart(updatedBooksToCart, user));
-  };
-};
-var decrementBooksToCart = function decrementBooksToCart(updatedBooksToCart, user) {
-  return function (dispatch) {
-    return dispatch(decrementBooksFromCart(updatedBooksToCart, user));
+    dispatch(removeBookFromCart(book, user));
+
+    if (user) {
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/cart/logged/removeAllOfBookFromCart", {
+        book: book.book
+      }).then(function (res) {
+        return res.data;
+      }).then(function (transaction) {
+        // dispatch(removeBookFromCart(book, user));
+        return transaction;
+      });
+    }
   };
 };
 var userLocalCart = function userLocalCart() {
@@ -40696,19 +40682,18 @@ var createNewTransactionToLoggedUser = function createNewTransactionToLoggedUser
       dispatch(addNewTransaction(transaction));
     });
   };
-};
-var createNewCart = function createNewCart(userData, bookToCart) {
-  return function (dispatch) {
-    console.log("soy la data de user", userData, "y de book", bookToCart);
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/cart/logged/createNewCart", {
-      userData: userData,
-      bookToCart: bookToCart
-    }).then(function (res) {
-      console.log(res.data, 'estoy en el action');
-      return res.data;
-    });
-  };
-};
+}; // export const createNewCart = (userData, newBook) => dispatch => {
+//    // COMO LOGEADO
+//    console.log('ENTRE AL ACTION', newBook)
+//    return axios.post(`http://localhost:8000/cart/logged/addBookToCart`, {newBook})
+//    .then(res => res.data)
+//    .then((transaction) => {
+//        dispatch(addBookToCart(newBook));
+//        return transaction
+//    })
+//    // COMO LOGEADO
+// };
+
 var removeAllCart = function removeAllCart() {
   return function (dispatch) {
     // console.log("soy la data de user",userData, "y de book", bookToCart )
@@ -41327,7 +41312,7 @@ var initialState = {
       localStorage.setItem("cart", JSON.stringify(bookList));
       var localCart = JSON.parse(localStorage.getItem("cart"));
       return _objectSpread({}, state, {
-        booksToCart: _toConsumableArray(localCart)
+        booksToCart: localCart
       });
 
     case _constants__WEBPACK_IMPORTED_MODULE_0__["INCREMENT_BOOKS_FROM_CART"]:

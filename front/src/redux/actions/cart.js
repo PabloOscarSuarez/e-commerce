@@ -11,7 +11,7 @@ import {
 } from "../../constants";
 import { func } from "prop-types";
 
-export const addBookToCart = function(bookToCart) {
+export const addBookToCart = function (bookToCart) {
     // console.log("soy bookToCart del action", bookToCart);
     return {
         type: ADD_BOOK_TO_CART,
@@ -19,7 +19,7 @@ export const addBookToCart = function(bookToCart) {
     };
 };
 
-export const newCart = function(books) {
+export const newCart = function (books) {
     // console.log("soy bookToCart del action", bookToCart);
     return {
         type: NEW_CART,
@@ -27,7 +27,7 @@ export const newCart = function(books) {
     };
 };
 
-export const addNewTransaction = function(newTransaction) {
+export const addNewTransaction = function (newTransaction) {
     console.log("enre 2")
     return {
         type: ADD_NEW_TRANSACTION,
@@ -35,50 +35,98 @@ export const addNewTransaction = function(newTransaction) {
     };
 };
 
-export const removeCart = function() {
+export const removeCart = function () {
     return {
         type: REMOVE_CART,
     };
 };
 
-export const removeBookFromCart = function(updatedBooksToCart, user) {
+export const removeBookFromCart = function (updatedBooksToCart, user) {
     return {
         type: REMOVE_BOOK_FROM_CART,
         updatedBooksToCart,
         user
     };
 };
-export const incrementBooksFromCart = function(updatedBooksToCart, user) {
+export const incrementBooksFromCart = function (updatedBooksToCart, user) {
     return {
         type: INCREMENT_BOOKS_FROM_CART,
         updatedBooksToCart,
         user,
     };
 };
-export const decrementBooksFromCart = function(updatedBooksToCart, user) {
+export const decrementBooksFromCart = function (updatedBooksToCart, user) {
     return {
         type: DECREMENT_BOOKS_FROM_CART,
         updatedBooksToCart,
         user
     };
 };
-export const addUserLocalCart = function() {
+export const addUserLocalCart = function () {
     return {
         type: ADD_USER_LOCAL_CART
     };
 };
+// ale
+export const newBookToCart = (newBook, user) => dispatch => {
 
-export const newBookToCart = bookToCart => dispatch =>
-    dispatch(addBookToCart(bookToCart));
+    if (!user) {
+        return dispatch(addBookToCart(newBook))
+    }
+    else {
+        // COMO LOGEADO
+        return axios.post(`http://localhost:8000/cart/logged/addBookToCart`, { newBook })
+            .then(res => res.data)
+            .then((transaction) => {
+                dispatch(addBookToCart(newBook));
+                return transaction
+            })
+    }
 
-export const deleteBookFromCart = (updatedBooksToCart, user) => dispatch =>
-    dispatch(removeBookFromCart(updatedBooksToCart, user));
+}
+// ale
+export const incrementBooksToCart = (book, user) => dispatch => {
 
-export const incrementBooksToCart = (updatedBooksToCart, user) => dispatch =>
-    dispatch(incrementBooksFromCart(updatedBooksToCart, user))
+    if (!user) {
+        return dispatch(incrementBooksFromCart(book, user))
+    }
+    else {
+        return axios.post(`http://localhost:8000/cart/logged/addBookToCart`, { newBook: book.book })
+            .then(res => res.data)
+            .then((transaction) => {
+                dispatch(incrementBooksFromCart(book, user))
+                return transaction
+            })
+    }
 
-export const decrementBooksToCart = (updatedBooksToCart, user) => dispatch =>
-    dispatch(decrementBooksFromCart(updatedBooksToCart, user));
+}
+export const decrementBooksToCart = (book, user) => dispatch => {
+
+    if (!user) {
+        return dispatch(decrementBooksFromCart(book, user));
+    }
+    else {
+        return axios.post(`http://localhost:8000/cart/logged/removeBookFromCart`, { book: book.book })
+            .then(res => res.data)
+            .then((transaction) => {
+                dispatch(decrementBooksFromCart(book, user))
+                return transaction
+            })
+    }
+}
+
+export const deleteBookFromCart = (book, user) => dispatch => {
+    dispatch(removeBookFromCart(book, user));
+
+    if(user){
+        return axios.post(`http://localhost:8000/cart/logged/removeAllOfBookFromCart`, { book: book.book })
+            .then(res => res.data)
+            .then((transaction) => {
+                // dispatch(removeBookFromCart(book, user));
+                return transaction
+            })
+    }
+}
 
 export const userLocalCart = () => dispatch => dispatch(addUserLocalCart());
 
@@ -104,18 +152,20 @@ export const createNewTransactionToLoggedUser = (userData, bookToCart) => dispat
 
 };
 
-export const createNewCart = (userData, bookToCart) => dispatch => {
-    console.log("soy la data de user", userData, "y de book", bookToCart)
-    return axios
-        .post(`http://localhost:8000/cart/logged/createNewCart`, {
-            userData,
-            bookToCart
-        })
-        .then(res => {
-            console.log(res.data, 'estoy en el action')
-            return res.data
-        })
-};
+// export const createNewCart = (userData, newBook) => dispatch => {
+//    // COMO LOGEADO
+
+//    console.log('ENTRE AL ACTION', newBook)
+
+//    return axios.post(`http://localhost:8000/cart/logged/addBookToCart`, {newBook})
+//    .then(res => res.data)
+//    .then((transaction) => {
+//        dispatch(addBookToCart(newBook));
+//        return transaction
+//    })
+
+//    // COMO LOGEADO
+// };
 
 export const removeAllCart = () => dispatch => {
     // console.log("soy la data de user",userData, "y de book", bookToCart )

@@ -5,10 +5,11 @@ const User = require("../../db/models/index").User;
 const Book = require("../../db/models/index").Book;
 const Status = require("../../db/models/index").Status;
 const Transaction = require("../../db/models/index").Transaction;
+const TransactionDetail = require("../../db/models/index").TransactionDetail;
 const nodemailer = require("nodemailer")
-    // const TransactionDetail = require("../../db/models/index").TransactionDetail;
-    // MODEL
-router.get("/user/:id", function(req, res) {
+// const TransactionDetail = require("../../db/models/index").TransactionDetail;
+// MODEL
+router.get("/user/:id", function (req, res) {
 
     Status.findOne({
         where: {
@@ -17,15 +18,15 @@ router.get("/user/:id", function(req, res) {
     }).then(status => {
 
         Transaction.findAll({
-                where: {
-                    // id: 10,
-                    statusId: status.id,
-                    userId: req.params.id
-                },
-                include: [{
-                    model: Book,
-                }]
-            })
+            where: {
+                // id: 10,
+                statusId: status.id,
+                userId: req.params.id
+            },
+            include: [{
+                model: Book,
+            }]
+        })
             .then(transaction => {
                 console.log(transaction)
                 var miCarrito = []
@@ -47,7 +48,7 @@ router.get("/user/:id", function(req, res) {
     })
 
 })
-router.post("/notLogged/createTransaction", function(req, res) {
+router.post("/notLogged/createTransaction", function (req, res) {
     console.log("SOY BOOOK TO CART", req.body.bookToCart);
     var arrayTotal = req.body.bookToCart;
 
@@ -63,8 +64,8 @@ router.post("/notLogged/createTransaction", function(req, res) {
         }).then(values => {
             var status = values[0]; //el dato que busco esta siempre en la primera posicion del array
             Transaction.create({
-                    total: total
-                })
+                total: total
+            })
                 .then(transaction => {
                     transaction.setUser(newUser);
                     transaction.setStatus(status);
@@ -96,16 +97,16 @@ router.post("/notLogged/createTransaction", function(req, res) {
                 }).then((transaction) => {
                     // res.send(transaction)
                     Transaction.findByPk(transaction.id, {
-                            include: [{
-                                    model: User,
-                                    as: 'user'
-                                },
-                                {
-                                    model: Status,
-                                    as: 'status'
-                                }
-                            ]
-                        })
+                        include: [{
+                            model: User,
+                            as: 'user'
+                        },
+                        {
+                            model: Status,
+                            as: 'status'
+                        }
+                        ]
+                    })
                         .then(transaction => {
                             res.send(transaction)
                         })
@@ -114,7 +115,7 @@ router.post("/notLogged/createTransaction", function(req, res) {
     });
 });
 
-router.post("/logged/createTransaction", function(req, res) {
+router.post("/logged/createTransaction", function (req, res) {
     console.log("SOY BOOOK TO CART", req.body.bookToCart);
     var arrayTotal = req.body.bookToCart;
 
@@ -123,7 +124,7 @@ router.post("/logged/createTransaction", function(req, res) {
         .reduce((prev, cur) => prev + cur, 0);
 
     User.update(req.body.userData, { returning: true, where: { email: req.body.userData.email } })
-        .then(function([rowsUpdate, [updatedUser]]) {
+        .then(function ([rowsUpdate, [updatedUser]]) {
             console.log('SOY UPDATED userrrrrr DESDE ROUTES DE user', updatedUser)
             return updatedUser
         })
@@ -135,8 +136,8 @@ router.post("/logged/createTransaction", function(req, res) {
             }).then(values => {
                 var status = values[0]; //el dato que busco esta siempre en la primera posicion del array
                 Transaction.create({
-                        total: total
-                    })
+                    total: total
+                })
                     .then(transaction => {
                         transaction.setUser(newUser);
                         transaction.setStatus(status);
@@ -168,16 +169,16 @@ router.post("/logged/createTransaction", function(req, res) {
                     }).then((transaction) => {
                         // res.send(transaction)
                         Transaction.findByPk(transaction.id, {
-                                include: [{
-                                        model: User,
-                                        as: 'user'
-                                    },
-                                    {
-                                        model: Status,
-                                        as: 'status'
-                                    }
-                                ]
-                            })
+                            include: [{
+                                model: User,
+                                as: 'user'
+                            },
+                            {
+                                model: Status,
+                                as: 'status'
+                            }
+                            ]
+                        })
                             .then(transaction => {
                                 res.send(transaction)
                             })
@@ -185,82 +186,113 @@ router.post("/logged/createTransaction", function(req, res) {
             });
         });
 });
-// router.post("/logged/createNewCart", function(req, res) {
-//     var arrayTotal = req.body.bookToCart;
 
-//     var total = arrayTotal
-//         .map(book => book.price)
-//         .reduce((prev, cur) => prev + cur, 0);
+router.post("/logged/removeAllOfBookFromCart", function (req, res) {
+    // console.log(req.body.book)
+    var bookToDelete = req.body.book
 
-//     User.findByPk(req.body.userData.id).then(user => {
-//         Status.findOrCreate({
-//             where: {
-//                 name: "carrito"
-//             }
-//         }).then(values => {
-//             var status = values[0]; //el dato que busco esta siempre en la primera posicion del array
-//             Transaction.create({
-//                     total: total
-//                 })
-//                 .then(transaction => {
-//                     console.log('SOY TRANSACTION DE DE /logged/createNewCart', transaction)
-//                     transaction.setUser(user);
-//                     transaction.setStatus(status);
-//                     return transaction;
-//                 })
-//                 .then(transaction => {
-//                     //  console.log("soy transation", transaction)
-//                     var bookArray = req.body.bookToCart;
-//                     for (let i = 0; i < bookArray.length; i++) {
+    User.findByPk(req.user.id).then(user => {
+        Status.findOrCreate({
+            where: {
+                name: "carrito"
+            }
+        })
+            .then(values => {
+                var status = values[0]; //el dato que busco esta siempre en la primera posicion del array
+                Transaction.findOne({
+                    where: {
+                        userId: user.id,
+                        statusId: status.id
+                        // pregunto por si hay transacciones con estado carrito
+                    }
+                })
+                    .then(transaction => {
+                        // TENGO QUE ELIMINAR EL LIBRO
+                        transaction.removeBook(bookToDelete.id)
+                    })
+                    .then(() => {
+                        Transaction.findByPk(transaction.id, {
+                            include: [{
+                                model: User,
+                                as: 'user'
+                            },
+                            {
+                                model: Status,
+                                as: 'status'
+                            }
+                            ]
+                        })
+                            .then(transaction => {
+                                res.send(transaction)
+                            })
+                    })
+            })
+    })
+})
 
-//                         Book.findByPk(bookArray[i].book.id).then(book => {
+router.post("/logged/removeBookFromCart", function (req, res) {
+    // console.log(req.body.book)
+    var bookToDelete = req.body.book
 
-//                             var actualStock = book.stock
-//                             actualStock = actualStock - bookArray[i].cant
+    User.findByPk(req.user.id).then(user => {
+        Status.findOrCreate({
+            where: {
+                name: "carrito"
+            }
+        })
+            .then(values => {
+                var status = values[0]; //el dato que busco esta siempre en la primera posicion del array
+                Transaction.findOne({
+                    where: {
+                        userId: user.id,
+                        statusId: status.id
+                        // pregunto por si hay transacciones con estado carrito
+                    }
+                })
+                    .then(transaction => {
+                        TransactionDetail.findOne({ where: { transactionId: transaction.id, bookId: bookToDelete.id } })
+                            .then(transactionDetail => {
+                                // EN detailsOfTransaction[0] TENGO EL DETALLE DE UNA TRANSACCION CON UN LIBRO
+                                // console.log('detailsOfTransaction[0]', transactionDetail[0].bookId)
+                                if (transactionDetail.quantity > 1) {
+                                    // TENGO QUE DISMINUIR LA CANTIDAD
+                                    TransactionDetail.update({ quantity: transactionDetail.quantity - 1, price: transactionDetail.price - bookToDelete.price }, { where: { transactionId: transaction.id, bookId: bookToDelete.id } })
+                                }
+                                else {
+                                    // TENGO QUE ELIMINAR EL LIBRO
+                                    transaction.removeBook(bookToDelete.id)
+                                }
+                            })
+                            .then(() => {
+                                Transaction.update({
+                                    total: transaction.total - bookToDelete.price,
+                                }, { returning: true, where: { id: transaction.id } })
+                                    .then(() => {
+                                        Transaction.findByPk(transaction.id, {
+                                            include: [{
+                                                model: User,
+                                                as: 'user'
+                                            },
+                                            {
+                                                model: Status,
+                                                as: 'status'
+                                            }
+                                            ]
+                                        })
+                                            .then(transaction => {
+                                                res.send(transaction)
+                                            })
+                                    })
+                            })
+                    })
+            })
+    })
+})
 
-//                             book.update({
-//                                 stock: actualStock
-//                             })
-
-//                             book.addTransaction(transaction, {
-//                                 through: {
-//                                     quantity: bookArray[i].cant,
-//                                     price: bookArray[i].price
-//                                 }
-//                             })
-//                         })
-//                     }
-//                     return transaction.save()
-//                 }).then((transaction) => {
-//                     // res.send(transaction)
-//                     Transaction.findByPk(transaction.id, {
-//                             include: [{
-//                                     model: User,
-//                                     as: 'user'
-//                                 },
-//                                 {
-//                                     model: Status,
-//                                     as: 'status'
-//                                 }
-//                             ]
-//                         })
-//                         .then(transaction => {
-//                             res.send(transaction)
-//                         })
-//                 })
-//         });
-//     });
-// });
-router.post("/logged/createNewCart", function(req, res) {
-    //console.log("ntreeeee al baccckkkkk", req.body.userData)
-    console.log("sooooyyy bookData", req.body.bookToCart)
-    var arrayTotal = req.body.bookToCart.length ? req.body.bookToCart : [];
-
-    // var arrayTotal = req.body.bookToCart;
-
-    var total = arrayTotal
-        .map(book => book.price)
-        .reduce((prev, cur) => prev + cur, 0);
+// // // // // // // // // // // // // // // // // // // 
+router.post("/logged/addBookToCart", function (req, res) {
+    // console.log(req.body.newBook)
+    var newBook = req.body.newBook
 
     User.findByPk(req.user.id).then(user => {
         Status.findOrCreate({
@@ -270,14 +302,14 @@ router.post("/logged/createNewCart", function(req, res) {
         }).then(values => {
             var status = values[0]; //el dato que busco esta siempre en la primera posicion del array
             Transaction.findOne({
-                    where: {
-                        userId: user.id,
-                        statusId: status.id
-                            // pregunto por si hay transacciones con estado carrito
-                    }
-                })
+                where: {
+                    userId: user.id,
+                    statusId: status.id
+                    // pregunto por si hay transacciones con estado carrito
+                }
+            })
                 .then(transaction => {
-                    console.log('SOY EL TRASACTION!!!!!!!!!!!!!????!!!', transaction)
+                    // console.log('SOY EL TRASACTION!!!!!!!!!!!!!????!!!', transaction)
                     if (transaction == null) {
                         // NO TENGO CARRITO
                         // NO TENGO CARRITO
@@ -285,44 +317,39 @@ router.post("/logged/createNewCart", function(req, res) {
                         // NO TENGO CARRITO
                         // NO TENGO CARRITO
                         Transaction.create({
-                                total: total
-                            })
+                            total: newBook.price
+                        })
                             .then(transaction => {
-                                console.log('SOY TRANSACTION DE DE /logged/createNewCart', transaction)
+                                // console.log('SOY TRANSACTION DE DE /logged/createNewCart', transaction)
                                 transaction.setUser(user);
                                 transaction.setStatus(status);
                                 return transaction;
                             })
                             .then(transaction => {
                                 //  console.log("soy transation", transaction)
-                                var bookArray = req.body.bookToCart;
-                                for (let i = 0; i < bookArray.length; i++) {
+                                Book.findByPk(newBook.id).then(book => {
 
-                                    Book.findByPk(bookArray[i].book.id).then(book => {
-
-
-                                        book.addTransaction(transaction, {
-                                            through: {
-                                                quantity: bookArray[i].cant,
-                                                price: bookArray[i].price
-                                            }
-                                        })
+                                    book.addTransaction(transaction, {
+                                        through: {
+                                            quantity: 1,
+                                            price: newBook.price
+                                        }
                                     })
-                                }
+                                })
                                 return transaction.save()
                             }).then((transaction) => {
                                 // res.send(transaction)
                                 Transaction.findByPk(transaction.id, {
-                                        include: [{
-                                                model: User,
-                                                as: 'user'
-                                            },
-                                            {
-                                                model: Status,
-                                                as: 'status'
-                                            }
-                                        ]
-                                    })
+                                    include: [{
+                                        model: User,
+                                        as: 'user'
+                                    },
+                                    {
+                                        model: Status,
+                                        as: 'status'
+                                    }
+                                    ]
+                                })
                                     .then(transaction => {
                                         res.send(transaction)
                                     })
@@ -338,55 +365,84 @@ router.post("/logged/createNewCart", function(req, res) {
                         // TENGO CARRITO
                         // TENGO CARRITO
 
-                        Transaction.update({
-                                total: total,
+                        TransactionDetail.findAll({ where: { transactionId: transaction.id } })
+                            .then(detailsOfTransaction => {
 
-                            }, { returning: true, where: { id: transaction.id } })
-                            .then(function([rowsUpdate, [updatedTransaction]]) {
-                                // console.log('SOY UPDATED BOOK DESDE ROUTES DE BOOK', updatedTransaction)
-                                return updatedTransaction
-                            })
-                            .then(transaction => {
-                                Book.findAll()
-                                    .then(books => {
-                                        transaction.removeBooks(books)
-                                    })
-                                    .then(() => {
-                                        var bookArray = req.body.bookToCart;
+                                var bookExist = false
 
+                                for (let i = 0; i < detailsOfTransaction.length; i++) {
+                                    // EN detailsOfTransaction[i].bookId TENGO LOS IDS DE LOS LIBROS PERTENECIENTES A ESA TRANSACCION
+                                    // SI EL LIBRO YA ESTA EN EL DETALLE DE LA TRANSACCION
+                                    // SI EL LIBRO EXISTE EN ESE CARRITO TENGO QUE INCREMENTAR QUANTITY
+                                    if (detailsOfTransaction[i].bookId == newBook.id) {
+                                        bookExist = true;
 
-                                        for (let i = 0; i < bookArray.length; i++) {
+                                        TransactionDetail.findOne({ where: { transactionId: transaction.id, bookId: newBook.id } })
+                                            .then(transactionDetail => {
+                                                TransactionDetail.update({ quantity: transactionDetail.quantity + 1, price: transactionDetail.price + newBook.price }, { where: { transactionId: transaction.id, bookId: newBook.id } })
+                                            })
+                                            .then(() => {
+                                                Transaction.update({
+                                                    total: transaction.total + newBook.price,
+                                                }, { returning: true, where: { id: transaction.id } })
+                                                    .then(() => {
+                                                        Transaction.findByPk(transaction.id, {
+                                                            include: [{
+                                                                model: User,
+                                                                as: 'user'
+                                                            },
+                                                            {
+                                                                model: Status,
+                                                                as: 'status'
+                                                            }
+                                                            ]
+                                                        })
+                                                            .then(transaction => {
+                                                                res.send(transaction)
+                                                            })
+                                                    })
+                                            })
+                                    }
+                                }
+                                // SI NO SE ENCONTRO EL LIBRO EN LA TRANSACCION
+                                if (!bookExist) {
+                                    Transaction.findOne({ where: { id: transaction.id } })
+                                        .then(transaction => {
+                                            //  console.log("soy transation", transaction)
+                                            Book.findByPk(newBook.id).then(book => {
 
-                                            Book.findByPk(bookArray[i].book.id).then(book => {
-
-
-                                                transaction.addBook(book, {
+                                                book.addTransaction(transaction, {
                                                     through: {
-                                                        quantity: bookArray[i].cant,
-                                                        price: bookArray[i].price
+                                                        quantity: 1,
+                                                        price: newBook.price
                                                     }
                                                 })
                                             })
-                                        }
-                                        return transaction.save()
-                                    })
-                                    .then((transaction) => {
-                                        // res.send(transaction)
-                                        Transaction.findByPk(transaction.id, {
-                                                include: [{
-                                                        model: User,
-                                                        as: 'user'
-                                                    },
-                                                    {
-                                                        model: Status,
-                                                        as: 'status'
-                                                    }
-                                                ]
-                                            })
-                                            .then(transaction => {
-                                                res.send(transaction)
-                                            })
-                                    })
+                                            return transaction.save()
+                                        })
+                                        .then(() => {
+                                            Transaction.update({
+                                                total: transaction.total + newBook.price,
+                                            }, { returning: true, where: { id: transaction.id } })
+                                                .then(() => {
+                                                    Transaction.findByPk(transaction.id, {
+                                                        include: [{
+                                                            model: User,
+                                                            as: 'user'
+                                                        },
+                                                        {
+                                                            model: Status,
+                                                            as: 'status'
+                                                        }
+                                                        ]
+                                                    })
+                                                        .then(transaction => {
+                                                            res.send(transaction)
+                                                        })
+                                                })
+                                        })
+
+                                }
                             })
 
                         // TENGO CARRITO
@@ -395,43 +451,12 @@ router.post("/logged/createNewCart", function(req, res) {
                         // TENGO CARRITO
                     }
                 })
-
-
-
-            //     miTransaction.setUser(user);
-            //     miTransaction.setStatus(status);
-            //     return miTransaction;
-            // })
-            // .then(transaction => {
-            //     //  console.log("soy transation", transaction)
-            //     var bookArray = req.body.bookToCart;
-            //     for (let i = 0; i < bookArray.length; i++) {
-
-            //         Book.findByPk(bookArray[i].book.id).then(book => {
-
-            //             var actualStock = book.stock
-            //             actualStock = actualStock - bookArray[i].cant
-
-            //             book.update({
-            //                 stock: actualStock
-            //             })
-
-            //             book.addTransaction(transaction, {
-            //                 through: {
-            //                     quantity: bookArray[i].cant,
-            //                     price: bookArray[i].price
-            //                 }
-            //             })
-            //         })
-            //     }
-            //     return transaction.save()
-
         })
     });
-});
+})
+// // // // // // // // // // // // // // // // // // // 
 
-
-router.post("/emailConfirm", function(req, res) {
+router.post("/emailConfirm", function (req, res) {
     console.log("enreeeeeeeee al back email", req.body.userData)
     console.log("sooooo rancsiooonnnnnn", req.body.Transaction)
     var transporter = nodemailer.createTransport({
@@ -467,7 +492,7 @@ router.post("/emailConfirm", function(req, res) {
         `
     };
     console.log("sending email", mailOptions);
-    transporter.sendMail(mailOptions, function(error, info) {
+    transporter.sendMail(mailOptions, function (error, info) {
         console.log("senMail returned!");
         if (error) { //ATAJA POSIBLES ERRORES
             console.log("ERROR!!!!!!", error);

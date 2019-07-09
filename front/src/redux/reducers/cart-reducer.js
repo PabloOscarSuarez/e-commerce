@@ -104,7 +104,7 @@ export default (state = initialState, action) => {
 
             return {
                 ...state,
-                booksToCart: [...localCart]
+                booksToCart: localCart
             };
 
         case INCREMENT_BOOKS_FROM_CART:
