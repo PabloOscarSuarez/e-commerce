@@ -56,8 +56,8 @@ export default function Cart({
                             Autor: <a href="" />
                           </h5>
                           <span>Stock: </span>
-                          <span className="text-success">
-                            <strong>En Stock</strong>
+                          <span className="text-dark">
+                            <strong>{book.book.stock}</strong>
                           </span>
                         </div>
                       </div>

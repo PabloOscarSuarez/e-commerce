@@ -37228,8 +37228,8 @@ function Cart(_ref) {
     }, "Autor: ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
       href: ""
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Stock: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-      className: "text-success"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "En Stock"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+      className: "text-dark"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, book.book.stock))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
       className: "col-sm-1 col-md-1 text-center"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "number",
